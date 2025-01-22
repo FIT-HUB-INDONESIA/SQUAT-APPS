@@ -34,11 +34,12 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
 
 ---
 
-For more information or assistance, feel free to contact the team or refer to the project documentation.
+> For more information or assistance, feel free to contact the team or refer to the project documentation.
 
 ## Table of Contents
 
 - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
+- [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
 
 ## Setting Up an SSH Key with SHA-256
 
@@ -116,3 +117,64 @@ If configured correctly, you should see a success message.
 ```
 Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
+
+## PR Conventions: Crafting Descriptive Titles and Commit Messages
+
+This `README` provides a guideline for writing clear and consistent commit messages using the Conventional Commits specification and Angular's commit message guidelines. Following these conventions will help maintain a readable commit history and make versioning simpler and more predictable.
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+1. Example for **types** (required) of commits used, eg: `feat:`
+
+2. The **scope** (optional) and can be used to specify which part of the codebase the commit affects, eg: `docs`
+
+3. The **description** (required) should be a short and imperative summary of the changes, written in the present tense. It should start with a lowercase letter and should not end with a period
+
+4. The **body** (optional) of the commit message should provide a detailed explanation of what changes were made and why they were necessary
+
+5. The **footer** (optional) is used to reference issues closed by the commit or to specify breaking changes. Use the following format:
+
+    -   **Breaking Changes**: Use the `BREAKING CHANGE` keyword to indicate changes that break backward compatibility.
+    -   **Issue References**: Mention the issue using `Closes #123` or `Fixes #456`
+
+**Basic Example:**
+
+```
+feat(auth): add OAuth2 authentication Added OAuth2 login capability to improve
+    security. Updated login flow to handle OAuth tokens.;
+```
+
+**Breaking Change Example:**
+
+```
+feat(api): update API endpoints for better consistency
+
+BREAKING CHANGE: The `/user` endpoint has been replaced with `/users`.
+This change improves the API's consistency with RESTful conventions.
+```
+
+**Bug Fix Example:**
+
+```
+fix(ui): correct button alignment on mobile view Fixed an issue where buttons
+    were misaligned on small screens. Adjusted CSS to handle screen widths below
+    768px.;
+```
+
+**Commit Referencing Issues:**
+
+```
+fix(api): handle null values in user responses Fixed a bug where API returned
+    null values for missing fields. Closes #145;
+```
+
+### Additional Resources
+
+1. [Conventional Commits Official Documentation](https://www.conventionalcommits.org/en/v1.0.0/)
+2. [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
