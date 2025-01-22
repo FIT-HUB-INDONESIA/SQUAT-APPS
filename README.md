@@ -40,6 +40,8 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
 
 - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
 - [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
+- [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
+- [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices)
 
 ## Setting Up an SSH Key with SHA-256
 
@@ -178,3 +180,60 @@ fix(api): handle null values in user responses Fixed a bug where API returned
 
 1. [Conventional Commits Official Documentation](https://www.conventionalcommits.org/en/v1.0.0/)
 2. [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
+
+## Step-by-Step Guide to Appium Testing on Real iOS Devices
+
+### Prerequisite Installation
+
+1. Install [Homebrew](https://brew.sh/)
+2. Install [Xcode](https://developer.apple.com/documentation/xcode/)
+3. Install [Node.js](https://nodejs.org/en/download/package-manager)
+4. Install [Appium](https://appium.io/docs/en/2.0/quickstart/install/)
+5. Install [XCUITest](https://github.com/appium/appium-xcuitest-driver)<br>
+   XCUITest [Documentation](https://appium.io/docs/en/2.0/ecosystem/)
+6. Install [Appium Inspector](https://github.com/appium/appium-inspector/releases)<br>
+Appium Inspector [Documentation](https://appium.github.io/appium-inspector/latest/quickstart/installation/)
+
+Locate the Xcode directory project for XCUITest configuration and open the folder.
+
+```bash
+find . -name "appium-webdriveragent"
+```
+
+```bash
+open ./.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent
+```
+
+Open the `WebDriverAgent.xcodeproj` file
+
+Click on `IntegrationApp` scheme, select `WebDriverAgentRunner`
+
+Pairing an iPhone to a Mac locally using a cable connection. Under `Manage Run Destinations` select `iOS Device: iPhone`
+
+Click on `Xcode` open `Settings` and make sure to login with Apple Developer credentials under `Accounts` tab. Follow this [Apple Developer link](https://developer.apple.com/) to register an Apple Developer accounts
+
+After successfully login, under `Project navigator` click on `WebDriverAgent` to show `WebDriverAgent: Products` then select `WebDriverAgentRunner` products from `General` tabs. Click on `Signing & Capabilities` tabs
+
+Make sure `Automatically manage signing` is enabled. Select `Team`. Wait until `Update provisioning` complete. If, `Update provisioning` failed try to modify `Bundle Identifier` to unique string. For example: `com.facebook17.WebDriverAgentRunner` then click `Try Again`. This configuration must be applied both for `WebDriverAgentRunner` and `WebDriverAgentLib` targets
+
+On `Xcode` ribbon click on `Product` > `Test` to test connection successfully establish. If any error happen, follow instruction to resolved the problems. To stop established connection click on `Product` > `Stop`
+
+To find iPhone iOS Device `udid` or `identifier`. Under `Xcode` ribbon, click on `Window` > `Devices and Simulators`
+
+Run `Appium` server, open `Appium Inspector` and configure `Desired Capabilities`:
+
+```json
+{
+    "platformName": "ios",
+    "appium:udid": "00008110-000429C60AD3A01E",
+    "appium:automationName": "XCUITest",
+    "appium:bundleId": "com.apple.Preferences",
+    "appium:showXcodeLog": true
+}
+```
+
+`Start Session` Appium Inspector. If any error happen when Appium Inspector session start, make sure iOS device already configured correctly. Refer to following documentation to resolved the issues [Real Device Configuration](https://appium.github.io/appium-xcuitest-driver/latest/preparation/real-device-config/)
+
+## Step-by-Step Guide to Appium Testing on Real Android Devices (future development)
+
+(coming soon)
