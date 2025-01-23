@@ -2,7 +2,7 @@
 
 Welcome to the Fit Hub App Automation Testing repository. This repository is dedicated to maintaining and executing automated test scripts for the Fit Hub application, ensuring high-quality standards for both iOS and Android platforms.
 
-### Goals
+## Goals
 
 The primary goals of this repository are:
 
@@ -14,21 +14,21 @@ The primary goals of this repository are:
 
 4. **Scalable and Maintainable Tests:** Create reusable and modular test scripts that are easy to maintain and adapt as the application evolves.
 
-### Key Technologies
+## Key Technologies
 
-- **Appium:** The primary tool for automating mobile applications on both iOS and Android platforms.
-- **Programming Languages:** Scripts are developed in JavaScript for flexibility and ease of use.
-- **Node.js:** Used for managing dependencies and running JavaScript-based automation tasks.
-- **Android SDK and Xcode:** Required for setting up and running tests on Android and iOS devices, respectively.
+-   **Appium:** The primary tool for automating mobile applications on both iOS and Android platforms.
+-   **Programming Languages:** Scripts are developed in JavaScript for flexibility and ease of use.
+-   **Node.js:** Used for managing dependencies and running JavaScript-based automation tasks.
+-   **Android SDK and Xcode:** Required for setting up and running tests on Android and iOS devices, respectively.
 
-### Contribution Guidelines
+## Contribution Guidelines
 
 1. Follow the coding standards defined in the `.eslintrc` and `.prettierrc` files.
 2. Write comprehensive comments and documentation for new test cases.
 3. Submit pull requests for review and approval before merging changes into the main branch.
 4. Ensure all tests pass before submitting any changes.
 
-### Reporting Issues
+## Reporting Issues
 
 If you encounter any issues or bugs, please submit them via the Issues tab on this repository with a detailed description and steps to reproduce the problem.
 
@@ -38,16 +38,23 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
 
 ## Table of Contents
 
-- [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
-- [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
-- [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
-- [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices)
+- [SQUAT-APPS](#squat-apps)
+  - [Goals](#goals)
+  - [Key Technologies](#key-technologies)
+  - [Contribution Guidelines](#contribution-guidelines)
+  - [Reporting Issues](#reporting-issues)
+  - [Table of Contents](#table-of-contents)
+  - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
+  - [Guide to Cloning a Git Repository Using SSH](#guide-to-cloning-a-git-repository-using-ssh)
+  - [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
+  - [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
+  - [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices-future-development)
 
 ## Setting Up an SSH Key with SHA-256
 
 Secure Shell (SSH) keys provide a secure way to authenticate with remote systems. Using the SHA-256 algorithm ensures enhanced security for your keys. This guide walks you through generating, configuring, and using an SSH key with SHA-256.
 
-### Step 1: Check Existing SSH Keys
+**Step 1: Check Existing SSH Keys**
 
 Before generating a new SSH key, check if any existing keys are already set up:
 
@@ -57,7 +64,7 @@ ls ~/.ssh
 
 Look for files such as `id_rsa`, `id_ecdsa`, or `id_ed25519`. If you already have a key you want to use, you can skip the key generation step.
 
-### Step 2 (Optional): Generate a New SSH Key
+**Step 2 (Optional): Generate a New SSH Key**
 
 1. Open a terminal.
 2. Run the following command to generate a new SSH key using the SHA-256 algorithm:
@@ -67,10 +74,11 @@ Look for files such as `id_rsa`, `id_ecdsa`, or `id_ed25519`. If you already hav
     ```
 
     Replace `your_email@example.com` with your email address.
+
 3. When prompted to enter a file to save the key, press Enter to use the default path or specify a custom path.
 4. (Optional) Set a passphrase for additional security.
 
-### Step 3: Add the SSH Key to the SSH Agent
+**Step 3: Add the SSH Key to the SSH Agent**
 
 To manage your key securely, add it to the SSH agent:
 
@@ -79,6 +87,7 @@ To manage your key securely, add it to the SSH agent:
     ```bash
     eval "$(ssh-agent -s)"
     ```
+
 2. Add your SSH private key:
 
     ```bash
@@ -87,7 +96,7 @@ To manage your key securely, add it to the SSH agent:
 
     Replace `id_ed25519` with your key file name if different.
 
-### Step 4: Add the Public Key to the Remote System
+**Step 4: Add the Public Key to the Remote System**
 
 1. Display your public key:
 
@@ -100,13 +109,14 @@ To manage your key securely, add it to the SSH agent:
     ```bash
     cat ~/.ssh/id_ed25519.pub
     ```
+
 3. Copy the output.
 4. Add the key to the remote system or GitHub:
 
     - GitHub: Go to Settings > SSH and GPG keys > New SSH key.
     - Paste the public key and save.
 
-### Step 5: Test the Connection
+**Step 5: Test the Connection**
 
 Verify the SSH connection:
 
@@ -120,16 +130,41 @@ If configured correctly, you should see a success message.
 Hi <username>! You've successfully authenticated, but GitHub does not provide shell access.
 ```
 
+## Guide to Cloning a Git Repository Using SSH
+
+This guide will walk you through the steps required to clone a Git repository using SSH. Using SSH for cloning ensures a secure connection between your machine and the remote repository.
+
+**Cloning a Repository Using SSH**
+
+1. **Get the SSH URL of the Repository** On Git, navigate to the repository you want to clone. Copy the SSH URL (it typically looks like `git@github.com:FIT-HUB-INDONESIA/SQUAT-APPS.git`).
+
+2. **Clone the Repository** Use the following command to clone the repository:
+
+    ```bash
+    git clone git@github.com:FIT-HUB-INDONESIA/SQUAT-APPS.git
+    ```
+
+3. **Verify the Cloned Repository** Navigate into the cloned repository and list the files to verify:
+
+    ```bash
+    cd squat-apps
+    ls
+    ```
+
+4. After successfully cloning the repository, perform `npm init` at `android` folder, `ios` folder, and `root` folder to install dependencies.
+
 ## PR Conventions: Crafting Descriptive Titles and Commit Messages
 
 This `README` provides a guideline for writing clear and consistent commit messages using the Conventional Commits specification and Angular's commit message guidelines. Following these conventions will help maintain a readable commit history and make versioning simpler and more predictable.
 
 ```
+
 <type>[optional scope]: <description>
 
 [optional body]
 
 [optional footer(s)]
+
 ```
 
 1. Example for **types** (required) of commits used, eg: `feat:`
@@ -142,48 +177,56 @@ This `README` provides a guideline for writing clear and consistent commit messa
 
 5. The **footer** (optional) is used to reference issues closed by the commit or to specify breaking changes. Use the following format:
 
-    -   **Breaking Changes**: Use the `BREAKING CHANGE` keyword to indicate changes that break backward compatibility.
-    -   **Issue References**: Mention the issue using `Closes #123` or `Fixes #456`
+    - **Breaking Changes**: Use the `BREAKING CHANGE` keyword to indicate changes that break backward compatibility.
+    - **Issue References**: Mention the issue using `Closes #123` or `Fixes #456`
 
 **Basic Example:**
 
 ```
+
 feat(auth): add OAuth2 authentication Added OAuth2 login capability to improve
-    security. Updated login flow to handle OAuth tokens.;
+security. Updated login flow to handle OAuth tokens.;
+
 ```
 
 **Breaking Change Example:**
 
 ```
+
 feat(api): update API endpoints for better consistency
 
 BREAKING CHANGE: The `/user` endpoint has been replaced with `/users`.
 This change improves the API's consistency with RESTful conventions.
+
 ```
 
 **Bug Fix Example:**
 
 ```
+
 fix(ui): correct button alignment on mobile view Fixed an issue where buttons
-    were misaligned on small screens. Adjusted CSS to handle screen widths below
-    768px.;
+were misaligned on small screens. Adjusted CSS to handle screen widths below
+768px.;
+
 ```
 
 **Commit Referencing Issues:**
 
 ```
+
 fix(api): handle null values in user responses Fixed a bug where API returned
-    null values for missing fields. Closes #145;
+null values for missing fields. Closes #145;
+
 ```
 
-### Additional Resources
+**Additional Resources**
 
 1. [Conventional Commits Official Documentation](https://www.conventionalcommits.org/en/v1.0.0/)
 2. [Angular Commit Message Guidelines](https://github.com/angular/angular/blob/22b96b9/CONTRIBUTING.md#-commit-message-guidelines)
 
 ## Step-by-Step Guide to Appium Testing on Real iOS Devices
 
-### Prerequisite Installation
+**Prerequisite Installation**
 
 1. Install [Homebrew](https://brew.sh/)
 2. Install [Xcode](https://developer.apple.com/documentation/xcode/)
@@ -192,7 +235,7 @@ fix(api): handle null values in user responses Fixed a bug where API returned
 5. Install [XCUITest](https://github.com/appium/appium-xcuitest-driver)<br>
    XCUITest [Documentation](https://appium.io/docs/en/2.0/ecosystem/)
 6. Install [Appium Inspector](https://github.com/appium/appium-inspector/releases)<br>
-Appium Inspector [Documentation](https://appium.github.io/appium-inspector/latest/quickstart/installation/)
+   Appium Inspector [Documentation](https://appium.github.io/appium-inspector/latest/quickstart/installation/)
 
 Locate the Xcode directory project for XCUITest configuration and open the folder.
 

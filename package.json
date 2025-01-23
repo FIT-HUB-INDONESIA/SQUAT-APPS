@@ -1,0 +1,16 @@
+{
+    "name": "squat-apps",
+    "version": "1.0.0",
+    "description": "Welcome to the Fit Hub App Automation Testing repository. This repository is dedicated to maintaining and executing automated test scripts for the Fit Hub application, ensuring high-quality standards for both iOS and Android platforms.",
+    "main": "index.js",
+    "directories": {
+        "test": "tests"
+    },
+    "scripts": {
+        "test:android": "cd android && npm run wdio",
+        "test:ios": "cd ios && npm run wdio"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}
