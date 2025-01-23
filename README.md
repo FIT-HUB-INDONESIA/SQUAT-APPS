@@ -16,10 +16,10 @@ The primary goals of this repository are:
 
 ## Key Technologies
 
--   **Appium:** The primary tool for automating mobile applications on both iOS and Android platforms.
--   **Programming Languages:** Scripts are developed in JavaScript for flexibility and ease of use.
--   **Node.js:** Used for managing dependencies and running JavaScript-based automation tasks.
--   **Android SDK and Xcode:** Required for setting up and running tests on Android and iOS devices, respectively.
+- **Appium:** The primary tool for automating mobile applications on both iOS and Android platforms.
+- **Programming Languages:** Scripts are developed in JavaScript for flexibility and ease of use.
+- **Node.js:** Used for managing dependencies and running JavaScript-based automation tasks.
+- **Android SDK and Xcode:** Required for setting up and running tests on Android and iOS devices, respectively.
 
 ## Contribution Guidelines
 
@@ -46,6 +46,7 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
   - [Table of Contents](#table-of-contents)
   - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
   - [Guide to Cloning a Git Repository Using SSH](#guide-to-cloning-a-git-repository-using-ssh)
+  - [Configure ESLint and Prettier Formatter](#configure-eslint-and-prettier-formatter)
   - [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
   - [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
   - [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices-future-development)
@@ -152,6 +153,65 @@ This guide will walk you through the steps required to clone a Git repository us
     ```
 
 4. After successfully cloning the repository, perform `npm init` at `android` folder, `ios` folder, and `root` folder to install dependencies.
+
+## Configure ESLint and Prettier Formatter
+
+**Step 1: Install ESLint and Prettier VS Code Extensions**
+
+Search for and install the following extensions:
+
+- ESLint
+- Prettier - Code formatter
+
+**Step 2: Configure VS Code Settings**
+
+1. Ensure ESLint and Prettier are correctly configured in VS Code settings:
+
+2. Open settings `Cmd+,` on macOS.
+
+3. Add or verify the following settings in your settings.json file:
+
+```json
+{
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "eslint.validate": [
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact"
+    ],
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    }
+}
+```
+
+**Step 3: Verify ESLint and Prettier Integration**
+
+1. Open any file in the project.
+2. Look for ESLint errors/warnings in the Problems panel `Cmd+Shift+M`
+3. Check if Prettier formats the code on save.
+
+**Step 4:Run ESLint and Prettier Manually**
+
+Run the following commands to check for linting and formatting issues:
+
+To lint the code:
+
+```bash
+npx eslint .
+```
+
+To format the code:
+
+```bash
+npx prettier --write .
+```
 
 ## PR Conventions: Crafting Descriptive Titles and Commit Messages
 
