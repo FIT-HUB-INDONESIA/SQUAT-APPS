@@ -152,7 +152,7 @@ This guide will walk you through the steps required to clone a Git repository us
     ls
     ```
 
-4. After successfully cloning the repository, perform `npm init` at `android` folder, `ios` folder, and `root` folder to install dependencies.
+4. After successfully cloning the repository, perform `npm install` at `android` folder, `ios` folder, and `root` folder to install dependencies.
 
 ## Configure ESLint and Prettier Formatter
 
