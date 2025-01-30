@@ -8,13 +8,22 @@ class elementHelper {
      * @returns {Promise<void>}
      */
     async click(element) {
-        try {
-            await element.waitForExist();
-            await element.waitForEnabled();
-            await element.click();
-        } catch (error) {
-            console.error("Failed to click element:", error.message);
-            throw error;
+        const errors = [];
+
+        await element.waitForExist().catch((err) => {
+            errors.push(`Element wait for exist failed: ${err.message}`);
+        });
+
+        await element.waitForEnabled().catch((err) => {
+            errors.push(`Element wait for enabled failed: ${err.message}`);
+        });
+
+        await element.click().catch((err) => {
+            errors.push(`Element click action failed: ${err.message}`);
+        });
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
         }
     }
 
@@ -25,15 +34,56 @@ class elementHelper {
      * @returns {Promise<void>}
      */
     async addValue(element, value) {
+        const errors = [];
+
+        await element.waitForExist().catch((err) => {
+            errors.push(`Element wait for exist failed: ${err.message}`);
+        });
+
+        await element.waitForEnabled().catch((err) => {
+            errors.push(`Element wait for enabled failed: ${err.message}`);
+        });
+
+        await element.addValue(value).catch((err) => {
+            errors.push(`Element add value action failed: ${err.message}`);
+        });
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * NOTE: Still need to be tested
+     * Validates the value of an input field using UI text
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} value - The value to validate
+     * @returns {Promise<void>}
+     */
+    async uiTextValueValidation(element, value) {
+        const errors = [];
+
+        await element.waitForExist().catch((err) => {
+            errors.push(`Element wait for exist failed: ${err.message}`);
+        });
+
         try {
-            await element.waitForExist();
-            await element.waitForEnabled();
-            await element.click();
-            await browser.pause(1000);
-            await element.addValue(value);
-        } catch (error) {
-            console.error("Failed to add value:", error.message);
-            throw error;
+            const actualValue =
+                browser.capabilities.platformName === "Android"
+                    ? await element.getText()
+                    : await element.getValue();
+
+            if (actualValue !== value) {
+                errors.push(
+                    `Value validation failed: Expected "${value}" but got "${actualValue}"`
+                );
+            }
+        } catch (err) {
+            errors.push(`Value validation failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
         }
     }
 }
