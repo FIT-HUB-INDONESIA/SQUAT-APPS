@@ -48,12 +48,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_home_button() {
-        try {
-            await elementHelper.click(this.main_home_button);
-        } catch (error) {
-            console.error("Failed to click main home button:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.main_home_button);
     }
 
     /**
@@ -61,12 +56,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_class_button() {
-        try {
-            await elementHelper.click(this.main_class_button);
-        } catch (error) {
-            console.error("Failed to click main class button:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.main_class_button);
     }
 
     /**
@@ -74,15 +64,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_join_now_button() {
-        try {
-            await elementHelper.click(this.main_join_now_button);
-        } catch (error) {
-            console.error(
-                "Failed to click main join now button:",
-                error.message
-            );
-            throw error;
-        }
+        await elementHelper.click(this.main_join_now_button);
     }
 
     /**
@@ -90,15 +72,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_trainer_button() {
-        try {
-            await elementHelper.click(this.main_trainer_button);
-        } catch (error) {
-            console.error(
-                "Failed to click main trainer button:",
-                error.message
-            );
-            throw error;
-        }
+        await elementHelper.click(this.main_trainer_button);
     }
 
     /**
@@ -106,15 +80,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_profile_button() {
-        try {
-            await elementHelper.click(this.main_profile_button);
-        } catch (error) {
-            console.error(
-                "Failed to click main profile button:",
-                error.message
-            );
-            throw error;
-        }
+        await elementHelper.click(this.main_profile_button);
     }
 }
 

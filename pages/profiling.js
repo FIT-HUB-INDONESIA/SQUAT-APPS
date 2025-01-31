@@ -1,5 +1,5 @@
 import elementHelper from "../helpers/wdio_element.js";
-
+import mobileHelper from "../helpers/wdio_mobile.js";
 /**
  * Page object class for the profiling page
  */
@@ -63,7 +63,13 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_lewati_dulu_button() {
-        await elementHelper.click(this.profiling_lewati_dulu_button);
+        //NOTE - Temporary disabled, because blocked by chucker logo
+        // await elementHelper.click(this.profiling_lewati_dulu_button);
+
+        await mobileHelper.tap(this.profiling_lewati_dulu_button, {
+            ios: { x: 374, y: 76 },
+            android: { x: 1028, y: 160 }
+        });
     }
 
     /**

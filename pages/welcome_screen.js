@@ -34,15 +34,7 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async goto_register_page() {
-        try {
-            await elementHelper.click(this.welcome_screen_buat_akun_button);
-        } catch (error) {
-            console.error(
-                "Failed to perform goto register page:",
-                error.message
-            );
-            throw error;
-        }
+        await elementHelper.click(this.welcome_screen_buat_akun_button);
     }
 
     /**
@@ -50,12 +42,7 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async goto_login_page() {
-        try {
-            await elementHelper.click(this.welcome_screen_masuk_button);
-        } catch (error) {
-            console.error("Failed to perform goto login page:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.welcome_screen_masuk_button);
     }
 
     /**
@@ -63,15 +50,7 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async skip_welcome_screen() {
-        try {
-            await elementHelper.click(this.welcome_screen_lewati_button);
-        } catch (error) {
-            console.error(
-                "Failed to perform skip welcome screen:",
-                error.message
-            );
-            throw error;
-        }
+        await elementHelper.click(this.welcome_screen_lewati_button);
     }
 }
 

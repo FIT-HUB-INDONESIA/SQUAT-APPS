@@ -1,3 +1,5 @@
+import { dotenvConf } from "../config/dotenv.js";
+
 export const config = {
     //
     // ====================
@@ -5,7 +7,9 @@ export const config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: "local",
-    port: 4723,
+    port: dotenvConf.iosPort,
+    hostname: "localhost",
+    path: "/",
     //
     // ==================
     // Specify Test Files
@@ -53,10 +57,14 @@ export const config = {
             // capabilities for local Appium web tests on iOS
             platformName: "iOS",
             "appium:deviceName": "iPhone Real Device",
-            "appium:udid": "00008110-000429C60AD3A01E",
+            "appium:udid": dotenvConf.iosUdid,
             "appium:automationName": "XCUITest",
             "appium:noReset": false,
-            "appium:bundleId": "com.thehub.apps.stag"
+            "appium:bundleId": dotenvConf.wdioAppId,
+            "appium:protocol": "http",
+            "appium:hostname": "localhost",
+            "appium:path": "/",
+            "appium:port": dotenvConf.iosPort
         }
     ],
 
@@ -67,7 +75,7 @@ export const config = {
     // Define all options that are relevant for the WebdriverIO instance here
     //
     // Level of logging verbosity: trace | debug | info | warn | error | silent
-    logLevel: "info",
+    logLevel: dotenvConf.wdioLogLevel,
     //
     // Set specific log levels per logger
     // loggers:
@@ -94,7 +102,7 @@ export const config = {
     // baseUrl: 'http://localhost:8080',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: dotenvConf.wdioWaitForTimeout,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
@@ -107,7 +115,22 @@ export const config = {
     // Services take over a specific job you don't want to take care of. They enhance
     // your test setup with almost no effort. Unlike plugins, they don't add new
     // commands. Instead, they hook themselves up into the test process.
-    services: ["appium"],
+    services: [
+        [
+            "appium",
+            {
+                command: "appium",
+                args: {
+                    port: dotenvConf.iosPort,
+                    address: "localhost",
+                    basePath: "/",
+                    // Prevent random port assignment
+                    relaxedSecurity: true,
+                    allowInsecure: ["chromedriver_autodownload"]
+                }
+            }
+        ]
+    ],
 
     // Framework you want to run your specs with.
     // The following are supported: Mocha, Jasmine, and Cucumber

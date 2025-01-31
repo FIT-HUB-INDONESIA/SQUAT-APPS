@@ -62,13 +62,8 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_name_field(user_name) {
-        try {
-            await elementHelper.click(this.register_nama_field);
-            await elementHelper.addValue(this.register_nama_field, user_name);
-        } catch (error) {
-            console.error("Failed to fill name field:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.register_nama_field);
+        await elementHelper.addValue(this.register_nama_field, user_name);
     }
 
     /**
@@ -77,16 +72,11 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_phone_number_field(user_phone_number) {
-        try {
-            await elementHelper.click(this.register_phone_number_field);
-            await elementHelper.addValue(
-                this.register_phone_number_field,
-                user_phone_number
-            );
-        } catch (error) {
-            console.error("Failed to fill phone number field:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.register_phone_number_field);
+        await elementHelper.addValue(
+            this.register_phone_number_field,
+            user_phone_number
+        );
     }
 
     /**
@@ -95,13 +85,8 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_email_field(user_email) {
-        try {
-            await elementHelper.click(this.register_email_field);
-            await elementHelper.addValue(this.register_email_field, user_email);
-        } catch (error) {
-            console.error("Failed to fill email field:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.register_email_field);
+        await elementHelper.addValue(this.register_email_field, user_email);
     }
 
     /**
@@ -110,16 +95,11 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_referral_field(user_referral_code) {
-        try {
-            await elementHelper.click(this.register_referral_field);
-            await elementHelper.addValue(
-                this.register_referral_field,
-                user_referral_code
-            );
-        } catch (error) {
-            console.error("Failed to fill referral field:", error.message);
-            throw error;
-        }
+        await elementHelper.click(this.register_referral_field);
+        await elementHelper.addValue(
+            this.register_referral_field,
+            user_referral_code
+        );
     }
 
     /**

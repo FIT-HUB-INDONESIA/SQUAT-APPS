@@ -60,7 +60,7 @@ class elementHelper {
      * @param {string} value - The value to validate
      * @returns {Promise<void>}
      */
-    async uiTextValueValidation(element, value) {
+    async uiValueValidation(element, value) {
         const errors = [];
 
         await element.waitForExist().catch((err) => {

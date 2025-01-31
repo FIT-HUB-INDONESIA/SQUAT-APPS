@@ -1,18 +1,20 @@
 import Auth from "../pages/auth.js";
+import Main from "../pages/main.js";
 import Profiling from "../pages/profiling.js";
 import Register from "../pages/register.js";
 import WelcomeScreen from "../pages/welcome_screen.js";
+import { dotenvConf } from "../config/dotenv.js";
 import { faker } from "@faker-js/faker";
 import { generatePhoneNumber } from "../helpers/faker.js";
 
 describe("Register test: Happy flow", () => {
-    it("Should successfully register to as a new member", async () => {
+    it("Should successfully register as a new member then perform logout", async () => {
         const user_name = faker.person.fullName();
         const user_phone_number = generatePhoneNumber();
-        const user_email = "test@test.id";
-        const otp_number = "112233";
-        const pin_creation_number = "000000";
-        const pin_confirmation_number = "000000";
+        const user_email = dotenvConf.registerUserEmail;
+        const otp_number = dotenvConf.registerOtpNumber;
+        const pin_creation_number = dotenvConf.registerPinNumber;
+        const pin_confirmation_number = dotenvConf.registerPinNumber;
 
         await WelcomeScreen.goto_register_page();
         await Register.fill_name_field(user_name);
@@ -25,5 +27,6 @@ describe("Register test: Happy flow", () => {
         await Auth.fill_pin_confirmation_number_field(pin_confirmation_number);
         await Profiling.click_profiling_lewati_dulu_button();
         await Profiling.click_profiling_ya_lewati_button();
+        await Main.click_main_profile_button();
     });
 });
