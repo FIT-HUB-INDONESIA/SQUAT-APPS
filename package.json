@@ -1,5 +1,6 @@
 {
     "name": "squat-apps",
+    "type": "module",
     "version": "1.0.0",
     "description": "Welcome to the Fit Hub App Automation Testing repository. This repository is dedicated to maintaining and executing automated test scripts for the Fit Hub application, ensuring high-quality standards for both iOS and Android platforms.",
     "main": "index.js",
@@ -15,6 +16,8 @@
     "license": "ISC",
     "devDependencies": {
         "@eslint/js": "^9.18.0",
+        "@faker-js/faker": "^9.4.0",
+        "@wdio/globals": "^9.7.2",
         "eslint": "^9.18.0",
         "eslint-config-prettier": "^10.0.1",
         "eslint-plugin-mocha": "^10.5.0",

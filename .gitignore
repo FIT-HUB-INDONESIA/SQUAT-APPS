@@ -1,5 +1,5 @@
 android/node_modules
 ios/node_modules
 node_modules
-package-lock.json
 .env
+allure-results
