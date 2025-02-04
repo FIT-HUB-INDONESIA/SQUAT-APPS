@@ -55,7 +55,10 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_mulai_button() {
-        await elementHelper.click(this.profiling_mulai_button);
+        await elementHelper.click(
+            this.profiling_mulai_button,
+            "profiling_mulai_button"
+        );
     }
 
     /**
@@ -66,10 +69,14 @@ class Profiling {
         //NOTE - Temporary disabled, because blocked by chucker logo
         // await elementHelper.click(this.profiling_lewati_dulu_button);
 
-        await mobileHelper.tap(this.profiling_lewati_dulu_button, {
-            ios: { x: 374, y: 76 },
-            android: { x: 1028, y: 160 }
-        });
+        await mobileHelper.tap(
+            this.profiling_lewati_dulu_button,
+            "profiling_lewati_dulu_button",
+            {
+                ios: { x: 374, y: 76 },
+                android: { x: 1028, y: 160 }
+            }
+        );
     }
 
     /**
@@ -77,7 +84,10 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_kembali_button() {
-        await elementHelper.click(this.profiling_kembali_button);
+        await elementHelper.click(
+            this.profiling_kembali_button,
+            "profiling_kembali_button"
+        );
     }
 
     /**
@@ -85,7 +95,10 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_ya_lewati_button() {
-        await elementHelper.click(this.profiling_ya_lewati_button);
+        await elementHelper.click(
+            this.profiling_ya_lewati_button,
+            "profiling_ya_lewati_button"
+        );
     }
 
     /**
@@ -93,7 +106,10 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_laki_laki_button() {
-        await elementHelper.click(this.profiling_laki_laki_button);
+        await elementHelper.click(
+            this.profiling_laki_laki_button,
+            "profiling_laki_laki_button"
+        );
     }
 
     /**
@@ -101,7 +117,10 @@ class Profiling {
      * @returns {Promise<void>}
      */
     async click_profiling_perempuan_button() {
-        await elementHelper.click(this.profiling_perempuan_button);
+        await elementHelper.click(
+            this.profiling_perempuan_button,
+            "profiling_perempuan_button"
+        );
     }
 }
 

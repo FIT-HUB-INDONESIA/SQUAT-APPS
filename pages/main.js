@@ -48,7 +48,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_home_button() {
-        await elementHelper.click(this.main_home_button);
+        await elementHelper.click(this.main_home_button, "main_home_button");
     }
 
     /**
@@ -56,7 +56,7 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_class_button() {
-        await elementHelper.click(this.main_class_button);
+        await elementHelper.click(this.main_class_button, "main_class_button");
     }
 
     /**
@@ -64,7 +64,10 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_join_now_button() {
-        await elementHelper.click(this.main_join_now_button);
+        await elementHelper.click(
+            this.main_join_now_button,
+            "main_join_now_button"
+        );
     }
 
     /**
@@ -72,7 +75,10 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_trainer_button() {
-        await elementHelper.click(this.main_trainer_button);
+        await elementHelper.click(
+            this.main_trainer_button,
+            "main_trainer_button"
+        );
     }
 
     /**
@@ -80,7 +86,10 @@ class Main {
      * @returns {Promise<void>}
      */
     async click_main_profile_button() {
-        await elementHelper.click(this.main_profile_button);
+        await elementHelper.click(
+            this.main_profile_button,
+            "main_profile_button"
+        );
     }
 }
 

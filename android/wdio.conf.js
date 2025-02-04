@@ -1,4 +1,10 @@
+import video from "wdio-video-reporter";
+import yargs from "yargs";
+import { hideBin } from "yargs/helpers";
 import { dotenvConf } from "../config/dotenv.js";
+
+const argv = yargs(hideBin(process.argv)).argv;
+const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
 
 export const config = {
     //
@@ -59,7 +65,7 @@ export const config = {
             "appium:deviceName": "Android Real Device",
             "appium:udid": dotenvConf.androidUdid,
             "appium:automationName": "UiAutomator2",
-            "appium:noReset": false,
+            "appium:noReset": true,
             "appium:appPackage": dotenvConf.wdioAppId,
             "appium:appActivity": "com.thehub.apps.MainActivity",
             "appium:autoGrantPermissions": true,
@@ -155,13 +161,34 @@ export const config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: [["allure", { outputDir: "../allure-results" }]],
+    reporters: [
+        [
+            video,
+            {
+                outputDir: "../allure-results/videos",
+                saveAllVideos: true,
+                videoSlowdownMultiplier: 3,
+                addVideoToAllureReport: true,
+                logLevel: "silent"
+            }
+        ],
+        [
+            "allure",
+            {
+                outputDir: "../allure-results",
+                disableWebdriverStepsReporting: true,
+                disableWebdriverScreenshotsReporting: true,
+                addConsoleLogs: true
+            }
+        ]
+    ],
 
     // Options to be passed to Mocha.
     // See the full list at http://mochajs.org/
     mochaOpts: {
         ui: "bdd",
-        timeout: 60000
+        timeout: dotenvConf.wdioOptsTimeout,
+        grep: grepPattern
     },
 
     //

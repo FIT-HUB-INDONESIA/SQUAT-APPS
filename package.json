@@ -8,8 +8,8 @@
         "test": "tests"
     },
     "scripts": {
-        "test:android": "cd android && npm run wdio",
-        "test:ios": "cd ios && npm run wdio"
+        "test:android": "cd android && npm run wdio:grep",
+        "test:ios": "cd ios && npm run wdio:grep"
     },
     "keywords": [],
     "author": "",

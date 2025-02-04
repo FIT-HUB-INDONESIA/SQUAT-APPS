@@ -34,7 +34,10 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async goto_register_page() {
-        await elementHelper.click(this.welcome_screen_buat_akun_button);
+        await elementHelper.click(
+            this.welcome_screen_buat_akun_button,
+            "welcome_screen_buat_akun_button"
+        );
     }
 
     /**
@@ -42,7 +45,10 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async goto_login_page() {
-        await elementHelper.click(this.welcome_screen_masuk_button);
+        await elementHelper.click(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button"
+        );
     }
 
     /**
@@ -50,7 +56,10 @@ class WelcomeScreen {
      * @returns {Promise<void>}
      */
     async skip_welcome_screen() {
-        await elementHelper.click(this.welcome_screen_lewati_button);
+        await elementHelper.click(
+            this.welcome_screen_lewati_button,
+            "welcome_screen_lewati_button"
+        );
     }
 }
 

@@ -42,8 +42,12 @@ class Auth {
      * @returns {Promise<void>}
      */
     async fill_otp_number_field(otp_number) {
-        await elementHelper.click(this.otp_number_field);
-        await elementHelper.addValue(this.otp_number_field, otp_number);
+        await elementHelper.clickSilent(this.otp_number_field);
+        await elementHelper.addValue(
+            this.otp_number_field,
+            "otp_number_field",
+            otp_number
+        );
     }
 
     /**
@@ -52,8 +56,10 @@ class Auth {
      * @returns {Promise<void>}
      */
     async fill_pin_creation_number_field(pin_creation_number) {
+        await elementHelper.clickSilent(this.pin_off_click_number_field);
         await elementHelper.addValue(
             this.pin_on_click_number_field,
+            "pin_on_click_number_field",
             pin_creation_number
         );
     }
@@ -64,9 +70,10 @@ class Auth {
      * @returns {Promise<void>}
      */
     async fill_pin_confirmation_number_field(pin_confirmation_number) {
-        await elementHelper.click(this.pin_off_click_number_field);
+        await elementHelper.clickSilent(this.pin_off_click_number_field);
         await elementHelper.addValue(
             this.pin_on_click_number_field,
+            "pin_on_click_number_field",
             pin_confirmation_number
         );
     }

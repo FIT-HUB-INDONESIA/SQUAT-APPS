@@ -62,8 +62,12 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_name_field(user_name) {
-        await elementHelper.click(this.register_nama_field);
-        await elementHelper.addValue(this.register_nama_field, user_name);
+        await elementHelper.clickSilent(this.register_nama_field);
+        await elementHelper.addValue(
+            this.register_nama_field,
+            "register_nama_field",
+            user_name
+        );
     }
 
     /**
@@ -72,9 +76,10 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_phone_number_field(user_phone_number) {
-        await elementHelper.click(this.register_phone_number_field);
+        await elementHelper.clickSilent(this.register_phone_number_field);
         await elementHelper.addValue(
             this.register_phone_number_field,
+            "register_phone_number_field",
             user_phone_number
         );
     }
@@ -85,8 +90,12 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_email_field(user_email) {
-        await elementHelper.click(this.register_email_field);
-        await elementHelper.addValue(this.register_email_field, user_email);
+        await elementHelper.clickSilent(this.register_email_field);
+        await elementHelper.addValue(
+            this.register_email_field,
+            "register_email_field",
+            user_email
+        );
     }
 
     /**
@@ -95,9 +104,10 @@ class Register {
      * @returns {Promise<void>}
      */
     async fill_referral_field(user_referral_code) {
-        await elementHelper.click(this.register_referral_field);
+        await elementHelper.clickSilent(this.register_referral_field);
         await elementHelper.addValue(
             this.register_referral_field,
+            "register_referral_field",
             user_referral_code
         );
     }
@@ -107,7 +117,10 @@ class Register {
      * @returns {Promise<void>}
      */
     async click_tnc_checkbox() {
-        await elementHelper.click(this.register_tnc_checkbox);
+        await elementHelper.click(
+            this.register_tnc_checkbox,
+            "register_tnc_checkbox"
+        );
     }
 
     /**
@@ -115,7 +128,10 @@ class Register {
      * @returns {Promise<void>}
      */
     async click_send_otp_button() {
-        await elementHelper.click(this.register_kirimkan_kode_otp_button);
+        await elementHelper.click(
+            this.register_kirimkan_kode_otp_button,
+            "register_kirimkan_kode_otp_button"
+        );
     }
 }
 
