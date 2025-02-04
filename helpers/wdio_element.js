@@ -1,13 +1,15 @@
+import allureReporter from "@wdio/allure-reporter";
+
 /**
  * Singleton helper class for common WebdriverIO element interactions
  */
 class elementHelper {
     /**
-     * Clicks an element with proper wait
+     * Waits for element to be interactable
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
      * @returns {Promise<void>}
      */
-    async click(element) {
+    async waitForInteractable(element) {
         const errors = [];
 
         await element.waitForExist().catch((err) => {
@@ -17,6 +19,52 @@ class elementHelper {
         await element.waitForEnabled().catch((err) => {
             errors.push(`Element wait for enabled failed: ${err.message}`);
         });
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * Clicks an element with proper wait
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} elementName - The name of the element to interact with
+     * @returns {Promise<void>}
+     */
+    async click(element, elementName) {
+        const errors = [];
+
+        await this.waitForInteractable(element);
+
+        console.log(`Action click: ${elementName}`);
+
+        try {
+            await element.click();
+            allureReporter.addStep(`Click ${elementName}`, {
+                status: "passed"
+            });
+        } catch (err) {
+            allureReporter.addStep(`Failed to click ${elementName}`, {
+                status: "failed",
+                error: err.toString()
+            });
+            errors.push(`Element click action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * Clicks (silent) an element with proper wait and without allure report
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @returns {Promise<void>}
+     */
+    async clickSilent(element) {
+        const errors = [];
+
+        await this.waitForInteractable(element);
 
         await element.click().catch((err) => {
             errors.push(`Element click action failed: ${err.message}`);
@@ -30,56 +78,28 @@ class elementHelper {
     /**
      * Adds a value in an input field with proper waits and clearing
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} elementName - The name of the element to interact with
      * @param {string} value - The value to set
      * @returns {Promise<void>}
      */
-    async addValue(element, value) {
+    async addValue(element, elementName, value) {
         const errors = [];
 
-        await element.waitForExist().catch((err) => {
-            errors.push(`Element wait for exist failed: ${err.message}`);
-        });
+        await this.waitForInteractable(element);
 
-        await element.waitForEnabled().catch((err) => {
-            errors.push(`Element wait for enabled failed: ${err.message}`);
-        });
-
-        await element.addValue(value).catch((err) => {
-            errors.push(`Element add value action failed: ${err.message}`);
-        });
-
-        if (errors.length > 0) {
-            throw new Error(errors.join(", "));
-        }
-    }
-
-    /**
-     * NOTE: Still need to be tested
-     * Validates the value of an input field using UI text
-     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
-     * @param {string} value - The value to validate
-     * @returns {Promise<void>}
-     */
-    async uiValueValidation(element, value) {
-        const errors = [];
-
-        await element.waitForExist().catch((err) => {
-            errors.push(`Element wait for exist failed: ${err.message}`);
-        });
+        console.log(`Action fill: ${elementName}`);
 
         try {
-            const actualValue =
-                browser.capabilities.platformName === "Android"
-                    ? await element.getText()
-                    : await element.getValue();
-
-            if (actualValue !== value) {
-                errors.push(
-                    `Value validation failed: Expected "${value}" but got "${actualValue}"`
-                );
-            }
+            await element.addValue(value);
+            allureReporter.addStep(`Fill ${elementName}: ${value}`, {
+                status: "passed"
+            });
         } catch (err) {
-            errors.push(`Value validation failed: ${err.message}`);
+            allureReporter.addStep(`Failed to fill ${elementName}`, {
+                status: "failed",
+                error: err.toString()
+            });
+            errors.push(`Element fill action failed`);
         }
 
         if (errors.length > 0) {
