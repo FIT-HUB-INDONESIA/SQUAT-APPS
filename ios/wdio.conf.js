@@ -13,9 +13,9 @@ export const config = {
     // ====================
     // WebdriverIO supports running e2e tests as well as unit and component tests.
     runner: "local",
-    port: dotenvConf.iosPort,
-    hostname: "localhost",
-    path: "/",
+    // port: dotenvConf.iosPort,
+    // hostname: "localhost",
+    // path: "/",
     //
     // ==================
     // Specify Test Files
@@ -66,11 +66,11 @@ export const config = {
             "appium:udid": dotenvConf.iosUdid,
             "appium:automationName": "XCUITest",
             "appium:noReset": true,
-            "appium:bundleId": dotenvConf.wdioAppId,
-            "appium:protocol": "http",
-            "appium:hostname": "localhost",
-            "appium:path": "/",
-            "appium:port": dotenvConf.iosPort
+            "appium:bundleId": dotenvConf.wdioAppId
+            // "appium:protocol": "http",
+            // "appium:hostname": "localhost",
+            // "appium:path": "/",
+            // "appium:port": dotenvConf.iosPort
         }
     ],
 
@@ -128,8 +128,8 @@ export const config = {
                 command: "appium",
                 args: {
                     port: dotenvConf.iosPort,
-                    address: "localhost",
-                    basePath: "/",
+                    // address: "localhost",
+                    // basePath: "/",
                     // Prevent random port assignment
                     relaxedSecurity: true,
                     allowInsecure: ["chromedriver_autodownload"]
@@ -283,15 +283,15 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function (
-        test,
-        context,
-        { error, result, duration, passed, retries }
-    ) {
-        if (!passed) {
-            await browser.takeScreenshot();
-        }
-    }
+    // afterTest: async function (
+    //     test,
+    //     context,
+    //     { error, result, duration, passed, retries }
+    // ) {
+    //     if (!passed) {
+    //         await browser.takeScreenshot();
+    //     }
+    // }
 
     /**
      * Hook that gets executed after the suite has ended
@@ -315,8 +315,23 @@ export const config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {Array.<String>} specs List of spec file paths that ran
      */
-    // after: function (result, capabilities, specs) {
-    // },
+    after: async function (result, capabilities, specs) {
+        try {
+            await browser.takeScreenshot();
+        } catch (error) {
+            console.error("Error capturing screenshot:", error);
+        }
+        if (result === 0) {
+            console.log(
+                "Test completed - screenshot captured. Result: PASSED\n"
+            );
+        } else {
+            console.log(
+                "Test completed - screenshot captured. Result: FAILED\n"
+            );
+        }
+    }
+
     /**
      * Gets executed right after terminating the webdriver session.
      * @param {object} config wdio configuration object
