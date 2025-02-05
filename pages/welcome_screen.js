@@ -1,12 +1,10 @@
 import elementHelper from "../helpers/wdio_element.js";
+import expectHelper from "../helpers/wdio_expect.js";
 
 /**
- * Page object class for the welcome screen page
+ * Base class containing common selectors
  */
-class WelcomeScreen {
-    /**
-     * Define selectors using getter methods
-     */
+class WelcomeScreenSelectors {
     get welcome_screen_buat_akun_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Buat Akun")`)
@@ -14,6 +12,7 @@ class WelcomeScreen {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Buat Akun"\`]`
               );
     }
+
     get welcome_screen_masuk_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Masuk")`)
@@ -21,6 +20,7 @@ class WelcomeScreen {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Masuk"\`]`
               );
     }
+
     get welcome_screen_lewati_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Lewati")`)
@@ -28,38 +28,104 @@ class WelcomeScreen {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Lewati"\`]`
               );
     }
+}
 
-    /**
-     * Method to encapsulate enter the register page
-     * @returns {Promise<void>}
-     */
-    async goto_register_page() {
+/**
+ * Class containing validation methods
+ */
+class WelcomeScreenValidation extends WelcomeScreenSelectors {
+    async welcome_screen_buat_akun_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.welcome_screen_buat_akun_button,
+            "welcome_screen_buat_akun_button"
+        );
+    }
+
+    async welcome_screen_buat_akun_button_wording() {
+        return await expectHelper.toHaveAttribute(
+            this.welcome_screen_buat_akun_button,
+            "welcome_screen_buat_akun_button",
+            "label",
+            "content-desc",
+            "Buat Akun"
+        );
+    }
+
+    async welcome_screen_masuk_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button"
+        );
+    }
+
+    async welcome_screen_masuk_button_wording() {
+        return await expectHelper.toHaveText(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button",
+            "Masuk"
+        );
+    }
+
+    async welcome_screen_lewati_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.welcome_screen_lewati_button,
+            "welcome_screen_lewati_button"
+        );
+    }
+
+    async welcome_screen_lewati_button_wording() {
+        return await expectHelper.toHaveText(
+            this.welcome_screen_lewati_button,
+            "welcome_screen_lewati_button",
+            "Lewati"
+        );
+    }
+}
+
+/**
+ * Class containing action methods
+ */
+class WelcomeScreenAction extends WelcomeScreenValidation {
+    async click_welcome_screen_buat_akun_button() {
         await elementHelper.click(
             this.welcome_screen_buat_akun_button,
             "welcome_screen_buat_akun_button"
         );
     }
 
-    /**
-     * Method to encapsulate enter the login page
-     * @returns {Promise<void>}
-     */
-    async goto_login_page() {
+    async click_welcome_screen_masuk_button() {
         await elementHelper.click(
             this.welcome_screen_masuk_button,
             "welcome_screen_masuk_button"
         );
     }
 
-    /**
-     * Method to encapsulate skip the welcome screen
-     * @returns {Promise<void>}
-     */
-    async skip_welcome_screen() {
+    async click_welcome_screen_lewati_button() {
         await elementHelper.click(
             this.welcome_screen_lewati_button,
             "welcome_screen_lewati_button"
         );
+    }
+}
+
+/**
+ * Class containing use case methods.
+ * Use extends methods from action class and validation class only
+ */
+class WelcomeScreen extends WelcomeScreenAction {
+    async welcome_screen_buat_akun_button_validation() {
+        await this.welcome_screen_buat_akun_button_enabled();
+        await this.welcome_screen_buat_akun_button_wording();
+    }
+
+    async welcome_screen_masuk_button_validation() {
+        await this.welcome_screen_masuk_button_enabled();
+        await this.welcome_screen_masuk_button_wording();
+    }
+
+    async welcome_screen_lewati_button_validation() {
+        await this.welcome_screen_lewati_button_enabled();
+        await this.welcome_screen_lewati_button_wording();
     }
 }
 

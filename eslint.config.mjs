@@ -12,6 +12,7 @@ export default [
                 ...globals.node,
                 ...globals.mocha,
                 browser: "readonly",
+                expect: "readonly",
                 $: "readonly",
                 $$: "readonly"
             }
