@@ -13,7 +13,8 @@
         "@wdio/visual-service": "^6.3.0",
         "appium-xcuitest-driver": "^8.1.0",
         "wdio-wait-for": "^3.0.11",
-        "yargs": "^17.7.2"
+        "yargs": "^17.7.2",
+        "ios-deploy": "^1.12.2"
     },
     "scripts": {
         "wdio": "wdio run ./wdio.conf.js",

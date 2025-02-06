@@ -6,9 +6,18 @@ import WelcomeScreen from "../pages/welcome_screen.js";
 // import { dotenvConf } from "../config/dotenv.js";
 // import { faker } from "@faker-js/faker";
 // import { generatePhoneNumber } from "../helpers/faker.js";
+import allureReporter from "@wdio/allure-reporter";
 
-describe("Register test: Happy flow", () => {
-    it("Should successfully register as a new member then perform logout @register", async () => {
+/**
+ * Write feature name in "describe" block.
+ * Write test-case title in "it" block.
+ */
+describe("Register", () => {
+    it("Should successfully register as a new member @register @regression @smoke", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addParentSuite("Smoke");
+        allureReporter.addSeverity("critical");
+
         // const user_name = faker.person.fullName();
         // const user_phone_number = generatePhoneNumber();
         // const user_email = dotenvConf.registerUserEmail;
@@ -29,5 +38,24 @@ describe("Register test: Happy flow", () => {
         // await Profiling.click_profiling_lewati_dulu_button();
         // await Profiling.click_profiling_ya_lewati_button();
         // await Main.click_main_profile_button();
+    });
+});
+
+describe("Login", () => {
+    it("Should successfully login as a existing member @login @regression @smoke", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addParentSuite("Smoke");
+        allureReporter.addSeverity("critical");
+    });
+});
+
+describe("Logout", () => {
+    it("Should successfully logout after register @logout @regression", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+    });
+    it("Should successfully logout after login @logout @regression", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
     });
 });

@@ -3,3 +3,4 @@ ios/node_modules
 node_modules
 .env
 allure-results
+.DS_Store

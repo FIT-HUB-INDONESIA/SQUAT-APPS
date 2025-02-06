@@ -1,3 +1,4 @@
+import DeviceInfo from "../handlers/device_info.js";
 import video from "wdio-video-reporter";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
@@ -63,9 +64,8 @@ export const config = {
             // capabilities for local Appium web tests on iOS
             platformName: "iOS",
             "appium:deviceName": "iPhone Real Device",
-            "appium:udid": dotenvConf.iosUdid,
             "appium:automationName": "XCUITest",
-            "appium:noReset": true,
+            "appium:noReset": false,
             "appium:bundleId": dotenvConf.wdioAppId
             // "appium:protocol": "http",
             // "appium:hostname": "localhost",
@@ -176,7 +176,14 @@ export const config = {
                 outputDir: "../allure-results",
                 disableWebdriverStepsReporting: true,
                 disableWebdriverScreenshotsReporting: true,
-                addConsoleLogs: true
+                addConsoleLogs: true,
+                reportedEnvironmentVars: {
+                    env: dotenvConf.environment,
+                    ios_app_version: "",
+                    ios_code_version: "",
+                    android_app_version: "",
+                    android_code_version: ""
+                }
             }
         ]
     ],
@@ -232,8 +239,45 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      * @param {string} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs, cid) {
-    // },
+    beforeSession: async function (config, capabilities, specs, cid) {
+        try {
+            const [iosUDID, iosAppVersion, androidAppVersion] =
+                await Promise.all([
+                    DeviceInfo.getIosUDID(),
+                    DeviceInfo.getIosAppVersion(),
+                    DeviceInfo.getAndroidAppVersion()
+                ]);
+
+            capabilities["appium:udid"] = iosUDID;
+
+            const allureReporter = config.reporters.find(
+                ([name]) => name === "allure"
+            );
+            if (allureReporter) {
+                const {
+                    iosAppVersion: {
+                        versionName: iosVersionName,
+                        versionCode: iosVersionCode
+                    },
+                    androidAppVersion: {
+                        versionName: androidVersionName,
+                        versionCode: androidVersionCode
+                    }
+                } = { iosAppVersion, androidAppVersion };
+
+                Object.assign(allureReporter[1].reportedEnvironmentVars, {
+                    ios_app_version: iosVersionName,
+                    ios_code_version: iosVersionCode,
+                    android_app_version: androidVersionName,
+                    android_code_version: androidVersionCode
+                });
+            }
+        } catch (error) {
+            console.error("Error - beforeSession:", error);
+            throw error;
+        }
+    },
+
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
