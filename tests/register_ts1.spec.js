@@ -2,18 +2,61 @@
 // import Main from "../pages/main.js";
 // import Profiling from "../pages/profiling.js";
 // import Register from "../pages/register.js";
+import Logger from "../helpers/qmetry_logger.js";
 import WelcomeScreen from "../pages/welcome_screen.js";
 // import { dotenvConf } from "../config/dotenv.js";
 // import { faker } from "@faker-js/faker";
 // import { generatePhoneNumber } from "../helpers/faker.js";
 import allureReporter from "@wdio/allure-reporter";
+import fs from "fs";
+
+let logger;
 
 /**
  * Write feature name in "describe" block.
  * Write test-case title in "it" block.
  */
-describe("Register", () => {
-    it("Should successfully register as a new member @register @regression @smoke", async () => {
+describe("Register", function () {
+    const testCaseIDMapping = JSON.parse(
+        fs.readFileSync("../data/tc_qmetry_id.json", "utf8")
+    );
+
+    beforeEach(function () {
+        if (!this.currentTest) {
+            console.warn("No current test found in beforeEach");
+
+            return;
+        }
+
+        const testTitle = this.currentTest.title;
+
+        this.currentTest.ctx.annotations =
+            this.currentTest.ctx.annotations || [];
+
+        const testCaseID =
+            testCaseIDMapping[testTitle] || "Unknown Test Case ID";
+
+        this.currentTest.ctx.annotations.push({
+            description: testCaseID,
+            type: "Issue Key"
+        });
+
+        process.env.TEST_CASE_TITLE = testTitle;
+        process.env.TEST_CASE_ID = testCaseID;
+
+        console.log("TEST CASE TITLE: ", process.env.TEST_CASE_TITLE);
+        console.log("TEST CASE ID: ", process.env.TEST_CASE_ID);
+
+        logger = new Logger();
+        logger.log("Starting automation testing", testTitle);
+    });
+
+    after(async function () {
+        logger = new Logger();
+        await logger.saveLogs();
+    });
+
+    it("Should successfully register as a new member @register @regression @smoke", async function () {
         allureReporter.addParentSuite("Regression");
         allureReporter.addParentSuite("Smoke");
         allureReporter.addSeverity("critical");

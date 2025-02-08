@@ -89,7 +89,8 @@ class WelcomeScreenAction extends WelcomeScreenValidation {
     async click_welcome_screen_buat_akun_button() {
         await elementHelper.click(
             this.welcome_screen_buat_akun_button,
-            "welcome_screen_buat_akun_button"
+            "welcome_screen_buat_akun_button",
+            "Successfully redirected to register form page"
         );
     }
 
