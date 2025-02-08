@@ -1,8 +1,12 @@
 import DeviceInfo from "../handlers/device_info.js";
+import Logger from "../helpers/qmetry_logger.js";
+import fs from "fs";
 import video from "wdio-video-reporter";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { dotenvConf } from "../config/dotenv.js";
+
+let logger;
 
 const argv = yargs(hideBin(process.argv)).argv;
 const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
@@ -303,8 +307,37 @@ export const config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: function (test, context) {
+        const testCaseIDMapping = JSON.parse(
+            fs.readFileSync("../data/tc_qmetry_id.json", "utf8")
+        );
+
+        if (!test || !test.title) {
+            console.warn("No test title found in beforeTest");
+            return;
+        }
+
+        const testTitle = test.title;
+
+        test.ctx.annotations = test.ctx.annotations || [];
+
+        const testCaseID =
+            testCaseIDMapping[testTitle] || "Unknown Test Case ID";
+
+        test.ctx.annotations.push({
+            description: testCaseID,
+            type: "Issue Key"
+        });
+
+        process.env.TEST_CASE_TITLE = testTitle;
+        process.env.TEST_CASE_ID = testCaseID;
+
+        console.log("TEST CASE TITLE: ", process.env.TEST_CASE_TITLE);
+        console.log("TEST CASE ID: ", process.env.TEST_CASE_ID);
+
+        logger = new Logger();
+        logger.log("Starting automation testing", testTitle);
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
@@ -360,7 +393,10 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that ran
      */
     after: async function (result, capabilities, specs) {
+        logger = new Logger();
+
         try {
+            await logger.saveLogs();
             await browser.takeScreenshot();
         } catch (error) {
             console.error("Error capturing screenshot:", error);
