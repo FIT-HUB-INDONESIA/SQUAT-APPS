@@ -41,7 +41,7 @@ export default [
             "no-console": "off",
             "prefer-const": "warn",
             "arrow-body-style": ["warn", "as-needed"],
-            "prefer-arrow-callback": "off",
+            "prefer-arrow-callback": "warn",
             "sort-imports": "error",
             "padding-line-between-statements": [
                 "error",

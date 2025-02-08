@@ -1,12 +1,11 @@
 import elementHelper from "../helpers/wdio_element.js";
+import expectHelper from "../helpers/wdio_expect.js";
 import mobileHelper from "../helpers/wdio_mobile.js";
+
 /**
- * Page object class for the profiling page
+ * Base class containing common selectors
  */
-class Profiling {
-    /**
-     * Define selectors using getter methods
-     */
+class ProfilingSelectors {
     get profiling_mulai_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Mulai")`)
@@ -49,78 +48,77 @@ class Profiling {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Ya, Lewati"\`]`
               );
     }
+}
 
-    /**
-     * Method to encapsulate click profiling mulai button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_mulai_button() {
-        await elementHelper.click(
-            this.profiling_mulai_button,
-            "profiling_mulai_button"
+/**
+ * Class containing validation methods
+ */
+class ProfilingValidation extends ProfilingSelectors {
+    async profiling_lewati_dulu_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.profiling_lewati_dulu_button,
+            "profiling_lewati_dulu_button"
         );
     }
-
-    /**
-     * Method to encapsulate click profiling lewati dulu button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_lewati_dulu_button() {
-        //NOTE - Temporary disabled, because blocked by chucker logo
-        // await elementHelper.click(this.profiling_lewati_dulu_button);
-
-        await mobileHelper.tap(
+    async profiling_lewati_dulu_button_wording() {
+        return await expectHelper.toHaveAttribute(
             this.profiling_lewati_dulu_button,
             "profiling_lewati_dulu_button",
-            {
-                ios: { x: 374, y: 76 },
-                android: { x: 1028, y: 160 }
-            }
+            "label",
+            "content-desc",
+            "Lewati Dulu"
         );
     }
-
-    /**
-     * Method to encapsulate click profiling kembali button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_kembali_button() {
-        await elementHelper.click(
-            this.profiling_kembali_button,
-            "profiling_kembali_button"
-        );
-    }
-
-    /**
-     * Method to encapsulate click profiling ya lewati button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_ya_lewati_button() {
-        await elementHelper.click(
+    async profiling_ya_lewati_button_enabled() {
+        return await expectHelper.toBeEnabled(
             this.profiling_ya_lewati_button,
             "profiling_ya_lewati_button"
         );
     }
-
-    /**
-     * Method to encapsulate click profiling laki laki button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_laki_laki_button() {
-        await elementHelper.click(
-            this.profiling_laki_laki_button,
-            "profiling_laki_laki_button"
+    async profiling_ya_lewati_button_wording() {
+        return await expectHelper.toHaveAttribute(
+            this.profiling_ya_lewati_button,
+            "profiling_ya_lewati_button",
+            "label",
+            "content-desc",
+            "Ya, Lewati"
         );
     }
+}
 
-    /**
-     * Method to encapsulate click profiling perempuan button
-     * @returns {Promise<void>}
-     */
-    async click_profiling_perempuan_button() {
-        await elementHelper.click(
-            this.profiling_perempuan_button,
-            "profiling_perempuan_button"
+/**
+ * Class containing action methods
+ */
+class ProfilingAction extends ProfilingValidation {
+    async click_profiling_lewati_dulu_button() {
+        await mobileHelper.tap(
+            this.profiling_lewati_dulu_button,
+            "profiling_lewati_dulu_button",
+            { ios: { x: 374, y: 76 }, android: { x: 1028, y: 160 } },
+            "Skip profiling confirmation bottom sheet is shown"
         );
+    }
+    async click_profiling_ya_lewati_button() {
+        await elementHelper.click(
+            this.profiling_ya_lewati_button,
+            "profiling_ya_lewati_button",
+            "Successfully redirected to home page"
+        );
+    }
+}
+
+/**
+ * Class containing use case methods.
+ * Use extends methods from action class and validation class only
+ */
+class Profiling extends ProfilingAction {
+    async profiling_lewati_dulu_button_validation() {
+        await this.profiling_lewati_dulu_button_enabled();
+        await this.profiling_lewati_dulu_button_wording();
+    }
+    async profiling_ya_lewati_button_validation() {
+        await this.profiling_ya_lewati_button_enabled();
+        await this.profiling_ya_lewati_button_wording();
     }
 }
 

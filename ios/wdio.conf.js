@@ -336,7 +336,7 @@ export const config = {
         console.log("TEST CASE ID: ", process.env.TEST_CASE_ID);
 
         logger = new Logger();
-        logger.log("Starting automation testing", testTitle);
+        logger.log("Starting automation testing on iOS", testTitle);
     },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling

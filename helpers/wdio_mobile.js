@@ -1,6 +1,10 @@
 import { browser, driver } from "@wdio/globals";
+import Logger from "./qmetry_logger.js";
 import allureReporter from "@wdio/allure-reporter";
 import elementHelper from "./wdio_element";
+
+const logger = new Logger();
+
 /**
  * Singleton helper class for common WebdriverIO mobile interactions
  */
@@ -12,9 +16,10 @@ class mobileHelper {
      * @param {Object} coordinates - Coordinates object containing x,y for both platforms
      * @param {Object} coordinates.ios - iOS coordinates {x: number, y: number}
      * @param {Object} coordinates.android - Android coordinates {x: number, y: number}
+     * @param {string} expectedResult - The expected result of the action
      * @returns {Promise<void>}
      */
-    async tap(element, elementName, coordinates) {
+    async tap(element, elementName, coordinates, expectedResult) {
         const errors = [];
         const { ios, android } = coordinates;
 
@@ -29,9 +34,14 @@ class mobileHelper {
                             y: ios.y
                         }
                     ]);
+                    const step = `Tap ${elementName}`;
+                    const expected = `${expectedResult}`;
+
                     allureReporter.addStep(`Tap ${elementName}`, {
                         status: "passed"
                     });
+
+                    logger.log(step, expected);
                 } catch (err) {
                     allureReporter.addStep(`Failed to tap ${elementName}`, {
                         status: "failed",
@@ -49,6 +59,14 @@ class mobileHelper {
                             y: android.y
                         }
                     ]);
+                    const step = `Tap ${elementName}`;
+                    const expected = `${expectedResult}`;
+
+                    allureReporter.addStep(`Tap ${elementName}`, {
+                        status: "passed"
+                    });
+
+                    logger.log(step, expected);
                 } catch (err) {
                     allureReporter.addStep(`Failed to tap ${elementName}`, {
                         status: "failed",
