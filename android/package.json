@@ -14,7 +14,8 @@
         "appium": "^2.15.0",
         "appium-uiautomator2-driver": "^3.9.9",
         "wdio-wait-for": "^3.0.11",
-        "yargs": "^17.7.2"
+        "yargs": "^17.7.2",
+        "ios-deploy": "^1.12.2"
     },
     "scripts": {
         "wdio": "wdio run ./wdio.conf.js",

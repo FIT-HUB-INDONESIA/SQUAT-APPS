@@ -1,12 +1,10 @@
-import elementHelper from "../helpers/wdio_element.js";
+import elementHelper from "../../helpers/wdio_element.js";
+import expectHelper from "../../helpers/wdio_expect.js";
 
 /**
- * Page object class for the register page
+ * Base class containing common selectors
  */
-class Register {
-    /**
-     * Define selectors using getter methods
-     */
+class RegisterSelectors {
     get register_nama_field() {
         return browser.capabilities.platformName === "Android"
             ? $(
@@ -55,83 +53,96 @@ class Register {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Kirimkan Kode OTP"\`]`
               );
     }
+}
 
-    /**
-     * Method to encapsulate fill name field
-     * @param {string} user_name - The user's name
-     * @returns {Promise<void>}
-     */
-    async fill_name_field(user_name) {
-        await elementHelper.clickSilent(this.register_nama_field);
-        await elementHelper.addValue(
-            this.register_nama_field,
-            "register_nama_field",
-            user_name
-        );
-    }
-
-    /**
-     * Method to encapsulate fill phone number field
-     * @param {string} user_phone_number - The user's phone number
-     * @returns {Promise<void>}
-     */
-    async fill_phone_number_field(user_phone_number) {
-        await elementHelper.clickSilent(this.register_phone_number_field);
-        await elementHelper.addValue(
-            this.register_phone_number_field,
-            "register_phone_number_field",
-            user_phone_number
-        );
-    }
-
-    /**
-     * Method to encapsulate fill email field
-     * @param {string} user_email - The user's email
-     * @returns {Promise<void>}
-     */
-    async fill_email_field(user_email) {
-        await elementHelper.clickSilent(this.register_email_field);
-        await elementHelper.addValue(
-            this.register_email_field,
-            "register_email_field",
-            user_email
-        );
-    }
-
-    /**
-     * Method to encapsulate fill referral field
-     * @param {string} user_referral_code - The user's referral code
-     * @returns {Promise<void>}
-     */
-    async fill_referral_field(user_referral_code) {
-        await elementHelper.clickSilent(this.register_referral_field);
-        await elementHelper.addValue(
-            this.register_referral_field,
-            "register_referral_field",
-            user_referral_code
-        );
-    }
-
-    /**
-     * Method to encapsulate click tnc checkbox
-     * @returns {Promise<void>}
-     */
-    async click_tnc_checkbox() {
-        await elementHelper.click(
+/**
+ * Class containing validation methods
+ */
+class RegisterValidation extends RegisterSelectors {
+    async register_tnc_checkbox_enabled() {
+        return await expectHelper.toBeEnabled(
             this.register_tnc_checkbox,
             "register_tnc_checkbox"
         );
     }
-
-    /**
-     * Method to encapsulate click send otp button
-     * @returns {Promise<void>}
-     */
-    async click_send_otp_button() {
-        await elementHelper.click(
+    async register_kirimkan_kode_otp_button_disabled() {
+        return await expectHelper.toBeDisabled(
             this.register_kirimkan_kode_otp_button,
             "register_kirimkan_kode_otp_button"
         );
+    }
+    async register_kirimkan_kode_otp_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.register_kirimkan_kode_otp_button,
+            "register_kirimkan_kode_otp_button"
+        );
+    }
+    async register_kirimkan_kode_otp_button_wording() {
+        return await expectHelper.toHaveAttribute(
+            this.register_kirimkan_kode_otp_button,
+            "register_kirimkan_kode_otp_button",
+            "label",
+            "content-desc",
+            "Kirimkan Kode OTP"
+        );
+    }
+}
+
+/**
+ * Class containing action methods
+ */
+class RegisterAction extends RegisterValidation {
+    async fill_register_nama_field(user_name) {
+        await elementHelper.clickSilent(this.register_nama_field);
+        await elementHelper.addValue(
+            this.register_nama_field,
+            "register_nama_field",
+            user_name,
+            "Successfully fill nama field"
+        );
+    }
+    async fill_register_phone_number_field(user_phone_number) {
+        await elementHelper.clickSilent(this.register_phone_number_field);
+        await elementHelper.addValue(
+            this.register_phone_number_field,
+            "register_phone_number_field",
+            user_phone_number,
+            "Successfully fill phone number field"
+        );
+    }
+    async fill_register_email_field(user_email) {
+        await elementHelper.clickSilent(this.register_email_field);
+        await elementHelper.addValue(
+            this.register_email_field,
+            "register_email_field",
+            user_email,
+            "Successfully fill email field"
+        );
+    }
+    async click_register_tnc_checkbox() {
+        await elementHelper.click(
+            this.register_tnc_checkbox,
+            "register_tnc_checkbox",
+            "Successfully check tnc checkbox"
+        );
+    }
+    async click_register_kirimkan_kode_otp_button() {
+        await elementHelper.click(
+            this.register_kirimkan_kode_otp_button,
+            "register_kirimkan_kode_otp_button",
+            "Successfully redirected to otp form page"
+        );
+    }
+}
+
+/**
+ * Class containing use case methods.
+ * Use extends methods from action class and validation class only
+ */
+class Register extends RegisterAction {
+    async register_kirimkan_kode_otp_button_disabled_validation() {
+        await this.register_kirimkan_kode_otp_button_disabled();
+        await this.register_kirimkan_kode_otp_button_wording();
     }
 }
 

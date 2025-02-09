@@ -28,6 +28,279 @@ The primary goals of this repository are:
 3. Submit pull requests for review and approval before merging changes into the main branch.
 4. Ensure all tests pass before submitting any changes.
 
+## Getting Started with Page Object Model Testing
+
+### [Page Object Structure](#page-object-structure)
+
+The framework uses a 4-layer class structure for page objects:
+
+1. Selectors Class: Contains element locators
+2. Validation Class: Contains element validation methods
+3. Action Class: Contains element interaction methods
+4. Main Page Class: Contains use case methods combining actions and validations
+
+**Basic Page Object Template**
+
+```javascript
+import elementHelper from "../helpers/wdio_element.js";
+import expectHelper from "../helpers/wdio_expect.js";
+
+/**
+ * Base class containing common selectors
+ */
+class PageSelectors {
+    get elementName() {
+        return browser.capabilities.platformName === "Android"
+            ? $(`android=new UiSelector().description("Element")`)
+            : $(
+                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Element"\`]`
+              );
+    }
+}
+
+/**
+ * Class containing validation methods
+ */
+class PageValidation extends PageSelectors {
+    async validateElement() {
+        return await expectHelper.toBeEnabled(this.elementName, "elementName");
+    }
+}
+
+/**
+ * Class containing action methods
+ */
+class PageAction extends PageValidation {
+    async clickElement() {
+        await elementHelper.click(
+            this.elementName,
+            "elementName",
+            "Successfully clicked element"
+        );
+    }
+}
+
+/**
+ * Class containing use case methods
+ */
+class Page extends PageAction {
+    async completeUserFlow() {
+        await this.validateElement();
+        await this.clickElement();
+    }
+}
+
+export default new Page();
+```
+
+### [Creating Page Objects](#creating-page-objects)
+
+1. **Element Selectors**<br>
+   Define selectors with platform-specific locators:
+    ```javascript
+        get welcome_screen_buat_akun_button() {
+         return browser.capabilities.platformName === "Android"
+             ? $(`android=new UiSelector().description("Buat Akun")`)
+             : $(
+                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Buat Akun"\`]`
+               );
+     }
+     get welcome_screen_masuk_button() {
+         return browser.capabilities.platformName === "Android"
+             ? $(`android=new UiSelector().description("Masuk")`)
+             : $(
+                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Masuk"\`]`
+               );
+     }
+     get welcome_screen_lewati_button() {
+         return browser.capabilities.platformName === "Android"
+             ? $(`android=new UiSelector().description("Lewati")`)
+             : $(
+                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Lewati"\`]`
+               );
+     }
+    ```
+2. **Validation Methods**<br>
+   Create methods to validate element states:
+    ```javascript
+    class WelcomeScreenValidation extends WelcomeScreenSelectors {
+     async welcome_screen_buat_akun_button_enabled() {
+         return await expectHelper.toBeEnabled(
+             this.welcome_screen_buat_akun_button,
+             "welcome_screen_buat_akun_button"
+         );
+     }
+     async welcome_screen_buat_akun_button_wording() {
+         return await expectHelper.toHaveAttribute(
+             this.welcome_screen_buat_akun_button,
+             "welcome_screen_buat_akun_button",
+             "label",
+             "content-desc",
+             "Buat Akun"
+         );
+     }
+     async welcome_screen_masuk_button_enabled() {
+         return await expectHelper.toBeEnabled(
+             this.welcome_screen_masuk_button,
+             "welcome_screen_masuk_button"
+         );
+     }
+     async welcome_screen_masuk_button_wording() {
+         return await expectHelper.toHaveAttribute(
+             this.welcome_screen_masuk_button,
+             "welcome_screen_masuk_button",
+             "label",
+             "content-desc",
+             "Masuk"
+         );
+     }
+     async welcome_screen_lewati_button_enabled() {
+         return await expectHelper.toBeEnabled(
+             this.welcome_screen_lewati_button,
+             "welcome_screen_lewati_button"
+         );
+     }
+     async welcome_screen_lewati_button_wording() {
+         return await expectHelper.toHaveAttribute(
+             this.welcome_screen_lewati_button,
+             "welcome_screen_lewati_button",
+             "label",
+             "content-desc",
+             "Lewati"
+         );
+     }
+    ```
+3. **Action Methods**<br>
+   Implement methods for user interactions:
+    ```javascript
+     */
+    class WelcomeScreenAction extends WelcomeScreenValidation {
+     async click_welcome_screen_buat_akun_button() {
+         await elementHelper.click(
+             this.welcome_screen_buat_akun_button,
+             "welcome_screen_buat_akun_button",
+             "Successfully redirected to register form page"
+         );
+     }
+     async click_welcome_screen_masuk_button() {
+         await elementHelper.click(
+             this.welcome_screen_masuk_button,
+             "welcome_screen_masuk_button",
+             "Successfully redirected to login page"
+         );
+     }
+     async click_welcome_screen_lewati_button() {
+         await elementHelper.click(
+             this.welcome_screen_lewati_button,
+             "welcome_screen_lewati_button",
+             "Successfully redirected to home page"
+         );
+     }
+    }
+    ```
+4. **Use Case Methods**<br>
+   Combine validations and actions for complete flows:
+
+    ```javascript
+    class WelcomeScreen extends WelcomeScreenAction {
+        async welcome_screen_buat_akun_button_validation() {
+            await this.welcome_screen_buat_akun_button_enabled();
+            await this.welcome_screen_buat_akun_button_wording();
+        }
+        async welcome_screen_masuk_button_validation() {
+            await this.welcome_screen_masuk_button_enabled();
+            await this.welcome_screen_masuk_button_wording();
+        }
+        async welcome_screen_lewati_button_validation() {
+            await this.welcome_screen_lewati_button_enabled();
+            await this.welcome_screen_lewati_button_wording();
+        }
+    }
+    ```
+
+### [Writing Test Specs](#writing-test-specs)
+
+1. **Basic Test Structure**
+
+    ```javascript
+    import PageObject from "../pages/page_object.js";
+    import allureReporter from "@wdio/allure-reporter";
+
+    describe("Feature Name", () => {
+        it("Should perform specific action @tag1 @tag2", async () => {
+            allureReporter.addParentSuite("Suite Name");
+            allureReporter.addSeverity("critical");
+
+            // Test steps using page objects
+            await PageObject.validateElement();
+            await PageObject.performAction();
+        });
+    });
+    ```
+
+2. **Real Example**<br>
+   Here's a registration test example:
+
+    ```javascript
+    describe("Register", () => {
+    it("Should successfully register as a new member @register @regression @smoke", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addParentSuite("Smoke");
+        allureReporter.addSeverity("critical");
+
+        const user_name = faker.person.fullName();
+        const user_phone_number = generatePhoneNumber();
+        const user_email = dotenvConf.registerUserEmail;
+        const otp_number = dotenvConf.registerOtpNumber;
+        const pin_creation_and_confirmation_number =
+            dotenvConf.registerPinNumber;
+
+        await WelcomeScreen.welcome_screen_buat_akun_button_validation();
+        await WelcomeScreen.click_welcome_screen_buat_akun_button();
+        await Register.register_kirimkan_kode_otp_button_disabled_validation();
+        await Register.fill_register_nama_field(user_name);
+        await Register.fill_register_phone_number_field(user_phone_number);
+        await Register.fill_register_email_field(user_email);
+        await Register.click_register_tnc_checkbox();
+        await Register.click_register_kirimkan_kode_otp_button();
+        await Auth.otp_lanjutkan_button_validation();
+        await Auth.fill_otp_number_field(otp_number);
+        await Auth.fill_create_pin_on_click_number_field(
+            pin_creation_and_confirmation_number
+        );
+        await Auth.fill_confirmation_pin_on_click_number_field(
+            pin_creation_and_confirmation_number
+        );
+        await Profiling.profiling_lewati_dulu_button_validation();
+        await Profiling.click_profiling_lewati_dulu_button();
+        await Profiling.profiling_ya_lewati_button_validation();
+        await Profiling.click_profiling_ya_lewati_button();
+    });
+    ```
+
+### [Best Practices](#best-practices)
+
+1. Selector Naming:
+    - Use descriptive names: `welcome_screen_buat_akun_button`
+    - Include page/component name as prefix
+    - Include element type as suffix
+2. Method Naming:
+    - Actions: Use verb prefixes (click\_, fill\_, select\_)
+    - Validations: Use descriptive state checks (enabled, \_disabled, \_visible)
+3. Cross-Platform Support:
+    - Always include both Android and iOS selectors
+    - Use platform check: `browser.capabilities.platformName === "Android"`
+4. Documentation:
+    - Add JSDoc comments for classes and methods
+    - Include expected results in action methods
+    - Document any complex logic or workflows
+5. Test Organization:
+    - Group related tests using `describe` blocks
+    - Use tags for test categorization (@regression, @smoke)
+    - Include severity levels for test cases
+
+This structure helps maintain clean, reusable, and maintainable test code while following the Page Object Model pattern.
+
 ## Reporting Issues
 
 If you encounter any issues or bugs, please submit them via the Issues tab on this repository with a detailed description and steps to reproduce the problem.
@@ -42,6 +315,11 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
   - [Goals](#goals)
   - [Key Technologies](#key-technologies)
   - [Contribution Guidelines](#contribution-guidelines)
+  - [Getting Started with Page Object Model Testing](#getting-started-with-page-object-model-testing)
+    - [Page Object Structure](#page-object-structure)
+    - [Creating Page Objects](#creating-page-objects)
+    - [Writing Test Specs](#writing-test-specs)
+    - [Best Practices](#best-practices)
   - [Reporting Issues](#reporting-issues)
   - [Table of Contents](#table-of-contents)
   - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)

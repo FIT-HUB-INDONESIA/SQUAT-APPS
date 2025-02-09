@@ -1,4 +1,7 @@
+import Logger from "./qmetry_logger.js";
 import allureReporter from "@wdio/allure-reporter";
+
+const logger = new Logger();
 
 /**
  * Singleton helper class for common WebdriverIO element interactions
@@ -29,9 +32,10 @@ class elementHelper {
      * Clicks an element with proper wait
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
      * @param {string} elementName - The name of the element to interact with
+     * @param {string} expectedResult - The expected result of the action
      * @returns {Promise<void>}
      */
-    async click(element, elementName) {
+    async click(element, elementName, expectedResult) {
         const errors = [];
 
         await this.waitForInteractable(element);
@@ -40,9 +44,14 @@ class elementHelper {
 
         try {
             await element.click();
+            const step = `Click ${elementName}`;
+            const expected = `${expectedResult}`;
+
             allureReporter.addStep(`Click ${elementName}`, {
                 status: "passed"
             });
+
+            logger.log(step, expected);
         } catch (err) {
             allureReporter.addStep(`Failed to click ${elementName}`, {
                 status: "failed",
@@ -80,9 +89,10 @@ class elementHelper {
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
      * @param {string} elementName - The name of the element to interact with
      * @param {string} value - The value to set
+     * @param {string} expectedResult - The expected result of the action
      * @returns {Promise<void>}
      */
-    async addValue(element, elementName, value) {
+    async addValue(element, elementName, value, expectedResult) {
         const errors = [];
 
         await this.waitForInteractable(element);
@@ -91,9 +101,15 @@ class elementHelper {
 
         try {
             await element.addValue(value);
+
+            const step = `Fill ${elementName} "${value}"`;
+            const expected = `${expectedResult}`;
+
             allureReporter.addStep(`Fill ${elementName}: ${value}`, {
                 status: "passed"
             });
+
+            logger.log(step, expected);
         } catch (err) {
             allureReporter.addStep(`Failed to fill ${elementName}`, {
                 status: "failed",

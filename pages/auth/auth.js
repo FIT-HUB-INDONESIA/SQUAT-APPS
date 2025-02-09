@@ -1,12 +1,10 @@
-import elementHelper from "../helpers/wdio_element.js";
+import elementHelper from "../../helpers/wdio_element.js";
+import expectHelper from "../../helpers/wdio_expect.js";
 
 /**
- * Page object class for the authentication page
+ * Base class containing common selectors
  */
-class Auth {
-    /**
-     * Define selectors using getter methods
-     */
+class AuthSelectors {
     get otp_number_field() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().className("android.widget.EditText")`)
@@ -35,47 +33,74 @@ class Auth {
                   `-ios class chain:**/XCUIElementTypeWindow[1]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[2]/XCUIElementTypeSecureTextField`
               );
     }
+}
 
-    /**
-     * Method to encapsulate fill otp number field
-     * @param {string} otp_number - The otp number
-     * @returns {Promise<void>}
-     */
+/**
+ * Class containing validation methods
+ */
+class AuthValidation extends AuthSelectors {
+    async otp_lanjutkan_button_disabled() {
+        return await expectHelper.toBeDisabled(
+            this.otp_lanjutkan_button,
+            "otp_lanjutkan_button"
+        );
+    }
+    async otp_lanjutkan_button_wording() {
+        return await expectHelper.toHaveAttribute(
+            this.otp_lanjutkan_button,
+            "otp_lanjutkan_button",
+            "label",
+            "content-desc",
+            "Lanjutkan"
+        );
+    }
+}
+
+/**
+ * Class containing action methods
+ */
+class AuthAction extends AuthValidation {
     async fill_otp_number_field(otp_number) {
         await elementHelper.clickSilent(this.otp_number_field);
         await elementHelper.addValue(
             this.otp_number_field,
             "otp_number_field",
-            otp_number
+            otp_number,
+            "Successfully fill otp field"
         );
     }
-
-    /**
-     * Method to encapsulate fill pin creation number field
-     * @param {string} pin_creation_number - The pin creation number
-     * @returns {Promise<void>}
-     */
-    async fill_pin_creation_number_field(pin_creation_number) {
+    async fill_create_pin_on_click_number_field(
+        pin_creation_and_confirmation_number
+    ) {
+        // await elementHelper.clickSilent(this.pin_off_click_number_field);
+        await elementHelper.addValue(
+            this.pin_on_click_number_field,
+            "pin_on_click_number_field",
+            pin_creation_and_confirmation_number,
+            "Successfully fill pin creation form field"
+        );
+    }
+    async fill_confirmation_pin_on_click_number_field(
+        pin_creation_and_confirmation_number
+    ) {
         await elementHelper.clickSilent(this.pin_off_click_number_field);
         await elementHelper.addValue(
             this.pin_on_click_number_field,
             "pin_on_click_number_field",
-            pin_creation_number
+            pin_creation_and_confirmation_number,
+            "Successfully create pin & redirected to profiling form page"
         );
     }
+}
 
-    /**
-     * Method to encapsulate fill pin confirmation number field
-     * @param {string} pin_confirmation_number - The pin confirmation number
-     * @returns {Promise<void>}
-     */
-    async fill_pin_confirmation_number_field(pin_confirmation_number) {
-        await elementHelper.clickSilent(this.pin_off_click_number_field);
-        await elementHelper.addValue(
-            this.pin_on_click_number_field,
-            "pin_on_click_number_field",
-            pin_confirmation_number
-        );
+/**
+ * Class containing use case methods.
+ * Use extends methods from action class and validation class only
+ */
+class Auth extends AuthAction {
+    async otp_lanjutkan_button_validation() {
+        await this.otp_lanjutkan_button_disabled();
+        await this.otp_lanjutkan_button_wording();
     }
 }
 

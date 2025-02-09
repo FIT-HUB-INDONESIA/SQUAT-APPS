@@ -1,7 +1,13 @@
+import DeviceInfo from "../handlers/device_info.js";
+import Logger from "../helpers/qmetry_logger.js";
+import fs from "fs";
+import stripAnsi from "strip-ansi";
 import video from "wdio-video-reporter";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { dotenvConf } from "../config/dotenv.js";
+
+let logger;
 
 const argv = yargs(hideBin(process.argv)).argv;
 const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
@@ -63,9 +69,8 @@ export const config = {
             // capabilities for local Appium web tests on iOS
             platformName: "iOS",
             "appium:deviceName": "iPhone Real Device",
-            "appium:udid": dotenvConf.iosUdid,
             "appium:automationName": "XCUITest",
-            "appium:noReset": true,
+            "appium:noReset": false,
             "appium:bundleId": dotenvConf.wdioAppId
             // "appium:protocol": "http",
             // "appium:hostname": "localhost",
@@ -176,7 +181,14 @@ export const config = {
                 outputDir: "../allure-results",
                 disableWebdriverStepsReporting: true,
                 disableWebdriverScreenshotsReporting: true,
-                addConsoleLogs: true
+                addConsoleLogs: true,
+                reportedEnvironmentVars: {
+                    env: dotenvConf.environment,
+                    ios_app_version: "",
+                    ios_code_version: "",
+                    android_app_version: "",
+                    android_code_version: ""
+                }
             }
         ]
     ],
@@ -232,8 +244,45 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that are to be run
      * @param {string} cid worker id (e.g. 0-0)
      */
-    // beforeSession: function (config, capabilities, specs, cid) {
-    // },
+    beforeSession: async function (config, capabilities, specs, cid) {
+        try {
+            const [iosUDID, iosAppVersion, androidAppVersion] =
+                await Promise.all([
+                    DeviceInfo.getIosUDID(),
+                    DeviceInfo.getIosAppVersion(),
+                    DeviceInfo.getAndroidAppVersion()
+                ]);
+
+            capabilities["appium:udid"] = iosUDID;
+
+            const allureReporter = config.reporters.find(
+                ([name]) => name === "allure"
+            );
+            if (allureReporter) {
+                const {
+                    iosAppVersion: {
+                        versionName: iosVersionName,
+                        versionCode: iosVersionCode
+                    },
+                    androidAppVersion: {
+                        versionName: androidVersionName,
+                        versionCode: androidVersionCode
+                    }
+                } = { iosAppVersion, androidAppVersion };
+
+                Object.assign(allureReporter[1].reportedEnvironmentVars, {
+                    ios_app_version: iosVersionName,
+                    ios_code_version: iosVersionCode,
+                    android_app_version: androidVersionName,
+                    android_code_version: androidVersionCode
+                });
+            }
+        } catch (error) {
+            console.error("Error - beforeSession:", error);
+            throw error;
+        }
+    },
+
     /**
      * Gets executed before test execution begins. At this point you can access to all global
      * variables like `browser`. It is the perfect place to define custom commands.
@@ -259,8 +308,37 @@ export const config = {
     /**
      * Function to be executed before a test (in Mocha/Jasmine) starts.
      */
-    // beforeTest: function (test, context) {
-    // },
+    beforeTest: function (test, context) {
+        const testCaseIDMapping = JSON.parse(
+            fs.readFileSync("../data/tc_qmetry_id.json", "utf8")
+        );
+
+        if (!test || !test.title) {
+            console.warn("No test title found in beforeTest");
+            return;
+        }
+
+        const testTitle = test.title;
+
+        test.ctx.annotations = test.ctx.annotations || [];
+
+        const testCaseID =
+            testCaseIDMapping[testTitle] || "Unknown Test Case ID";
+
+        test.ctx.annotations.push({
+            description: testCaseID,
+            type: "Issue Key"
+        });
+
+        process.env.TEST_CASE_TITLE = testTitle;
+        process.env.TEST_CASE_ID = testCaseID;
+
+        console.log("Test:", process.env.TEST_CASE_TITLE);
+        console.log("Test ID:", process.env.TEST_CASE_ID, "\n");
+
+        logger = new Logger();
+        logger.log("Starting automation testing on iOS", testTitle);
+    },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
      * beforeEach in Mocha)
@@ -283,15 +361,27 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: async function (
-    //     test,
-    //     context,
-    //     { error, result, duration, passed, retries }
-    // ) {
-    //     if (!passed) {
-    //         await browser.takeScreenshot();
-    //     }
-    // }
+    afterTest: async function (
+        test,
+        context,
+        { error, result, duration, passed, retries }
+    ) {
+        const used = process.memoryUsage();
+
+        console.log(
+            stripAnsi(
+                `\nMemory usage: { ` +
+                    `RSS: ${Math.round(used.rss / 1024 / 1024)} MB, ` +
+                    `Heap Total: ${Math.round(used.heapTotal / 1024 / 1024)} MB, ` +
+                    `Heap Used: ${Math.round(used.heapUsed / 1024 / 1024)} MB }`
+            )
+        );
+
+        console.log(`\nDuration: ${duration}ms\nPassed: ${passed}\n`);
+        if (error) {
+            console.log(`Test failed: Please refer to trace and video`);
+        }
+    },
 
     /**
      * Hook that gets executed after the suite has ended
@@ -316,10 +406,13 @@ export const config = {
      * @param {Array.<String>} specs List of spec file paths that ran
      */
     after: async function (result, capabilities, specs) {
+        logger = new Logger();
+
         try {
+            await logger.saveLogs();
             await browser.takeScreenshot();
         } catch (error) {
-            console.error("Error capturing screenshot:", error);
+            console.error("Error capturing screenshot -", error);
         }
         if (result === 0) {
             console.log(

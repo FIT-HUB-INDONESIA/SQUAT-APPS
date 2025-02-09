@@ -1,0 +1,53 @@
+{
+    // Place your SQUAT-APPS workspace snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+    // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+    // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+    // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+    // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+    // Placeholders with the same ids are connected.
+    // Example:
+    // "Print to console": {
+    // 	"scope": "javascript,typescript",
+    // 	"prefix": "log",
+    // 	"body": [
+    // 		"console.log('$1');",
+    // 		"$2"
+    // 	],
+    // 	"description": "Log output to console"
+    // }
+    // https://snippet-generator.app/
+
+    "Creates a class structure for a page file in Page Object Model (POM).": {
+        "prefix": "pageClass",
+        "body": [
+            "import elementHelper from \"../helpers/wdio_element.js\";",
+            "import expectHelper from \"../helpers/wdio_expect.js\";",
+            "import mobileHelper from \"../helpers/wdio_mobile.js\";",
+            "",
+            "/**",
+            " * Base class containing common selectors",
+            " */",
+            "class PageNameSelectors {}",
+            "",
+            "/**",
+            " * Class containing validation methods",
+            " */",
+            "class PageNameValidation extends PageNameSelectors {}",
+            "",
+            "/**",
+            " * Class containing action methods",
+            " */",
+            "class PageNameAction extends PageNameValidation {}",
+            "",
+            "/**",
+            " * Class containing use case methods.",
+            " * Use extends methods from action class and validation class only",
+            " */",
+            "class PageName extends PageNameAction {}",
+            "",
+            "export default new PageName();",
+            ""
+        ],
+        "description": "Creates a class structure for a page file in Page Object Model (POM)."
+    }
+}
