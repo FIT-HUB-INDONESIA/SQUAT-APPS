@@ -18,6 +18,7 @@ class expectHelper {
         let status = "passed";
 
         try {
+            await element.waitForExist();
             await expect(element).toBeEnabled();
             allureReporter.addStep(
                 `Validation passed: ${elementName} is enabled`,
@@ -57,6 +58,7 @@ class expectHelper {
         let status = "passed";
 
         try {
+            await element.waitForExist();
             await expect(element).toBeDisabled();
             allureReporter.addStep(
                 `Validation passed: ${elementName} is disabled`,
@@ -111,6 +113,7 @@ class expectHelper {
             attribute =
                 platformName === "Android" ? attributeAndroid : attributeIos;
 
+            await element.waitForExist();
             await expect(element).toHaveAttribute(attribute, expectedValue);
 
             allureReporter.addStep(

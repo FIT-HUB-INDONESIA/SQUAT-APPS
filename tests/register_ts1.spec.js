@@ -1,7 +1,7 @@
-import Auth from "../pages/auth.js";
-import Profiling from "../pages/profiling.js";
-import Register from "../pages/register.js";
-import WelcomeScreen from "../pages/welcome_screen.js";
+import Auth from "../pages/auth/auth.js";
+import Profiling from "../pages/onboarding/profiling.js";
+import Register from "../pages/auth/register.js";
+import WelcomeScreen from "../pages/auth/welcome_screen.js";
 import allureReporter from "@wdio/allure-reporter";
 import { dotenvConf } from "../config/dotenv.js";
 import { faker } from "@faker-js/faker";

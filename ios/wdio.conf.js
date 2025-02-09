@@ -1,6 +1,7 @@
 import DeviceInfo from "../handlers/device_info.js";
 import Logger from "../helpers/qmetry_logger.js";
 import fs from "fs";
+import stripAnsi from "strip-ansi";
 import video from "wdio-video-reporter";
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
@@ -332,8 +333,8 @@ export const config = {
         process.env.TEST_CASE_TITLE = testTitle;
         process.env.TEST_CASE_ID = testCaseID;
 
-        console.log("TEST CASE TITLE: ", process.env.TEST_CASE_TITLE);
-        console.log("TEST CASE ID: ", process.env.TEST_CASE_ID);
+        console.log("Test:", process.env.TEST_CASE_TITLE);
+        console.log("Test ID:", process.env.TEST_CASE_ID, "\n");
 
         logger = new Logger();
         logger.log("Starting automation testing on iOS", testTitle);
@@ -360,15 +361,27 @@ export const config = {
      * @param {boolean} result.passed    true if test has passed, otherwise false
      * @param {object}  result.retries   information about spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    // afterTest: async function (
-    //     test,
-    //     context,
-    //     { error, result, duration, passed, retries }
-    // ) {
-    //     if (!passed) {
-    //         await browser.takeScreenshot();
-    //     }
-    // }
+    afterTest: async function (
+        test,
+        context,
+        { error, result, duration, passed, retries }
+    ) {
+        const used = process.memoryUsage();
+
+        console.log(
+            stripAnsi(
+                `\nMemory usage: { ` +
+                    `RSS: ${Math.round(used.rss / 1024 / 1024)} MB, ` +
+                    `Heap Total: ${Math.round(used.heapTotal / 1024 / 1024)} MB, ` +
+                    `Heap Used: ${Math.round(used.heapUsed / 1024 / 1024)} MB }`
+            )
+        );
+
+        console.log(`\nDuration: ${duration}ms\nPassed: ${passed}\n`);
+        if (error) {
+            console.log(`Test failed: Please refer to trace and video`);
+        }
+    },
 
     /**
      * Hook that gets executed after the suite has ended
@@ -399,7 +412,7 @@ export const config = {
             await logger.saveLogs();
             await browser.takeScreenshot();
         } catch (error) {
-            console.error("Error capturing screenshot:", error);
+            console.error("Error capturing screenshot -", error);
         }
         if (result === 0) {
             console.log(

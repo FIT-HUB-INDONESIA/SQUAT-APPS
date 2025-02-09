@@ -85,8 +85,6 @@ class Logger {
         });
 
         fs.appendFileSync(this.logFile, csvOutput, "utf8");
-
-        console.log("[Qmetry] Done Upsert Qmetry");
     }
 
     groupAndSortLogs() {
