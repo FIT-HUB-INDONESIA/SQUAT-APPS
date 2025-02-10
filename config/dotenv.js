@@ -31,9 +31,16 @@ export const dotenvConf = {
     iosUdid: process.env.IOS_UDID,
 
     /**
-     * Register: Test Data
+     * API Capabilities
      */
-    registerUserEmail: process.env.REGISTER_USER_EMAIL,
-    registerOtpNumber: process.env.REGISTER_OTP_NUMBER,
-    registerPinNumber: process.env.REGISTER_PIN_NUMBER
+    hostnameFhap: process.env[`HOSTNAME_FHAP_${env}`],
+    deviceIdIos: process.env.DEVICE_ID_IOS,
+    deviceIdAndroid: process.env.DEVICE_ID_ANDROID,
+
+    /**
+     * Global: Test Data
+     */
+    userEmail: process.env.USER_EMAIL,
+    otpNumber: process.env.OTP_NUMBER,
+    pinNumber: process.env.PIN_NUMBER
 };

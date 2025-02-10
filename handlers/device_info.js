@@ -28,8 +28,10 @@ class DeviceInfo {
             }
 
             return deviceList[0];
-        } catch (error) {
-            console.error("Fetching Android device UDID failed -", error);
+        } catch {
+            console.error(
+                "Fetching Android device UDID failed - No Android device connected"
+            );
 
             return "Not connected";
         }
@@ -50,8 +52,10 @@ class DeviceInfo {
             }
 
             return deviceMatch[1];
-        } catch (error) {
-            console.error("Fetching iOS device UDID failed -", error);
+        } catch {
+            console.error(
+                "Fetching iOS device UDID failed - No iOS device connected"
+            );
 
             return "Not connected";
         }
@@ -80,8 +84,10 @@ class DeviceInfo {
                 versionName: versionNameMatch ? versionNameMatch[1] : "Unknown",
                 versionCode: versionCodeMatch ? versionCodeMatch[1] : "Unknown"
             };
-        } catch (error) {
-            console.error("Fetching Android app version failed -", error);
+        } catch {
+            console.error(
+                "Fetching Android app version failed - No Android device connected\n"
+            );
 
             return {
                 versionName: "Not connected",
@@ -120,8 +126,10 @@ class DeviceInfo {
                 versionName: appInfo.CFBundleShortVersionString || "Unknown",
                 versionCode: appInfo.CFBundleVersion || "Unknown"
             };
-        } catch (error) {
-            console.error("Fetching iOS app version failed -", error);
+        } catch {
+            console.error(
+                "Fetching iOS app version failed - No iOS device connected\n"
+            );
 
             return {
                 versionName: "Not connected",

@@ -69,25 +69,21 @@ class AuthAction extends AuthValidation {
             "Successfully fill otp field"
         );
     }
-    async fill_create_pin_on_click_number_field(
-        pin_creation_and_confirmation_number
-    ) {
+    async fill_create_pin_on_click_number_field(pin_creation_number) {
         // await elementHelper.clickSilent(this.pin_off_click_number_field);
         await elementHelper.addValue(
             this.pin_on_click_number_field,
             "pin_on_click_number_field",
-            pin_creation_and_confirmation_number,
+            pin_creation_number,
             "Successfully fill pin creation form field"
         );
     }
-    async fill_confirmation_pin_on_click_number_field(
-        pin_creation_and_confirmation_number
-    ) {
+    async fill_confirmation_pin_on_click_number_field(pin_confirmation_number) {
         await elementHelper.clickSilent(this.pin_off_click_number_field);
         await elementHelper.addValue(
             this.pin_on_click_number_field,
             "pin_on_click_number_field",
-            pin_creation_and_confirmation_number,
+            pin_confirmation_number,
             "Successfully create pin & redirected to profiling form page"
         );
     }

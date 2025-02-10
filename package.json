@@ -29,6 +29,7 @@
         "prettier": "^3.4.2"
     },
     "dependencies": {
-        "dotenv": "^16.4.7"
+        "dotenv": "^16.4.7",
+        "axios": "^1.7.7"
     }
 }
