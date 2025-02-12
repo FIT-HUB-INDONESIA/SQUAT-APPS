@@ -1,9 +1,9 @@
-import Auth from "../pages/auth/auth.js";
+import Auth from "../pages/page_welcome_screen/feat_auth/auth.js";
 import Cleanup from "../handlers/sessions_cleanup.js";
 import FhapApi from "../utils/api/fhap.js";
-import Profiling from "../pages/onboarding/profiling.js";
-import Register from "../pages/auth/register.js";
-import WelcomeScreen from "../pages/auth/welcome_screen.js";
+import Profiling from "../pages/page_welcome_screen/feat_profiling/profiling.js";
+import Register from "../pages/page_welcome_screen/feat_register/register.js";
+import WelcomeScreen from "../pages/page_welcome_screen/welcome_screen.js";
 import allureReporter from "@wdio/allure-reporter";
 import { dotenvConf } from "../config/dotenv.js";
 import { faker } from "@faker-js/faker";
@@ -41,10 +41,9 @@ describe("Register", () => {
         await Register.fill_register_email_field(user_email);
         await Register.click_register_tnc_checkbox();
         await Register.click_register_kirimkan_kode_otp_button();
-        await Auth.otp_lanjutkan_button_validation();
-        await Auth.fill_otp_number_field(otp_number);
-        await Auth.fill_create_pin_on_click_number_field(pin_creation_number);
-        await Auth.fill_confirmation_pin_on_click_number_field(
+        await Auth.fill_auth_otp_number_field(otp_number);
+        await Auth.fill_auth_pin_on_click_number_field(pin_creation_number);
+        await Auth.fill_auth_pin_off_click_number_field(
             pin_confirmation_number
         );
         await Profiling.profiling_lewati_dulu_button_validation();

@@ -1,44 +1,16 @@
-import elementHelper from "../../helpers/wdio_element.js";
-import expectHelper from "../../helpers/wdio_expect.js";
-import mobileHelper from "../../helpers/wdio_mobile.js";
+import elementHelper from "../../../helpers/wdio_element.js";
+import expectHelper from "../../../helpers/wdio_expect.js";
+import mobileHelper from "../../../helpers/wdio_mobile.js";
 
 /**
  * Base class containing common selectors
  */
 class ProfilingSelectors {
-    get profiling_mulai_button() {
-        return browser.capabilities.platformName === "Android"
-            ? $(`android=new UiSelector().description("Mulai")`)
-            : $(
-                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Mulai"\`]`
-              );
-    }
     get profiling_lewati_dulu_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Lewati Dulu")`)
             : $(
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Lewati Dulu"\`]`
-              );
-    }
-    get profiling_laki_laki_button() {
-        return browser.capabilities.platformName === "Android"
-            ? $(`android=new UiSelector().description("Laki-laki")`)
-            : $(
-                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Laki-laki"\`]`
-              );
-    }
-    get profiling_perempuan_button() {
-        return browser.capabilities.platformName === "Android"
-            ? $(`android=new UiSelector().description("Perempuan")`)
-            : $(
-                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Perempuan"\`]`
-              );
-    }
-    get profiling_kembali_button() {
-        return browser.capabilities.platformName === "Android"
-            ? $(`android=new UiSelector().description("Kembali")`)
-            : $(
-                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Kembali"\`]`
               );
     }
     get profiling_ya_lewati_button() {
