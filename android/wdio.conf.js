@@ -70,7 +70,7 @@ export const config = {
             platformName: "Android",
             "appium:deviceName": "Android Real Device",
             "appium:automationName": "UiAutomator2",
-            "appium:noReset": false,
+            "appium:noReset": true,
             "appium:appPackage": dotenvConf.wdioAppId,
             "appium:appActivity": "com.thehub.apps.MainActivity",
             "appium:autoGrantPermissions": true
@@ -335,7 +335,7 @@ export const config = {
         process.env.TEST_CASE_TITLE = testTitle;
         process.env.TEST_CASE_ID = testCaseID;
 
-        console.log("Test:", process.env.TEST_CASE_TITLE);
+        console.log("\nTest:", process.env.TEST_CASE_TITLE);
         console.log("Test ID:", process.env.TEST_CASE_ID, "\n");
 
         logger = new Logger();
@@ -418,11 +418,11 @@ export const config = {
         }
         if (result === 0) {
             console.log(
-                "Test completed - screenshot captured. Result: PASSED\n"
+                "\nTest completed - screenshot captured. Result: PASSED\n"
             );
         } else {
             console.log(
-                "Test completed - screenshot captured. Result: FAILED\n"
+                "\nTest completed - screenshot captured. Result: FAILED\n"
             );
         }
     }

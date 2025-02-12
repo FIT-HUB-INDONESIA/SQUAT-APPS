@@ -312,22 +312,22 @@ If you encounter any issues or bugs, please submit them via the Issues tab on th
 ## Table of Contents
 
 - [SQUAT-APPS](#squat-apps)
-  - [Goals](#goals)
-  - [Key Technologies](#key-technologies)
-  - [Contribution Guidelines](#contribution-guidelines)
-  - [Getting Started with Page Object Model Testing](#getting-started-with-page-object-model-testing)
-    - [Page Object Structure](#page-object-structure)
-    - [Creating Page Objects](#creating-page-objects)
-    - [Writing Test Specs](#writing-test-specs)
-    - [Best Practices](#best-practices)
-  - [Reporting Issues](#reporting-issues)
-  - [Table of Contents](#table-of-contents)
-  - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
-  - [Guide to Cloning a Git Repository Using SSH](#guide-to-cloning-a-git-repository-using-ssh)
-  - [Configure ESLint and Prettier Formatter](#configure-eslint-and-prettier-formatter)
-  - [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
-  - [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
-  - [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices-future-development)
+    - [Goals](#goals)
+    - [Key Technologies](#key-technologies)
+    - [Contribution Guidelines](#contribution-guidelines)
+    - [Getting Started with Page Object Model Testing](#getting-started-with-page-object-model-testing)
+        - [Page Object Structure](#page-object-structure)
+        - [Creating Page Objects](#creating-page-objects)
+        - [Writing Test Specs](#writing-test-specs)
+        - [Best Practices](#best-practices)
+    - [Reporting Issues](#reporting-issues)
+    - [Table of Contents](#table-of-contents) 📍
+    - [Setting Up an SSH Key with SHA-256](#setting-up-an-ssh-key-with-sha-256)
+    - [Guide to Cloning a Git Repository Using SSH](#guide-to-cloning-a-git-repository-using-ssh)
+    - [Configure ESLint and Prettier Formatter](#configure-eslint-and-prettier-formatter)
+    - [PR Conventions: Crafting Descriptive Titles and Commit Messages](#pr-conventions-crafting-descriptive-titles-and-commit-messages)
+    - [Step-by-Step Guide to Appium Testing on Real iOS Devices](#step-by-step-guide-to-appium-testing-on-real-ios-devices)
+    - [Step-by-Step Guide to Appium Testing on Real Android Devices (future development)](#step-by-step-guide-to-appium-testing-on-real-android-devices-future-development)
 
 ## Setting Up an SSH Key with SHA-256
 
@@ -618,3 +618,10 @@ Run `Appium` server, open `Appium Inspector` and configure `Desired Capabilities
 ## Step-by-Step Guide to Appium Testing on Real Android Devices (future development)
 
 (coming soon)
+
+## Appendix
+
+1. [WebdriverIO Documentation](https://webdriver.io/docs/gettingstarted)
+2. [Appium Documentation](http://appium.io/docs/en/2.15/)
+3. [Appium XCUITest Driver](https://appium.github.io/appium-xcuitest-driver/8.3/)
+4. [Appium UiAutomator2 Driver](https://github.com/appium/appium-uiautomator2-driver/tree/master)

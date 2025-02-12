@@ -1,5 +1,5 @@
-import elementHelper from "../../helpers/wdio_element.js";
-import expectHelper from "../../helpers/wdio_expect.js";
+import elementHelper from "../../../helpers/wdio_element.js";
+import expectHelper from "../../../helpers/wdio_expect.js";
 
 /**
  * Base class containing common selectors
@@ -32,15 +32,6 @@ class RegisterSelectors {
                   `-ios class chain:**/XCUIElementTypeTextField[\`name == "yourname@mail.com"\`]`
               );
     }
-    get register_referral_field() {
-        return browser.capabilities.platformName === "Android"
-            ? $(
-                  `android=new UiSelector().className("android.widget.EditText").instance(3)`
-              )
-            : $(
-                  `-ios class chain:**/XCUIElementTypeTextField[\`name == "Masukkan kode referral dari teman"\`]`
-              );
-    }
     get register_tnc_checkbox() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().className("android.widget.CheckBox")`)
@@ -59,12 +50,6 @@ class RegisterSelectors {
  * Class containing validation methods
  */
 class RegisterValidation extends RegisterSelectors {
-    async register_tnc_checkbox_enabled() {
-        return await expectHelper.toBeEnabled(
-            this.register_tnc_checkbox,
-            "register_tnc_checkbox"
-        );
-    }
     async register_kirimkan_kode_otp_button_disabled() {
         return await expectHelper.toBeDisabled(
             this.register_kirimkan_kode_otp_button,
@@ -142,6 +127,10 @@ class RegisterAction extends RegisterValidation {
 class Register extends RegisterAction {
     async register_kirimkan_kode_otp_button_disabled_validation() {
         await this.register_kirimkan_kode_otp_button_disabled();
+        await this.register_kirimkan_kode_otp_button_wording();
+    }
+    async register_kirimkan_kode_otp_button_enabled_validation() {
+        await this.register_kirimkan_kode_otp_button_enabled();
         await this.register_kirimkan_kode_otp_button_wording();
     }
 }
