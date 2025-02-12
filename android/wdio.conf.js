@@ -70,7 +70,7 @@ export const config = {
             platformName: "Android",
             "appium:deviceName": "Android Real Device",
             "appium:automationName": "UiAutomator2",
-            "appium:noReset": false,
+            "appium:noReset": true,
             "appium:appPackage": dotenvConf.wdioAppId,
             "appium:appActivity": "com.thehub.apps.MainActivity",
             "appium:autoGrantPermissions": true

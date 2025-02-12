@@ -70,7 +70,7 @@ export const config = {
             platformName: "iOS",
             "appium:deviceName": "iPhone Real Device",
             "appium:automationName": "XCUITest",
-            "appium:noReset": false,
+            "appium:noReset": true,
             "appium:bundleId": dotenvConf.wdioAppId
             // "appium:protocol": "http",
             // "appium:hostname": "localhost",

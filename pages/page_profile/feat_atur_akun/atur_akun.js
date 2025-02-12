@@ -8,12 +8,16 @@ class AturAkunSelectors {
     get atur_akun_keluar_akun_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Keluar akun")`)
-            : $(`-ios class chain:`);
+            : $(
+                  `-ios class chain:**/XCUIElementTypeStaticText[\`name == "Keluar akun"\`]`
+              );
     }
     get atur_akun_keluar_akun_confirm_button() {
         return browser.capabilities.platformName === "Android"
             ? $(`android=new UiSelector().description("Keluar")`)
-            : $(`-ios class chain:`);
+            : $(
+                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Keluar"\`]`
+              );
     }
 }
 

@@ -87,6 +87,67 @@ class mobileHelper {
             throw new Error(errors.join(", "));
         }
     }
+
+    /**
+     * Performs a drag gesture on a mobile element.
+     * Supports iOS (`mobile: dragFromToForDuration`) and Android (`mobile: dragGesture`).
+     * @param {Object} coordinates - The start and end coordinates for the drag action.
+     * @param {Object} coordinates.ios - The iOS-specific coordinates.
+     * @param {number} coordinates.ios.startX - The starting X coordinate for iOS.
+     * @param {number} coordinates.ios.startY - The starting Y coordinate for iOS.
+     * @param {number} coordinates.ios.endX - The ending X coordinate for iOS.
+     * @param {number} coordinates.ios.endY - The ending Y coordinate for iOS.
+     * @param {Object} coordinates.android - The Android-specific coordinates.
+     * @param {number} coordinates.android.startX - The starting X coordinate for Android.
+     * @param {number} coordinates.android.startY - The starting Y coordinate for Android.
+     * @param {number} coordinates.android.endX - The ending X coordinate for Android.
+     * @param {number} coordinates.android.endY - The ending Y coordinate for Android.
+     */
+    async dragSilent(coordinates) {
+        const errors = [];
+        const { ios, android } = coordinates;
+
+        try {
+            if (browser.capabilities.platformName === "iOS") {
+                try {
+                    await driver.executeScript(
+                        "mobile: dragFromToForDuration",
+                        [
+                            {
+                                duration: 1.0,
+                                fromX: ios.startX,
+                                fromY: ios.startY,
+                                toX: ios.endX,
+                                toY: ios.endY
+                            }
+                        ]
+                    );
+                } catch (err) {
+                    errors.push(`iOS drag gesture failed: ${err.message}`);
+                }
+            } else {
+                try {
+                    await driver.executeScript("mobile: dragGesture", [
+                        {
+                            speed: 2500,
+                            startX: android.startX,
+                            startY: android.startY,
+                            endX: android.endX,
+                            endY: android.endY
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`Android drag gesture failed: ${err.message}`);
+                }
+            }
+        } catch (err) {
+            errors.push(`Drag action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
 }
 
 export default new mobileHelper();

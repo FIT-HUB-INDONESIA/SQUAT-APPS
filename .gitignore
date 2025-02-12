@@ -5,3 +5,4 @@ node_modules
 allure-results
 .DS_Store
 logs
+allure-outputs
