@@ -1,4 +1,5 @@
 import { browser, driver } from "@wdio/globals";
+import { Key } from "webdriverio";
 import Logger from "./qmetry_logger.js";
 import allureReporter from "@wdio/allure-reporter";
 import elementHelper from "./wdio_element";
@@ -142,6 +143,107 @@ class mobileHelper {
             }
         } catch (err) {
             errors.push(`Drag action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * Simulates keyboard input with an optional modifier key and logs the action.
+     * If a modifier key is provided, it presses the modifier along with the value.
+     * If no modifier key is provided, it simply presses the value.
+     * @param {keyof typeof Key | null} modifierKey - The name of the modifier key (e.g., "Shift", "Control", "Alt", "Command").
+     * @param {string} value - The value to be sent as keyboard input.
+     * @param {string} elementName - The name of the element being interacted with.
+     * @param {string} expectedResult - The expected outcome of the action.
+     */
+    async keys(modifierKey, value, elementName, expectedResult) {
+        const errors = [];
+
+        try {
+            const actions = [];
+
+            if (modifierKey) {
+                actions.push({ type: "keyDown", value: Key[modifierKey] });
+            }
+
+            for (const char of value) {
+                actions.push({ type: "keyDown", value: char });
+                actions.push({ type: "keyUp", value: char });
+            }
+
+            if (modifierKey) {
+                actions.push({ type: "keyUp", value: Key[modifierKey] });
+            }
+
+            await browser.performActions([
+                {
+                    type: "key",
+                    id: "keyboard",
+                    actions: actions
+                }
+            ]);
+
+            const step = `Fill ${elementName} "${value}"`;
+            const expected = `${expectedResult}`;
+
+            allureReporter.addStep(step, { status: "passed" });
+            logger.log(step, expected);
+        } catch (err) {
+            const errorMsg = `Failed to fill ${elementName} "${value}": ${err.message}`;
+
+            allureReporter.addStep(`Failed to fill ${elementName}`, {
+                status: "failed",
+                error: err.toString()
+            });
+            errors.push(errorMsg);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * Performs a tap (silent) gesture based on the platform (iOS or Android)
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {Object} coordinates - Coordinates object containing x,y for both platforms
+     * @param {Object} coordinates.ios - iOS coordinates {x: number, y: number}
+     * @param {Object} coordinates.android - Android coordinates {x: number, y: number}
+     * @returns {Promise<void>}
+     */
+    async tapSilent(coordinates) {
+        const errors = [];
+        const { ios, android } = coordinates;
+
+        try {
+            if (browser.capabilities.platformName === "iOS") {
+                try {
+                    await driver.executeScript("mobile: tap", [
+                        {
+                            x: ios.x,
+                            y: ios.y
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`iOS tap gesture failed: ${err.message}`);
+                }
+            } else {
+                try {
+                    await driver.executeScript("mobile: clickGesture", [
+                        {
+                            x: android.x,
+                            y: android.y
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`Android tap gesture failed: ${err.message}`);
+                }
+            }
+        } catch (err) {
+            errors.push(`Tap action failed: ${err.message}`);
         }
 
         if (errors.length > 0) {

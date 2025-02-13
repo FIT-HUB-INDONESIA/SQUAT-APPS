@@ -42,5 +42,10 @@ export const dotenvConf = {
      */
     userEmail: process.env.USER_EMAIL,
     otpNumber: process.env.OTP_NUMBER,
-    pinNumber: process.env.PIN_NUMBER
+    pinNumber: process.env.PIN_NUMBER,
+
+    /**
+     * Test Data: Login
+     */
+    loginNonActiveMembership: process.env.LOGIN_NON_ACTIVE_MEMBERSHIP
 };

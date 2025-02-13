@@ -92,6 +92,9 @@ class Profiling extends ProfilingAction {
         await this.profiling_ya_lewati_button_enabled();
         await this.profiling_ya_lewati_button_wording();
     }
+    async complete_profiling_validation() {
+        return await this.profiling_lewati_dulu_button.isDisplayed();
+    }
 }
 
 export default new Profiling();
