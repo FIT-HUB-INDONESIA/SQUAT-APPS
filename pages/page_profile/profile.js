@@ -41,6 +41,7 @@ class ProfileValidation extends ProfileSelectors {
  */
 class ProfileAction extends ProfileValidation {
     async click_profile_atur_akun_button() {
+        await browser.pause(1000);
         for (let i = 0; i < 2; i++) {
             await mobileHelper.dragSilent({
                 ios: { startX: 42, startY: 736, endX: 42, endY: 117 },
@@ -61,6 +62,7 @@ class ProfileAction extends ProfileValidation {
  */
 class Profile extends ProfileAction {
     async profile_atur_akun_button_validation() {
+        await browser.pause(1000);
         for (let i = 0; i < 2; i++) {
             await mobileHelper.dragSilent({
                 ios: { startX: 42, startY: 736, endX: 42, endY: 117 },

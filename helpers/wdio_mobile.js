@@ -24,6 +24,8 @@ class mobileHelper {
         const errors = [];
         const { ios, android } = coordinates;
 
+        console.log(`Action tap: ${elementName}`);
+
         try {
             if (browser.capabilities.platformName === "iOS") {
                 await elementHelper.waitForInteractable(element);
@@ -161,6 +163,8 @@ class mobileHelper {
      */
     async keys(modifierKey, value, elementName, expectedResult) {
         const errors = [];
+
+        console.log(`Action fill: ${elementName}`);
 
         try {
             const actions = [];

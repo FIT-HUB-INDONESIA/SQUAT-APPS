@@ -114,6 +114,8 @@ class Login extends LoginAction {
         await this.login_ya_lanjut_button_wording();
     }
     async login_on_new_device_validation() {
+        await browser.pause(1000);
+
         return await this.login_ya_lanjut_button.isDisplayed();
     }
 }
