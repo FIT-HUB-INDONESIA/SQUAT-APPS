@@ -38,25 +38,30 @@ class elementHelper {
     async click(element, elementName, expectedResult) {
         const errors = [];
 
-        await this.waitForInteractable(element);
-
         console.log(`Action click: ${elementName}`);
 
+        let status = "passed";
+
         try {
+            await this.waitForInteractable(element);
+
             await element.click();
             const step = `Click ${elementName}`;
             const expected = `${expectedResult}`;
 
-            allureReporter.addStep(`Click ${elementName}`, {
-                status: "passed"
-            });
+            allureReporter.addStep(`Click ${elementName}`, [{}], status);
 
             logger.log(step, expected);
+
+            return true;
         } catch (err) {
-            allureReporter.addStep(`Failed to click ${elementName}`, {
-                status: "failed",
-                error: err.toString()
-            });
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to click ${elementName}`,
+                [{}],
+                status
+            );
             errors.push(`Element click action failed: ${err.message}`);
         }
 
@@ -95,27 +100,36 @@ class elementHelper {
     async addValue(element, elementName, value, expectedResult) {
         const errors = [];
 
-        await this.waitForInteractable(element);
-
         console.log(`Action fill: ${elementName}`);
 
+        let status = "passed";
+
         try {
+            await this.waitForInteractable(element);
+
             await element.addValue(value);
 
             const step = `Fill ${elementName} "${value}"`;
             const expected = `${expectedResult}`;
 
-            allureReporter.addStep(`Fill ${elementName}: ${value}`, {
-                status: "passed"
-            });
+            allureReporter.addStep(
+                `Fill ${elementName}: ${value}`,
+                [{}],
+                status
+            );
 
             logger.log(step, expected);
+
+            return true;
         } catch (err) {
-            allureReporter.addStep(`Failed to fill ${elementName}`, {
-                status: "failed",
-                error: err.toString()
-            });
-            errors.push(`Element fill action failed`);
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to fill ${elementName}`,
+                [{}],
+                status
+            );
+            errors.push(`Element fill action failed: ${err.message}`);
         }
 
         if (errors.length > 0) {

@@ -26,6 +26,8 @@ class mobileHelper {
 
         console.log(`Action tap: ${elementName}`);
 
+        let status = "passed";
+
         try {
             if (browser.capabilities.platformName === "iOS") {
                 await elementHelper.waitForInteractable(element);
@@ -40,16 +42,18 @@ class mobileHelper {
                     const step = `Tap ${elementName}`;
                     const expected = `${expectedResult}`;
 
-                    allureReporter.addStep(`Tap ${elementName}`, {
-                        status: "passed"
-                    });
+                    allureReporter.addStep(`Tap ${elementName}`, [{}], status);
 
                     logger.log(step, expected);
+
+                    return true;
                 } catch (err) {
-                    allureReporter.addStep(`Failed to tap ${elementName}`, {
-                        status: "failed",
-                        error: err.toString()
-                    });
+                    status = "failed";
+                    allureReporter.addStep(
+                        `Failed to tap ${elementName}`,
+                        [{}],
+                        status
+                    );
                     errors.push(`iOS tap gesture failed: ${err.message}`);
                 }
             } else {
@@ -65,24 +69,30 @@ class mobileHelper {
                     const step = `Tap ${elementName}`;
                     const expected = `${expectedResult}`;
 
-                    allureReporter.addStep(`Tap ${elementName}`, {
-                        status: "passed"
-                    });
+                    allureReporter.addStep(`Tap ${elementName}`, [{}], status);
 
                     logger.log(step, expected);
+
+                    return true;
                 } catch (err) {
-                    allureReporter.addStep(`Failed to tap ${elementName}`, {
-                        status: "failed",
-                        error: err.toString()
-                    });
+                    status = "failed";
+
+                    allureReporter.addStep(
+                        `Failed to tap ${elementName}`,
+                        [{}],
+                        status
+                    );
                     errors.push(`Android tap gesture failed: ${err.message}`);
                 }
             }
         } catch (err) {
-            allureReporter.addStep(`Failed to tap ${elementName}`, {
-                status: "failed",
-                error: err.toString()
-            });
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to tap ${elementName}`,
+                [{}],
+                status
+            );
             errors.push(`Tap action failed: ${err.message}`);
         }
 
@@ -166,6 +176,8 @@ class mobileHelper {
 
         console.log(`Action fill: ${elementName}`);
 
+        let status = "passed";
+
         try {
             const actions = [];
 
@@ -193,15 +205,20 @@ class mobileHelper {
             const step = `Fill ${elementName} "${value}"`;
             const expected = `${expectedResult}`;
 
-            allureReporter.addStep(step, { status: "passed" });
+            allureReporter.addStep(step, [{}], status);
             logger.log(step, expected);
+
+            return true;
         } catch (err) {
+            status = "failed";
+
             const errorMsg = `Failed to fill ${elementName} "${value}": ${err.message}`;
 
-            allureReporter.addStep(`Failed to fill ${elementName}`, {
-                status: "failed",
-                error: err.toString()
-            });
+            allureReporter.addStep(
+                `Failed to fill ${elementName}`,
+                [{}],
+                status
+            );
             errors.push(errorMsg);
         }
 
