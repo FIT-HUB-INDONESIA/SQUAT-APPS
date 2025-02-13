@@ -12,6 +12,13 @@ class WelcomeScreenSelectors {
                   `-ios class chain:**/XCUIElementTypeButton[\`name == "Buat Akun"\`]`
               );
     }
+    get welcome_screen_masuk_button() {
+        return browser.capabilities.platformName === "Android"
+            ? $(`android=new UiSelector().description("Masuk")`)
+            : $(
+                  `-ios class chain:**/XCUIElementTypeButton[\`name == "Masuk"\`]`
+              );
+    }
 }
 
 /**
@@ -33,6 +40,21 @@ class WelcomeScreenValidation extends WelcomeScreenSelectors {
             "Buat Akun"
         );
     }
+    async welcome_screen_masuk_button_enabled() {
+        return await expectHelper.toBeEnabled(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button"
+        );
+    }
+    async welcome_screen_masuk_button_wording() {
+        return await expectHelper.toHaveAttribute(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button",
+            "label",
+            "content-desc",
+            "Masuk"
+        );
+    }
 }
 
 /**
@@ -46,6 +68,13 @@ class WelcomeScreenAction extends WelcomeScreenValidation {
             "Successfully redirected to register form page"
         );
     }
+    async click_welcome_screen_masuk_button() {
+        await elementHelper.click(
+            this.welcome_screen_masuk_button,
+            "welcome_screen_masuk_button",
+            "Successfully redirected to login page"
+        );
+    }
 }
 
 /**
@@ -56,6 +85,10 @@ class WelcomeScreen extends WelcomeScreenAction {
     async welcome_screen_buat_akun_button_validation() {
         await this.welcome_screen_buat_akun_button_enabled();
         await this.welcome_screen_buat_akun_button_wording();
+    }
+    async welcome_screen_masuk_button_validation() {
+        await this.welcome_screen_masuk_button_enabled();
+        await this.welcome_screen_masuk_button_wording();
     }
 }
 

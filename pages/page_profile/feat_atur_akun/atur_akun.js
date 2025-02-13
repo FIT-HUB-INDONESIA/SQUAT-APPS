@@ -74,6 +74,7 @@ class AturAkunAction extends AturAkunValidation {
             "atur_akun_keluar_akun_confirm_button",
             "Successfully logout"
         );
+        await browser.pause(1000);
     }
 }
 

@@ -10,6 +10,8 @@
     "scripts": {
         "test:android": "cd android && npm run wdio:grep",
         "test:ios": "cd ios && npm run wdio:grep",
+        "retest:android": "allure generate allure-results -o allure-outputs --clean && node scripts/tc_failed_parser.js && cd android && npm run wdio:retest",
+        "retest:ios": "allure generate allure-results -o allure-outputs --clean && node scripts/tc_failed_parser.js && cd ios && npm run wdio:retest",
         "script:tc-scrapper": "cd scripts && node tc_scrapper.js",
         "allure:generate": "allure generate allure-results -o allure-outputs --single-file --clean"
     },
