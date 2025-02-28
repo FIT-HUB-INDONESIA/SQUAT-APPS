@@ -16,27 +16,23 @@ class AuthApiCollections {
      * @returns {Promise<Object>} The response object from the login request.
      * @throws {Error} Throws an error if the request fails.
      */
-    async post_v1_auth_login() {
+    async post_v1_auth_login(email, password) {
         const post_v1_auth_login = dotenvConf.hostnameFhad + "/v1/auth/login";
-
-        console.log(`Hit API: ${post_v1_auth_login}`);
 
         let status = "passed";
 
         try {
             const res = await axios.post(post_v1_auth_login, {
-                email: dotenvConf.fhadAdminEmail,
-                password: dotenvConf.fhadAdminPassword
+                email: email,
+                password: password
             });
-
-            console.log(
-                `> Axios post_v1_auth_login: ${JSON.stringify(res.data.meta.statusCode)}`
-            );
 
             this.token = res.data.data.token;
 
-            const step = `Hit API ${post_v1_auth_login}`;
-            const expected = `Successfully hit API post_v1_auth_login\nToken: ${this.token}`;
+            console.log(`Hit API: ${post_v1_auth_login}\nToken: ${this.token}`);
+
+            const step = `Hit API ${post_v1_auth_login}. Email: ${email}. Password: ${password}`;
+            const expected = `Successfully hit API post_v1_auth_login`;
 
             allureReporter.addStep(
                 `Hit API ${post_v1_auth_login}`,
