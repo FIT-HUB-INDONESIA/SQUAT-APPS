@@ -36,6 +36,7 @@ export const dotenvConf = {
     hostnameFhap: process.env[`HOSTNAME_FHAP_${env}`],
     deviceIdIos: process.env.DEVICE_ID_IOS,
     deviceIdAndroid: process.env.DEVICE_ID_ANDROID,
+    hostnameFhad: process.env[`HOSTNAME_FHAD_${env}`],
 
     /**
      * Global: Test Data
@@ -43,6 +44,8 @@ export const dotenvConf = {
     userEmail: process.env.USER_EMAIL,
     otpNumber: process.env.OTP_NUMBER,
     pinNumber: process.env.PIN_NUMBER,
+    fhadAdminEmail: process.env.FHAD_ADMIN_EMAIL,
+    fhadAdminPassword: process.env.FHAD_ADMIN_PASSWORD,
 
     /**
      * Test Data: Login

@@ -45,5 +45,105 @@
             ""
         ],
         "description": "Creates a class structure for a page file in Page Object Model (POM)."
+    },
+
+    "Creates a class structure for API collections and use case methods.": {
+        "prefix": "apiClass",
+        "body": [
+            "import axios from \"axios\";",
+            "import { dotenvConf } from \"../../../config/dotenv.js\";",
+            "",
+            "/**",
+            " * Base class containing api collections",
+            " */",
+            "class NameApiCollections {}",
+            "",
+            "/**",
+            " * Class containing use case methods.",
+            " * Use extends methods from fhapApiCollections class only",
+            " */",
+            "class NameApi extends NameApiCollections {}",
+            "",
+            "export default new NameApi();",
+            ""
+        ],
+        "description": "Creates a class structure for API collections and use case methods."
+    },
+
+    "Defines a test structure using WebdriverIO with Mocha, including session cleanup and Allure reporting.": {
+        "prefix": "specTest",
+        "body": [
+            "import Cleanup from \"../handlers/sessions_cleanup.js\";",
+            "import allureReporter from \"@wdio/allure-reporter\";",
+            "",
+            "/**",
+            " * Write feature name in \"describe\" block.",
+            " * Write test-case title in \"it\" block.",
+            " */",
+            "describe(\"Feature Name\", () => {",
+            "    afterEach(async () => {",
+            "        await Cleanup.relaunch_app(",
+            "            browser.capabilities.platformName,",
+            "            dotenvConf.wdioAppId",
+            "        );",
+            "    });",
+            "",
+            "    it(\"Test case title @regression @smoke\", async () => {",
+            "        allureReporter.addParentSuite(\"Regression\");",
+            "        allureReporter.addParentSuite(\"Smoke\");",
+            "        allureReporter.addSeverity(\"critical\");",
+            "",
+            "        // Define test paramaters here",
+            "",
+            "        // Write test steps here",
+            "    });",
+            "});",
+            ""
+        ],
+        "description": "Defines a test structure using WebdriverIO with Mocha, including session cleanup and Allure reporting."
+    },
+
+    "Defines a test suite using WebdriverIO with Mocha, including session cleanup after each test and Allure reporting for test categorization and severity tracking.": {
+        "prefix": "specDescribe",
+        "body": [
+            "describe(\"Feature Name\", () => {",
+            "    afterEach(async () => {",
+            "        await Cleanup.relaunch_app(",
+            "            browser.capabilities.platformName,",
+            "            dotenvConf.wdioAppId",
+            "        );",
+            "    });",
+            "",
+            "    it(\"Test case title @regression @smoke\", async () => {",
+            "        allureReporter.addParentSuite(\"Regression\");",
+            "        allureReporter.addParentSuite(\"Smoke\");",
+            "        allureReporter.addSeverity(\"critical\");",
+            "",
+            "        // Define test paramaters here",
+            "",
+            "        // Write test steps here",
+            "    });",
+            "});",
+            ""
+        ],
+        "description": "Defines a test suite using WebdriverIO with Mocha, including session cleanup after each test and Allure reporting for test categorization and severity tracking."
+    },
+
+    "Defines a test case in WebdriverIO with Mocha, including Allure reporting for test categorization and severity tracking.": {
+        "prefix": "specIt",
+        "body": [
+            "    it(\"Test case title @regression @smoke\", async () => {",
+            "        allureReporter.addParentSuite(\"Regression\");",
+            "        allureReporter.addParentSuite(\"Smoke\");",
+            "        allureReporter.addSeverity(\"critical\");",
+            "",
+            "        // Define test paramaters here",
+            "",
+            "        // Write test steps here",
+            "    });",
+            "",
+            ""
+        ],
+        "description": "Defines a test case in WebdriverIO with Mocha, including Allure reporting for test categorization and severity tracking."
     }
 }

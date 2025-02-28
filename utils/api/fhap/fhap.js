@@ -1,5 +1,5 @@
 import axios from "axios";
-import { dotenvConf } from "../../config/dotenv.js";
+import { dotenvConf } from "../../../config/dotenv.js";
 
 /**
  * Base class containing api collections
