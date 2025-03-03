@@ -22,6 +22,17 @@ class DateConverter {
 
         return new Date(isoString).getTime();
     }
+
+    /**
+     * Converts a GMT date string to UTC format.
+     * @param {string} gmtString - The date string in the format "YYYY-MM-DD HH:mm:ss GMT±HH:MM".
+     * @returns {string} The UTC formatted date string.
+     */
+    static convertToUTC(gmtString) {
+        const date = new Date(gmtString);
+
+        return date.toISOString();
+    }
 }
 
 export default DateConverter;
