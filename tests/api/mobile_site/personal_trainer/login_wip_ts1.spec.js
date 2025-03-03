@@ -1,4 +1,5 @@
 import AuthApiCollections from "../../../../utils/api/mobile_site/authorization/auth";
+import PersonalTrainerApiCollections from "../../../../utils/api/mobile_site/personal_trainer/personal_trainer";
 import allureReporter from "@wdio/allure-reporter";
 import { dotenvConf } from "../../../../config/dotenv";
 /**
@@ -15,6 +16,13 @@ describe("Test", () => {
         const email = dotenvConf.fhadAdminEmail;
         const password = dotenvConf.fhadAdminPassword;
 
-        await AuthApiCollections.post_v1_auth_login(email, password);
+        const post_v1_auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+
+        await PersonalTrainerApiCollections.get_v2_trainer_schedule_types(
+            post_v1_auth_login.data.data.token
+        );
     });
 });
