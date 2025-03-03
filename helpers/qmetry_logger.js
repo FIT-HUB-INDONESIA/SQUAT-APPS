@@ -53,7 +53,8 @@ class Logger {
             key,
             step,
             summary,
-            timestamp
+            timestamp,
+            isNewTest: step.startsWith("Starting automation testing")
         };
 
         this.logs.push(logEntry);
@@ -64,24 +65,26 @@ class Logger {
         let csvOutput = "";
         const jsonOutputMap = new Map();
 
-        groupedLogs.forEach((log, index) => {
-            let jsonOutput = jsonOutputMap.get(process.env.TEST_CASE_TITLE);
+        groupedLogs.forEach((log) => {
+            let jsonOutput = jsonOutputMap.get(log.summary);
 
-            if (index == 0) {
+            if (log.isNewTest) {
                 csvOutput += `${log.timestamp},${log.key},,${log.summary},${log.step},\n`;
                 jsonOutput = {
                     projectId: parseInt(process.env.PROJECT_ID || "0"),
                     steps: [],
-                    summary: process.env.TEST_CASE_TITLE || "Unknown Test Case"
+                    summary: log.summary
                 };
             } else {
                 csvOutput += `,,${log.key},,${log.step},${log.expected}\n`;
-                jsonOutput.steps.push({
-                    expectedResult: log.expected,
-                    stepDetails: log.step
-                });
+                if (jsonOutput) {
+                    jsonOutput.steps.push({
+                        expectedResult: log.expected,
+                        stepDetails: log.step
+                    });
+                }
             }
-            jsonOutputMap.set(process.env.TEST_CASE_TITLE, jsonOutput);
+            jsonOutputMap.set(log.summary, jsonOutput);
         });
 
         fs.appendFileSync(this.logFile, csvOutput, "utf8");
