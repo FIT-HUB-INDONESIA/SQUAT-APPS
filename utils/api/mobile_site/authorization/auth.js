@@ -29,13 +29,15 @@ class AuthApiCollections {
 
             this.token = res.data.data.token;
 
-            console.log(`Hit API: ${post_v1_auth_login}\nToken: ${this.token}`);
+            console.log(
+                `Hit API POST: ${post_v1_auth_login}\nToken: ${this.token}`
+            );
 
-            const step = `Hit API ${post_v1_auth_login}. Email: ${email}. Password: ${password}`;
+            const step = `Hit API POST ${post_v1_auth_login}. Email: ${email}. Password: ${password}`;
             const expected = `Successfully hit API post_v1_auth_login`;
 
             allureReporter.addStep(
-                `Hit API ${post_v1_auth_login}`,
+                `Hit API POST ${post_v1_auth_login}. Email: ${email}. Password: ${password}`,
                 [{}],
                 status
             );
