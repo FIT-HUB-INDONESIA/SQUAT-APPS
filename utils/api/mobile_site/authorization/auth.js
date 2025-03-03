@@ -22,25 +22,23 @@ class AuthApiCollections {
         let status = "passed";
 
         try {
-            const res = await axios.post(post_v1_auth_login, {
+            const requestBody = {
                 email: email,
                 password: password
-            });
+            };
+
+            const res = await axios.post(post_v1_auth_login, requestBody);
 
             this.token = res.data.data.token;
 
             console.log(
-                `Hit API POST: ${post_v1_auth_login}\nToken: ${this.token}`
+                `Hit API POST: ${post_v1_auth_login}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nToken: ${this.token}`
             );
 
-            const step = `Hit API POST ${post_v1_auth_login}. Email: ${email}. Password: ${password}`;
+            const step = `Hit API POST ${post_v1_auth_login}`;
             const expected = `Successfully hit API post_v1_auth_login`;
 
-            allureReporter.addStep(
-                `Hit API POST ${post_v1_auth_login}. Email: ${email}. Password: ${password}`,
-                [{}],
-                status
-            );
+            allureReporter.addStep(step, [{}], status);
 
             logger.log(step, expected);
 

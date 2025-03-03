@@ -16,6 +16,8 @@ describe("Test", () => {
         const email = dotenvConf.fhadAdminEmail;
         const password = dotenvConf.fhadAdminPassword;
         const type_name = "Gym Patrol";
+        const started_at = "25-02-2025 16:07:28 GMT+07:00";
+        const finished_at = "25-02-2025 17:07:28 GMT+07:00";
 
         const auth_login = await AuthApiCollections.post_v1_auth_login(
             email,
@@ -29,6 +31,11 @@ describe("Test", () => {
                 type_name
             );
 
-        await PersonalTrainerApi.post_v2_trainer_schedules(token, type_id);
+        await PersonalTrainerApi.post_v2_trainer_schedules(
+            token,
+            type_id,
+            started_at,
+            finished_at
+        );
     });
 });
