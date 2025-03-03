@@ -1,3 +1,4 @@
+import DateConverter from "../../../../helpers/epoch";
 import Logger from "../../../../helpers/qmetry_logger";
 import allureReporter from "@wdio/allure-reporter";
 import axios from "axios";
@@ -75,17 +76,22 @@ class PersonalTrainerApiCollections {
      * @returns {Promise<Object>} Response from API.
      * @throws {Error} Throws an error if the request fails.
      */
-    async post_v2_trainer_schedules(token, type_id) {
+    async post_v2_trainer_schedules(token, type_id, started_at, finished_at) {
         const post_v2_trainer_schedules =
             dotenvConf.hostnameFhad + "/v2/trainer-schedules";
 
         let status = "passed";
 
         try {
+            const startedAt =
+                DateConverter.humanReadableToEpoch(started_at) / 1000;
+            const finishedAt =
+                DateConverter.humanReadableToEpoch(finished_at) / 1000;
+
             const requestBody = {
-                type_id,
-                started_at: 1740560848,
-                finished_at: 1740564448,
+                type_id: type_id,
+                started_at: startedAt,
+                finished_at: finishedAt,
                 remarks: `QA BE Automation Test. Type ID: ${type_id}`
             };
 
@@ -98,10 +104,10 @@ class PersonalTrainerApiCollections {
             );
 
             console.log(
-                `\nHit API POST: ${post_v2_trainer_schedules}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+                `\nHit API POST: ${post_v2_trainer_schedules}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
             );
 
-            const step = `Hit API POST ${post_v2_trainer_schedules}. Type ID: ${type_id}`;
+            const step = `Hit API POST ${post_v2_trainer_schedules}`;
             const expected = `Successfully hit API post_v2_trainer_schedules`;
 
             allureReporter.addStep(step, [{}], status);
