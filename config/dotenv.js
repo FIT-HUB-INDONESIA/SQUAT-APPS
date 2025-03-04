@@ -56,5 +56,35 @@ export const dotenvConf = {
     /**
      * Test Data: Login
      */
-    loginNonActiveMembership: process.env.LOGIN_NON_ACTIVE_MEMBERSHIP
+    loginNonActiveMembership: process.env.LOGIN_NON_ACTIVE_MEMBERSHIP,
+
+    /**
+     * Test Data: [BE] Mobile Site Create Personal Trainer Activities
+     */
+    ptClassStartedAt: process.env.PT_CLASS_STARTED_AT,
+    ptClassFinishedAt: process.env.PT_CLASS_FINISHED_AT,
+    reasementStartedAt: process.env.REASSESSMENT_STARTED_AT,
+    reasementFinishedAt: process.env.REASSESSMENT_FINISHED_AT,
+    fitnessWelcomeStartedAt: process.env.FITNESS_WELCOME_STARTED_AT,
+    fitnessWelcomeFinishedAt: process.env.FITNESS_WELCOME_FINISHED_AT,
+    gymPatrolStartedAt: process.env.GYM_PATROL_STARTED_AT,
+    gymPatrolFinishedAt: process.env.GYM_PATROL_FINISHED_AT,
+    trainingInternalStartedAt: process.env.TRAINING_INTERNAL_STARTED_AT,
+    trainingInternalFinishedAt: process.env.TRAINING_INTERNAL_FINISHED_AT,
+    trainingExternalStartedAt: process.env.TRAINING_EXTERNAL_STARTED_AT,
+    trainingExternalFinishedAt: process.env.TRAINING_EXTERNAL_FINISHED_AT,
+    exerciseStartedAt: process.env.EXERCISE_STARTED_AT,
+    exerciseFinishedAt: process.env.EXERCISE_FINISHED_AT,
+    breakStartedAt: process.env.BREAK_STARTED_AT,
+    breakFinishedAt: process.env.BREAK_FINISHED_AT,
+    dayOffStartedAt: process.env.DAY_OFF_STARTED_AT,
+    dayOffFinishedAt: process.env.DAY_OFF_FINISHED_AT,
+    paidPtSessionClubName: process.env.PAID_PT_SESSION_CLUB_NAME,
+    paidPtSessionPtId: process.env.PAID_PT_SESSION_PT_ID,
+    paidPtSessionMemberPhone: process.env.PAID_PT_SESSION_MEMBER_PHONE,
+    paidPtSessionScheduleAt: process.env.PAID_PT_SESSION_SCHEDULE_AT,
+    fitStartPtSessionClubName: process.env.FIT_START_PT_SESSION_CLUB_NAME,
+    fitStartPtSessionPtId: process.env.FIT_START_PT_SESSION_PT_ID,
+    fitStartPtSessionMemberPhone: process.env.FIT_START_PT_SESSION_MEMBER_PHONE,
+    fitStartPtSessionScheduleAt: process.env.FIT_START_PT_SESSION_SCHEDULE_AT
 };
