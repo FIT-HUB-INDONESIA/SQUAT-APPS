@@ -7,7 +7,7 @@ import { dotenvConf } from "../../../../config/dotenv";
  * Write feature name in "describe" block.
  * Write test-case title in "it" block.
  */
-describe("Test", () => {
+describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
     it("Test case", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addParentSuite("Smoke");
@@ -82,6 +82,36 @@ describe("Test", () => {
             schedule_at,
             user_id,
             user_pt_membership_id
+        );
+    });
+
+    it("[BE] Should successfully create-cancel PT class activity for PT role @regression @api_pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const type_name = "Class Conduct";
+        const started_at = "25-03-2025 06:00:00 GMT+07:00";
+        const finished_at = "25-03-2025 07:00:00 GMT+07:00";
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        await PersonalTrainerApi.post_v2_trainer_schedules(
+            token,
+            type_id,
+            started_at,
+            finished_at
         );
     });
 });

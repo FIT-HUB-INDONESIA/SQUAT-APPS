@@ -44,6 +44,12 @@ export const dotenvConf = {
     userEmail: process.env.USER_EMAIL,
     otpNumber: process.env.OTP_NUMBER,
     pinNumber: process.env.PIN_NUMBER,
+    fhadPtEmail: process.env.FHAD_PT_EMAIL,
+    fhadPtPassword: process.env.FHAD_PT_PASSWORD,
+    fhadCmEmail: process.env.FHAD_CM_EMAIL,
+    fhadCmPassword: process.env.FHAD_CM_PASSWORD,
+    fhadFhadEmail: process.env.FHAD_FHAD_EMAIL,
+    fhadFhadPassword: process.env.FHAD_FHAD_PASSWORD,
     fhadAdminEmail: process.env.FHAD_ADMIN_EMAIL,
     fhadAdminPassword: process.env.FHAD_ADMIN_PASSWORD,
 
