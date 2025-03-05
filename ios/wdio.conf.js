@@ -12,6 +12,8 @@ let logger;
 const argv = yargs(hideBin(process.argv)).argv;
 const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
 
+const isWebView = dotenvConf.environmentVar === "WEBVIEW";
+
 export const config = {
     //
     // ====================
@@ -64,20 +66,39 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        {
-            // capabilities for local Appium web tests on iOS
-            platformName: "iOS",
-            "appium:deviceName": "iPhone Real Device",
-            "appium:automationName": "XCUITest",
-            "appium:noReset": true,
-            "appium:bundleId": dotenvConf.wdioAppId
-            // "appium:protocol": "http",
-            // "appium:hostname": "localhost",
-            // "appium:path": "/",
-            // "appium:port": dotenvConf.iosPort
-        }
-    ],
+    capabilities: isWebView
+        ? [
+              {
+                  // capabilities for local Appium web tests on iOS
+                  platformName: "iOS",
+                  "appium:deviceName": "iPhone Real Device",
+                  "appium:automationName": "XCUITest",
+                  "appium:noReset": true,
+                  //   "appium:bundleId": dotenvConf.wdioAppId,
+                  // "appium:protocol": "http",
+                  // "appium:hostname": "localhost",
+                  // "appium:path": "/",
+                  // "appium:port": dotenvConf.iosPort
+                  //   "appium:autoWebview": true
+                  browserName: "Safari"
+              }
+          ]
+        : [
+              {
+                  // capabilities for local Appium web tests on iOS
+                  platformName: "iOS",
+                  "appium:deviceName": "iPhone Real Device",
+                  "appium:automationName": "XCUITest",
+                  "appium:noReset": true,
+                  "appium:bundleId": dotenvConf.wdioAppId
+                  // "appium:protocol": "http",
+                  // "appium:hostname": "localhost",
+                  // "appium:path": "/",
+                  // "appium:port": dotenvConf.iosPort
+                  //   "appium:autoWebview": true
+                  //   browserName: "Safari"
+              }
+          ],
 
     //
     // ===================

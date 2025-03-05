@@ -1,6 +1,6 @@
-import elementHelper from "../../../helpers/wdio_element";
-import expectHelper from "../../../helpers/wdio_expect";
-import mobileHelper from "../../../helpers/wdio_mobile";
+import elementHelper from "../../../../helpers/wdio_element";
+import expectHelper from "../../../../helpers/wdio_expect";
+import mobileHelper from "../../../../helpers/wdio_mobile";
 
 /**
  * Base class containing common selectors

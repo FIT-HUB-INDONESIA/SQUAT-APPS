@@ -17,6 +17,7 @@ export const dotenvConf = {
      * Environment
      */
     environment: env,
+    environmentVar: process.env.ENV_VAR?.toUpperCase(),
 
     /**
      * WebdriverIO Configuration
@@ -38,6 +39,10 @@ export const dotenvConf = {
     deviceIdAndroid: process.env.DEVICE_ID_ANDROID,
     hostnameFhad: process.env[`HOSTNAME_FHAD_${env}`],
 
+    /**
+     * Webview Capabilities
+     */
+    baseUrlFhad: process.env[`BASE_URL_FHAD_${env}`],
     /**
      * Global: Test Data
      */
