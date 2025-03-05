@@ -1,16 +1,16 @@
-import AturAkun from "../pages/page_profile/feat_atur_akun/atur_akun.js";
-import Auth from "../pages/page_welcome_screen/feat_auth/auth.js";
-import Cleanup from "../handlers/sessions_cleanup.js";
-import Login from "../pages/page_welcome_screen/feat_login/login.js";
-import Main from "../pages/main.js";
-import Profile from "../pages/page_profile/profile.js";
-import Profiling from "../pages/page_welcome_screen/feat_profiling/profiling.js";
-import Register from "../pages/page_welcome_screen/feat_register/register.js";
-import WelcomeScreen from "../pages/page_welcome_screen/welcome_screen.js";
+import AturAkun from "../../pages/fhap/page_profile/feat_atur_akun/atur_akun.js";
+import Auth from "../../pages/fhap/page_welcome_screen/feat_auth/auth.js";
+import Cleanup from "../../handlers/sessions_cleanup.js";
+import Login from "../../pages/fhap/page_welcome_screen/feat_login/login.js";
+import Main from "../../pages/fhap/main.js";
+import Profile from "../../pages/fhap/page_profile/profile.js";
+import Profiling from "../../pages/fhap/page_welcome_screen/feat_profiling/profiling.js";
+import Register from "../../pages/fhap/page_welcome_screen/feat_register/register.js";
+import WelcomeScreen from "../../pages/fhap/page_welcome_screen/welcome_screen.js";
 import allureReporter from "@wdio/allure-reporter";
-import { dotenvConf } from "../config/dotenv.js";
+import { dotenvConf } from "../../config/dotenv.js";
 import { faker } from "@faker-js/faker";
-import { generatePhoneNumber } from "../helpers/faker.js";
+import { generatePhoneNumber } from "../../helpers/faker.js";
 
 /**
  * Write feature name in "describe" block.

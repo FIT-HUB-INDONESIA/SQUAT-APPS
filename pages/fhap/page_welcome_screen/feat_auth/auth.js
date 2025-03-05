@@ -1,4 +1,4 @@
-import elementHelper from "../../../helpers/wdio_element.js";
+import elementHelper from "../../../../helpers/wdio_element.js";
 
 /**
  * Base class containing common selectors
