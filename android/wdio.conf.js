@@ -12,6 +12,8 @@ let logger;
 const argv = yargs(hideBin(process.argv)).argv;
 const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
 
+const isWebView = dotenvConf.environmentVar === "WEBVIEW";
+
 export const config = {
     //
     // ====================
@@ -64,22 +66,41 @@ export const config = {
     // Sauce Labs platform configurator - a great tool to configure your capabilities:
     // https://saucelabs.com/platform/platform-configurator
     //
-    capabilities: [
-        {
-            // capabilities for local Appium web tests on an Android Emulator
-            platformName: "Android",
-            "appium:deviceName": "Android Real Device",
-            "appium:automationName": "UiAutomator2",
-            "appium:noReset": true,
-            "appium:appPackage": dotenvConf.wdioAppId,
-            "appium:appActivity": "com.thehub.apps.MainActivity",
-            "appium:autoGrantPermissions": true
-            // "appium:protocol": "http",
-            // "appium:hostname": "localhost",
-            // "appium:path": "/",
-            // "appium:port": dotenvConf.androidPort
-        }
-    ],
+    capabilities: isWebView
+        ? [
+              {
+                  // capabilities for local Appium web tests on an Android Emulator
+                  platformName: "Android",
+                  "appium:deviceName": "Android Real Device",
+                  "appium:automationName": "UiAutomator2",
+                  "appium:noReset": true,
+                  // "appium:appPackage": dotenvConf.wdioAppId,
+                  // "appium:appActivity": "com.thehub.apps.MainActivity",
+                  "appium:autoGrantPermissions": true,
+                  // "appium:protocol": "http",
+                  // "appium:hostname": "localhost",
+                  // "appium:path": "/",
+                  // "appium:port": dotenvConf.androidPort
+                  browserName: "Chrome"
+              }
+          ]
+        : [
+              {
+                  // capabilities for local Appium web tests on an Android Emulator
+                  platformName: "Android",
+                  "appium:deviceName": "Android Real Device",
+                  "appium:automationName": "UiAutomator2",
+                  "appium:noReset": true,
+                  "appium:appPackage": dotenvConf.wdioAppId,
+                  "appium:appActivity": "com.thehub.apps.MainActivity",
+                  "appium:autoGrantPermissions": true
+                  // "appium:protocol": "http",
+                  // "appium:hostname": "localhost",
+                  // "appium:path": "/",
+                  // "appium:port": dotenvConf.androidPort
+                  //   "appium:autoWebview": true
+              }
+          ],
 
     //
     // ===================

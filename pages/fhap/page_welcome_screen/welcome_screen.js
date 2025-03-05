@@ -1,5 +1,5 @@
-import elementHelper from "../../helpers/wdio_element.js";
-import expectHelper from "../../helpers/wdio_expect.js";
+import elementHelper from "../../../helpers/wdio_element.js";
+import expectHelper from "../../../helpers/wdio_expect.js";
 
 /**
  * Base class containing common selectors

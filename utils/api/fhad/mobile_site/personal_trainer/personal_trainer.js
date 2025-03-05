@@ -30,7 +30,7 @@ class PersonalTrainerApiCollections {
 
             const apiData = res.data?.data || [];
             const nameToIdMap = apiData.reduce((map, item) => {
-                map[item.name] = item.id;
+                map[item.summary_name] = item.id;
 
                 return map;
             }, {});
@@ -76,7 +76,14 @@ class PersonalTrainerApiCollections {
      * @returns {Promise<Object>} Response from API.
      * @throws {Error} Throws an error if the request fails.
      */
-    async post_v2_trainer_schedules(token, type_id, started_at, finished_at) {
+    async post_v2_trainer_schedules(
+        token,
+        trainer_id,
+        club_id,
+        type_id,
+        started_at,
+        finished_at
+    ) {
         const post_v2_trainer_schedules =
             dotenvConf.hostnameFhad + "/v2/trainer-schedules";
 
@@ -89,6 +96,8 @@ class PersonalTrainerApiCollections {
                 DateConverter.humanReadableToEpoch(finished_at) / 1000;
 
             const requestBody = {
+                trainer_id: trainer_id,
+                club_id: club_id,
                 type_id: type_id,
                 started_at: startedAt,
                 finished_at: finishedAt,
@@ -103,6 +112,8 @@ class PersonalTrainerApiCollections {
                 }
             );
 
+            this.activity_id = res.data.data.id;
+
             console.log(
                 `\nHit API POST: ${post_v2_trainer_schedules}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
             );
@@ -113,7 +124,7 @@ class PersonalTrainerApiCollections {
             allureReporter.addStep(step, [{}], status);
             logger.log(step, expected);
 
-            return res.data;
+            return res;
         } catch (error) {
             status = "failed";
 
@@ -330,7 +341,7 @@ class PersonalTrainerApiCollections {
         user_id,
         user_pt_membership_id
     ) {
-        const url =
+        const post_v2_client_schedules =
             dotenvConf.hostnameFhad + "/v2/mobile-site/pt/client-schedules";
 
         let status = "passed";
@@ -345,25 +356,33 @@ class PersonalTrainerApiCollections {
                 user_pt_membership_id: user_pt_membership_id
             };
 
-            const res = await axios.post(url, requestBody, {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-
-            console.log(
-                `\nHit API POST: ${url}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            const res = await axios.post(
+                post_v2_client_schedules,
+                requestBody,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
             );
 
-            const step = `Hit API POST ${url}`;
+            console.log(
+                `\nHit API POST: ${post_v2_client_schedules}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            );
+
+            const step = `Hit API POST ${post_v2_client_schedules}`;
             const expected = `Successfully hit API post_v2_client_schedules`;
 
             allureReporter.addStep(step, [{}], status);
             logger.log(step, expected);
 
-            return res.data;
+            return res;
         } catch (error) {
             status = "failed";
 
-            allureReporter.addStep(`Failed to hit API ${url}`, [{}], status);
+            allureReporter.addStep(
+                `Failed to hit API ${post_v2_client_schedules}`,
+                [{}],
+                status
+            );
             console.error(`Request Error: ${error.message}`);
 
             if (error.response) {
@@ -372,7 +391,122 @@ class PersonalTrainerApiCollections {
                 );
             }
 
-            throw new Error(`Failed to hit API ${url}: ${error.message}`);
+            throw new Error(
+                `Failed to hit API ${post_v2_client_schedules}: ${error.message}`
+            );
+        }
+    }
+
+    /**
+     * Fetches trainer schedules for a given activity from the v2 API.
+     * @async
+     * @param {string} token - The authorization token for API access.
+     * @param {string} activity_id - The activity ID for which trainer schedules are fetched.
+     * @returns {Promise<Object[]>} A list of trainer schedules.
+     * @throws {Error} Throws an error if the request fails.
+     */
+    async get_v2_trainer_schedules(token, activity_id) {
+        const get_v2_trainer_schedules =
+            dotenvConf.hostnameFhad + `/v2/trainer-schedules/${activity_id}`;
+
+        let status = "passed";
+
+        try {
+            const res = await axios.get(get_v2_trainer_schedules, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            console.log(
+                `\nHit API GET: ${get_v2_trainer_schedules}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            );
+
+            const step = `Hit API GET ${get_v2_trainer_schedules}`;
+            const expected = `Successfully hit API get_v2_trainer_schedules`;
+
+            allureReporter.addStep(step, [{}], status);
+            logger.log(step, expected);
+
+            return res;
+        } catch (error) {
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to hit API ${get_v2_trainer_schedules}`,
+                [{}],
+                status
+            );
+            console.error(`Request Error: ${error.message}`);
+
+            if (error.response) {
+                console.error(
+                    `> Axios get_v2_trainer_schedules: ${error.response.status}\nPath: ${error.config?.url}\nResponse: ${JSON.stringify(error.response.data, null, 2)}`
+                );
+            }
+
+            throw new Error(
+                `Failed to hit API ${get_v2_trainer_schedules}: ${error.message}`
+            );
+        }
+    }
+
+    /**
+     * Cancels a trainer schedule
+     * @async
+     * @param {string} token - The authorization token.
+     * @param {number} activity_id - The activity ID to cancel.
+     * @returns {Promise<Object>} Response from API.
+     * @throws {Error} Throws an error if the request fails.
+     */
+    async patch_v2_trainer_schedules_cancel(token, activity_id) {
+        const patch_v2_trainer_schedules_cancel =
+            dotenvConf.hostnameFhad +
+            `/v2/trainer-schedules/${activity_id}/cancel`;
+
+        let status = "passed";
+
+        try {
+            const requestBody = {
+                reason: `QA BE Automation Test - Cancel trainer activity`
+            };
+
+            const res = await axios.patch(
+                patch_v2_trainer_schedules_cancel,
+                requestBody,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+
+            console.log(
+                `\nHit API PATCH: ${patch_v2_trainer_schedules_cancel}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            );
+
+            const step = `Hit API PATCH ${patch_v2_trainer_schedules_cancel}`;
+            const expected = `Successfully hit API patch_v2_trainer_schedules_cancel`;
+
+            allureReporter.addStep(step, [{}], status);
+            logger.log(step, expected);
+
+            return res.data;
+        } catch (error) {
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to hit API ${patch_v2_trainer_schedules_cancel}`,
+                [{}],
+                status
+            );
+            console.error(`Request Error: ${error.message}`);
+
+            if (error.response) {
+                console.error(
+                    `> Axios patch_v2_trainer_schedules_cancel: ${error.response.status}\nPath: ${error.config?.patch_v2_trainer_schedules_cancel}\nResponse: ${JSON.stringify(error.response.data, null, 2)}`
+                );
+            }
+
+            throw new Error(
+                `Failed to hit API ${patch_v2_trainer_schedules_cancel}: ${error.message}`
+            );
         }
     }
 }
