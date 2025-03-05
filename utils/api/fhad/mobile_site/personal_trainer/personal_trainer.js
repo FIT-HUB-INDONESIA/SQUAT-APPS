@@ -509,6 +509,137 @@ class PersonalTrainerApiCollections {
             );
         }
     }
+
+    /**
+     * Updates an existing trainer schedule
+     * @async
+     * @param {string} token - The authorization token.
+     * @param {number} activity_id - The activity ID to update.
+     * @param {number} update_started_at - The start time in human-readable format.
+     * @param {number} update_finished_at - The finish time in human-readable format.
+     * @returns {Promise<Object>} Response from API.
+     * @throws {Error} Throws an error if the request fails.
+     */
+    async put_v2_trainer_schedules(
+        token,
+        activity_id,
+        update_started_at,
+        update_finished_at
+    ) {
+        const put_v2_trainer_schedules =
+            dotenvConf.hostnameFhad + `/v2/trainer-schedules/${activity_id}`;
+
+        let status = "passed";
+
+        try {
+            const updateStartedAt =
+                DateConverter.humanReadableToEpoch(update_started_at) / 1000;
+            const updateFinishedAt =
+                DateConverter.humanReadableToEpoch(update_finished_at) / 1000;
+
+            const requestBody = {
+                started_at: updateStartedAt,
+                finished_at: updateFinishedAt,
+                remarks: "QA BE Automation Test - Update trainer activity"
+            };
+
+            const res = await axios.put(put_v2_trainer_schedules, requestBody, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            console.log(
+                `\nHit API PUT: ${put_v2_trainer_schedules}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            );
+
+            const step = `Hit API PUT ${put_v2_trainer_schedules}`;
+            const expected = `Successfully hit API put_v2_trainer_schedules`;
+
+            allureReporter.addStep(step, [{}], status);
+            logger.log(step, expected);
+
+            return res;
+        } catch (error) {
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to hit API ${put_v2_trainer_schedules}`,
+                [{}],
+                status
+            );
+            console.error(`Request Error: ${error.message}`);
+
+            if (error.response) {
+                console.error(
+                    `> Axios put_v2_trainer_schedules: ${error.response.status}\nPath: ${error.config?.url}\nResponse: ${JSON.stringify(error.response.data, null, 2)}`
+                );
+            }
+
+            throw new Error(
+                `Failed to hit API ${put_v2_trainer_schedules}: ${error.message}`
+            );
+        }
+    }
+
+    /**
+     * Recaps a trainer schedule
+     * @async
+     * @param {string} token - The authorization token.
+     * @param {number} activity_id - The activity ID to recap.
+     * @returns {Promise<Object>} Response from API.
+     * @throws {Error} Throws an error if the request fails.
+     */
+    async patch_v2_trainer_schedules_recap(token, activity_id) {
+        const patch_v2_trainer_schedules_recap =
+            dotenvConf.hostnameFhad +
+            `/v2/trainer-schedules/${activity_id}/recap`;
+
+        let status = "passed";
+
+        try {
+            const requestBody = {
+                remarks: "QA BE Automation Test - Recap trainer activity"
+            };
+
+            const res = await axios.patch(
+                patch_v2_trainer_schedules_recap,
+                requestBody,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+
+            console.log(
+                `\nHit API PATCH: ${patch_v2_trainer_schedules_recap}\nRequest: ${JSON.stringify(requestBody, null, 2)}\nResponse: ${JSON.stringify(res.data, null, 2)}`
+            );
+
+            const step = `Hit API PATCH ${patch_v2_trainer_schedules_recap}`;
+            const expected = `Successfully hit API patch_v2_trainer_schedules_recap`;
+
+            allureReporter.addStep(step, [{}], status);
+            logger.log(step, expected);
+
+            return res.data;
+        } catch (error) {
+            status = "failed";
+
+            allureReporter.addStep(
+                `Failed to hit API ${patch_v2_trainer_schedules_recap}`,
+                [{}],
+                status
+            );
+            console.error(`Request Error: ${error.message}`);
+
+            if (error.response) {
+                console.error(
+                    `> Axios patch_v2_trainer_schedules_recap: ${error.response.status}\nPath: ${error.config?.url}\nResponse: ${JSON.stringify(error.response.data, null, 2)}`
+                );
+            }
+
+            throw new Error(
+                `Failed to hit API ${patch_v2_trainer_schedules_recap}: ${error.message}`
+            );
+        }
+    }
 }
 
 /**
