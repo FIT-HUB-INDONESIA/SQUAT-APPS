@@ -21,6 +21,8 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
         const type_name = "Gym Patrol";
         const started_at = "25-02-2025 16:07:28 GMT+07:00";
         const finished_at = "25-02-2025 17:07:28 GMT+07:00";
+        const update_started_at = "26-02-2025 17:07:28 GMT+07:00";
+        const update_finished_at = "26-02-2025 18:07:28 GMT+07:00";
 
         const auth_login = await AuthApiCollections.post_v1_auth_login(
             email,
@@ -52,10 +54,26 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
 
-        await PersonalTrainerApi.patch_v2_trainer_schedules_cancel(
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
             token,
             activity_id
         );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        // await PersonalTrainerApi.patch_v2_trainer_schedules_cancel(
+        //     token,
+        //     activity_id
+        // );
     });
 
     //NOTE - Delete me
