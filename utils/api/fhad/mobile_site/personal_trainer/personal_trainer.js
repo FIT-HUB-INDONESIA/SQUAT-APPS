@@ -30,7 +30,7 @@ class PersonalTrainerApiCollections {
 
             const apiData = res.data?.data || [];
             const nameToIdMap = apiData.reduce((map, item) => {
-                map[item.name] = item.id;
+                map[item.summary_name] = item.id;
 
                 return map;
             }, {});
@@ -76,7 +76,14 @@ class PersonalTrainerApiCollections {
      * @returns {Promise<Object>} Response from API.
      * @throws {Error} Throws an error if the request fails.
      */
-    async post_v2_trainer_schedules(token, type_id, started_at, finished_at) {
+    async post_v2_trainer_schedules(
+        token,
+        trainer_id,
+        club_id,
+        type_id,
+        started_at,
+        finished_at
+    ) {
         const post_v2_trainer_schedules =
             dotenvConf.hostnameFhad + "/v2/trainer-schedules";
 
@@ -89,6 +96,8 @@ class PersonalTrainerApiCollections {
                 DateConverter.humanReadableToEpoch(finished_at) / 1000;
 
             const requestBody = {
+                trainer_id: trainer_id,
+                club_id: club_id,
                 type_id: type_id,
                 started_at: startedAt,
                 finished_at: finishedAt,

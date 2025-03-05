@@ -1,37 +1,40 @@
 import fs from "fs";
 import path from "path";
 
-const testDir = "../tests";
-const testFiles = fs
-    .readdirSync(testDir)
-    .filter((file) => file.endsWith(".js"));
+async function collectTestCases() {
+    const { glob } = await import("glob");
 
-const testCasesByDescribe = {};
+    const testDir = path.join(process.cwd(), "../tests/**/*.spec.js");
+    const testFiles = await glob(testDir);
 
-for (const file of testFiles) {
-    const filePath = path.join(testDir, file);
-    const fileContent = fs.readFileSync(filePath, "utf8");
+    const testCasesByDescribe = {};
 
-    let currentDescribe = null;
-    const lines = fileContent.split("\n");
+    for (const file of testFiles) {
+        const fileContent = fs.readFileSync(file, "utf8");
 
-    for (const line of lines) {
-        const describeMatch = line.match(/describe\(["'`](.*?)["'`],/);
+        let currentDescribe = null;
+        const lines = fileContent.split("\n");
 
-        if (describeMatch) {
-            currentDescribe = describeMatch[1];
-            testCasesByDescribe[currentDescribe] = [];
-        }
+        for (const line of lines) {
+            const describeMatch = line.match(/describe\(["'`](.*?)["'`],/);
 
-        const itMatch = line.match(/it\(["'`](.*?)["'`]/);
+            if (describeMatch) {
+                currentDescribe = describeMatch[1];
+                testCasesByDescribe[currentDescribe] = [];
+            }
 
-        if (itMatch && currentDescribe) {
-            testCasesByDescribe[currentDescribe].push(itMatch[1]);
+            const itMatch = line.match(/it\(["'`](.*?)["'`]/);
+
+            if (itMatch && currentDescribe) {
+                testCasesByDescribe[currentDescribe].push(itMatch[1]);
+            }
         }
     }
+
+    console.log(
+        "Collected Test Case Titles:",
+        JSON.stringify(testCasesByDescribe, null, 2)
+    );
 }
 
-console.log(
-    "Collected Test Case Titles:",
-    JSON.stringify(testCasesByDescribe, null, 2)
-);
+collectTestCases();

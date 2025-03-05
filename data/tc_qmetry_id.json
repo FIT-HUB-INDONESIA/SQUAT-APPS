@@ -1,3 +1,15 @@
 {
-    "Should successfully register as a new member @register @regression @smoke": "PT-TC-00"
+    "Should successfully register as a new member @register @regression @smoke": "PT-TC-00",
+
+    "[BE] Should successfully create-cancel PT class activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel reassessment activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel fitness welcome activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel gym patrol activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel training internal activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel training external activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel exercise activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel break activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create-cancel libur (day off) activity for PT role @regression @api_pt": "PT-TC-00",
+    "[BE] Should successfully create paid PT session activity for PT role @regression": "PT-TC-00",
+    "[BE] Should successfully create fit start PT session activity for PT role @regression": "PT-TC-00"
 }

@@ -16,6 +16,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadAdminEmail;
         const password = dotenvConf.fhadAdminPassword;
+        const club_name = "FIT HUB Bendungan Hilir (Benhil)";
+        const pt_id = "firapt@test.id";
         const type_name = "Gym Patrol";
         const started_at = "25-02-2025 16:07:28 GMT+07:00";
         const finished_at = "25-02-2025 17:07:28 GMT+07:00";
@@ -26,6 +28,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -34,6 +41,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -93,7 +102,9 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
-        const type_name = "Class Conduct";
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "PT Class";
         const started_at = dotenvConf.ptClassStartedAt;
         const finished_at = dotenvConf.ptClassFinishedAt;
 
@@ -103,6 +114,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -111,6 +127,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -123,7 +141,9 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
-        const type_name = "???";
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Reassessment";
         const started_at = dotenvConf.reasementStartedAt;
         const finished_at = dotenvConf.reasementFinishedAt;
 
@@ -133,6 +153,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -141,6 +166,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -153,6 +180,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
         const type_name = "Fitness Welcome";
         const started_at = dotenvConf.fitnessWelcomeStartedAt;
         const finished_at = dotenvConf.fitnessWelcomeFinishedAt;
@@ -163,6 +192,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -171,6 +205,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -183,6 +219,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
         const type_name = "Gym Patrol";
         const started_at = dotenvConf.gymPatrolStartedAt;
         const finished_at = dotenvConf.gymPatrolFinishedAt;
@@ -193,6 +231,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -201,6 +244,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -213,7 +258,9 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
-        const type_name = "???";
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training Internal";
         const started_at = dotenvConf.trainingInternalStartedAt;
         const finished_at = dotenvConf.trainingInternalFinishedAt;
 
@@ -223,6 +270,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -231,6 +283,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -243,7 +297,9 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
-        const type_name = "???";
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training External";
         const started_at = dotenvConf.trainingExternalStartedAt;
         const finished_at = dotenvConf.trainingExternalFinishedAt;
 
@@ -253,6 +309,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -261,6 +322,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -273,7 +336,9 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
-        const type_name = "???";
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Exercise";
         const started_at = dotenvConf.exerciseStartedAt;
         const finished_at = dotenvConf.exerciseFinishedAt;
 
@@ -283,6 +348,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -291,6 +361,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -303,6 +375,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
         const type_name = "Break";
         const started_at = dotenvConf.breakStartedAt;
         const finished_at = dotenvConf.breakFinishedAt;
@@ -313,6 +387,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -321,6 +400,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
@@ -333,6 +414,8 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         const email = dotenvConf.fhadPtEmail;
         const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
         const type_name = "Day Off";
         const started_at = dotenvConf.dayOffStartedAt;
         const finished_at = dotenvConf.dayOffFinishedAt;
@@ -343,6 +426,11 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
         const token = auth_login.data.data.token;
 
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
         const type_id =
             await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
                 token,
@@ -351,13 +439,15 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
 
         await PersonalTrainerApi.post_v2_trainer_schedules(
             token,
+            pt_id,
+            club_id,
             type_id,
             started_at,
             finished_at
         );
     });
 
-    it("[BE] Should successfully create paid PT session activity for PT role @regression @api_pt", async () => {
+    it("[BE] Should successfully create paid PT session activity for PT role @regression", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -402,7 +492,7 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
         );
     });
 
-    it("[BE] Should successfully create fit start PT session activity for PT role @regression @api_pt", async () => {
+    it("[BE] Should successfully create fit start PT session activity for PT role @regression", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 

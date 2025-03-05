@@ -66,6 +66,8 @@ export const dotenvConf = {
     /**
      * Test Data: [BE] Mobile Site Create Personal Trainer Activities
      */
+    ptActivityClubName: process.env.PT_ACTIVITY_CLUB_NAME,
+    ptActivityTrainerId: process.env.PT_ACTIVITY_TRAINER_ID,
     ptClassStartedAt: process.env.PT_CLASS_STARTED_AT,
     ptClassFinishedAt: process.env.PT_CLASS_FINISHED_AT,
     reasementStartedAt: process.env.REASSESSMENT_STARTED_AT,
