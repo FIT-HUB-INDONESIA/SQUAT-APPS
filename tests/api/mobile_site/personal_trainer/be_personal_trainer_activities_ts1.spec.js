@@ -39,13 +39,22 @@ describe("[BE] Mobile Site Create Personal Trainer Activities", () => {
                 type_name
             );
 
-        await PersonalTrainerApi.post_v2_trainer_schedules(
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_cancel(
             token,
-            pt_id,
-            club_id,
-            type_id,
-            started_at,
-            finished_at
+            activity_id
         );
     });
 
