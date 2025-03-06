@@ -29,7 +29,7 @@ class Navigation {
      */
     async navigate_to_fithub_dashboard() {
         try {
-            const baseUrl = this.#get_base_url() + `/#/auth/login`;
+            const baseUrl = this.#get_base_url();
 
             await browser.url(baseUrl);
             await browser.pause(2000);
