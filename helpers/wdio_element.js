@@ -29,6 +29,25 @@ class elementHelper {
     }
 
     /**
+     * Clicks (silent) an element with proper wait and without allure report
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @returns {Promise<void>}
+     */
+    async clickSilent(element) {
+        const errors = [];
+
+        await this.waitForInteractable(element);
+
+        await element.click().catch((err) => {
+            errors.push(`Element click action failed: ${err.message}`);
+        });
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
      * Clicks an element with proper wait
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
      * @param {string} elementName - The name of the element to interact with
@@ -64,25 +83,6 @@ class elementHelper {
             );
             errors.push(`Element click action failed: ${err.message}`);
         }
-
-        if (errors.length > 0) {
-            throw new Error(errors.join(", "));
-        }
-    }
-
-    /**
-     * Clicks (silent) an element with proper wait and without allure report
-     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
-     * @returns {Promise<void>}
-     */
-    async clickSilent(element) {
-        const errors = [];
-
-        await this.waitForInteractable(element);
-
-        await element.click().catch((err) => {
-            errors.push(`Element click action failed: ${err.message}`);
-        });
 
         if (errors.length > 0) {
             throw new Error(errors.join(", "));
