@@ -7,7 +7,7 @@ import { dotenvConf } from "../../../../config/dotenv";
  * Write feature name in "describe" block.
  * Write test-case title in "it" block.
  */
-describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
+describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
     //NOTE - Delete me
     it("Test create non PT session activity", async () => {
         allureReporter.addParentSuite("Regression");
@@ -555,96 +555,6 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
         );
     });
 
-    it("[BE] Should successfully create paid PT session activity for PT role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadPtEmail;
-        const password = dotenvConf.fhadPtPassword;
-        const club_name = dotenvConf.paidPtSessionClubName;
-        const pt_id = dotenvConf.paidPtSessionPtId;
-        const member_phone = dotenvConf.paidPtSessionMemberPhone;
-        const schedule_at = dotenvConf.paidPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
-        );
-    });
-
-    it("[BE] Should successfully create fit start PT session activity for PT role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadPtEmail;
-        const password = dotenvConf.fhadPtPassword;
-        const club_name = dotenvConf.fitStartPtSessionClubName;
-        const pt_id = dotenvConf.fitStartPtSessionPtId;
-        const member_phone = dotenvConf.fitStartPtSessionMemberPhone;
-        const schedule_at = dotenvConf.fitStartPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
-        );
-    });
-
     it("Should successfully create-cancel PT class activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
@@ -1074,96 +984,6 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
         await PersonalTrainerApi.patch_v2_trainer_schedules_cancel(
             token,
             activity_id
-        );
-    });
-
-    it("[BE] Should successfully create paid PT session activity for CM role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadCmEmail;
-        const password = dotenvConf.fhadCmPassword;
-        const club_name = dotenvConf.paidPtSessionClubName;
-        const pt_id = dotenvConf.paidPtSessionPtId;
-        const member_phone = dotenvConf.paidPtSessionMemberPhone;
-        const schedule_at = dotenvConf.paidPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
-        );
-    });
-
-    it("[BE] Should successfully create fit start PT session activity for CM role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadCmEmail;
-        const password = dotenvConf.fhadCmPassword;
-        const club_name = dotenvConf.fitStartPtSessionClubName;
-        const pt_id = dotenvConf.fitStartPtSessionPtId;
-        const member_phone = dotenvConf.fitStartPtSessionMemberPhone;
-        const schedule_at = dotenvConf.fitStartPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
         );
     });
 
@@ -1599,96 +1419,6 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
         );
     });
 
-    it("[BE] Should successfully create paid PT session activity for FM role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadFmEmail;
-        const password = dotenvConf.fhadFmPassword;
-        const club_name = dotenvConf.paidPtSessionClubName;
-        const pt_id = dotenvConf.paidPtSessionPtId;
-        const member_phone = dotenvConf.paidPtSessionMemberPhone;
-        const schedule_at = dotenvConf.paidPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
-        );
-    });
-
-    it("[BE] Should successfully create fit start PT session activity for FM role @regression", async () => {
-        allureReporter.addParentSuite("Regression");
-        allureReporter.addSeverity("normal");
-
-        const email = dotenvConf.fhadFmEmail;
-        const password = dotenvConf.fhadFmPassword;
-        const club_name = dotenvConf.fitStartPtSessionClubName;
-        const pt_id = dotenvConf.fitStartPtSessionPtId;
-        const member_phone = dotenvConf.fitStartPtSessionMemberPhone;
-        const schedule_at = dotenvConf.fitStartPtSessionScheduleAt;
-
-        const auth_login = await AuthApiCollections.post_v1_auth_login(
-            email,
-            password
-        );
-        const token = auth_login.data.data.token;
-
-        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
-            token,
-            club_name
-        );
-
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
-            token,
-            pt_id,
-            member_phone
-        );
-
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
-
-        await PersonalTrainerApi.post_v2_client_schedules(
-            token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
-        );
-    });
-
     it("Should successfully create-cancel PT class activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
@@ -2120,17 +1850,22 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
             activity_id
         );
     });
+});
 
-    it("[BE] Should successfully create paid PT session activity for admin role @regression", async () => {
+describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
+    it("Should successfully create-update-recap PT class activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
-        const email = dotenvConf.fhadAdminEmail;
-        const password = dotenvConf.fhadAdminPassword;
-        const club_name = dotenvConf.paidPtSessionClubName;
-        const pt_id = dotenvConf.paidPtSessionPtId;
-        const member_phone = dotenvConf.paidPtSessionMemberPhone;
-        const schedule_at = dotenvConf.paidPtSessionScheduleAt;
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "PT Class";
+        const started_at = dotenvConf.ptClassStartedAt;
+        const finished_at = dotenvConf.ptClassFinishedAt;
+        const update_started_at = dotenvConf.ptClassUpdateStartedAt;
+        const update_finished_at = dotenvConf.ptClassUpdateFinishedAt;
 
         const auth_login = await AuthApiCollections.post_v1_auth_login(
             email,
@@ -2143,39 +1878,55 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
             club_name
         );
 
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
             token,
-            pt_id,
-            member_phone
+            activity_id,
+            update_started_at,
+            update_finished_at
         );
 
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
 
-        await PersonalTrainerApi.post_v2_client_schedules(
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
             token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
+            activity_id
         );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("[BE] Should successfully create fit start PT session activity for admin role @regression", async () => {
+    it("Should successfully create-update-recap reassessment activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
-        const email = dotenvConf.fhadAdminEmail;
-        const password = dotenvConf.fhadAdminPassword;
-        const club_name = dotenvConf.fitStartPtSessionClubName;
-        const pt_id = dotenvConf.fitStartPtSessionPtId;
-        const member_phone = dotenvConf.fitStartPtSessionMemberPhone;
-        const schedule_at = dotenvConf.fitStartPtSessionScheduleAt;
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Reassessment";
+        const started_at = dotenvConf.reasementStartedAt;
+        const finished_at = dotenvConf.reasementFinishedAt;
+        const update_started_at = dotenvConf.reasementUpdateStartedAt;
+        const update_finished_at = dotenvConf.reasementUpdateFinishedAt;
 
         const auth_login = await AuthApiCollections.post_v1_auth_login(
             email,
@@ -2188,27 +1939,2114 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
             club_name
         );
 
-        const user_id = await PersonalTrainerApi.map_get_v2_clients(
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
             token,
-            pt_id,
-            member_phone
+            activity_id,
+            update_started_at,
+            update_finished_at
         );
 
-        const active_packages = await PersonalTrainerApi.get_v2_active_packages(
-            token,
-            pt_id,
-            user_id
-        );
-        const user_pt_membership_id = active_packages.data?.data[0].id;
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
 
-        await PersonalTrainerApi.post_v2_client_schedules(
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
             token,
-            club_id,
-            pt_id,
-            schedule_at,
-            user_id,
-            user_pt_membership_id
+            activity_id
         );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap fitness welcome activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Fitness Welcome";
+        const started_at = dotenvConf.fitnessWelcomeStartedAt;
+        const finished_at = dotenvConf.fitnessWelcomeFinishedAt;
+        const update_started_at = dotenvConf.fitnessWelcomeUpdateStartedAt;
+        const update_finished_at = dotenvConf.fitnessWelcomeUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap gym patrol activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Gym Patrol";
+        const started_at = dotenvConf.gymPatrolStartedAt;
+        const finished_at = dotenvConf.gymPatrolFinishedAt;
+        const update_started_at = dotenvConf.gymPatrolUpdateStartedAt;
+        const update_finished_at = dotenvConf.gymPatrolUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training internal activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training Internal";
+        const started_at = dotenvConf.trainingInternalStartedAt;
+        const finished_at = dotenvConf.trainingInternalFinishedAt;
+        const update_started_at = dotenvConf.trainingInternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingInternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training external activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training External";
+        const started_at = dotenvConf.trainingExternalStartedAt;
+        const finished_at = dotenvConf.trainingExternalFinishedAt;
+        const update_started_at = dotenvConf.trainingExternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingExternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap exercise activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Exercise";
+        const started_at = dotenvConf.exerciseStartedAt;
+        const finished_at = dotenvConf.exerciseFinishedAt;
+        const update_started_at = dotenvConf.exerciseUpdateStartedAt;
+        const update_finished_at = dotenvConf.exerciseUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap break activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Break";
+        const started_at = dotenvConf.breakStartedAt;
+        const finished_at = dotenvConf.breakFinishedAt;
+        const update_started_at = dotenvConf.breakUpdateStartedAt;
+        const update_finished_at = dotenvConf.breakUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap libur (day off) activity for PT role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadPtEmail;
+        const password = dotenvConf.fhadPtPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Day Off";
+        const started_at = dotenvConf.dayOffStartedAt;
+        const finished_at = dotenvConf.dayOffFinishedAt;
+        const update_started_at = dotenvConf.dayOffUpdateStartedAt;
+        const update_finished_at = dotenvConf.dayOffUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap PT class activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "PT Class";
+        const started_at = dotenvConf.ptClassStartedAt;
+        const finished_at = dotenvConf.ptClassFinishedAt;
+        const update_started_at = dotenvConf.ptClassUpdateStartedAt;
+        const update_finished_at = dotenvConf.ptClassUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap reassessment activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Reassessment";
+        const started_at = dotenvConf.reasementStartedAt;
+        const finished_at = dotenvConf.reasementFinishedAt;
+        const update_started_at = dotenvConf.reasementUpdateStartedAt;
+        const update_finished_at = dotenvConf.reasementUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap fitness welcome activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Fitness Welcome";
+        const started_at = dotenvConf.fitnessWelcomeStartedAt;
+        const finished_at = dotenvConf.fitnessWelcomeFinishedAt;
+        const update_started_at = dotenvConf.fitnessWelcomeUpdateStartedAt;
+        const update_finished_at = dotenvConf.fitnessWelcomeUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap gym patrol activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Gym Patrol";
+        const started_at = dotenvConf.gymPatrolStartedAt;
+        const finished_at = dotenvConf.gymPatrolFinishedAt;
+        const update_started_at = dotenvConf.gymPatrolUpdateStartedAt;
+        const update_finished_at = dotenvConf.gymPatrolUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training internal activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training Internal";
+        const started_at = dotenvConf.trainingInternalStartedAt;
+        const finished_at = dotenvConf.trainingInternalFinishedAt;
+        const update_started_at = dotenvConf.trainingInternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingInternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training external activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training External";
+        const started_at = dotenvConf.trainingExternalStartedAt;
+        const finished_at = dotenvConf.trainingExternalFinishedAt;
+        const update_started_at = dotenvConf.trainingExternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingExternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap exercise activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Exercise";
+        const started_at = dotenvConf.exerciseStartedAt;
+        const finished_at = dotenvConf.exerciseFinishedAt;
+        const update_started_at = dotenvConf.exerciseUpdateStartedAt;
+        const update_finished_at = dotenvConf.exerciseUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap break activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Break";
+        const started_at = dotenvConf.breakStartedAt;
+        const finished_at = dotenvConf.breakFinishedAt;
+        const update_started_at = dotenvConf.breakUpdateStartedAt;
+        const update_finished_at = dotenvConf.breakUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap libur (day off) activity for CM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadCmEmail;
+        const password = dotenvConf.fhadCmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Day Off";
+        const started_at = dotenvConf.dayOffStartedAt;
+        const finished_at = dotenvConf.dayOffFinishedAt;
+        const update_started_at = dotenvConf.dayOffUpdateStartedAt;
+        const update_finished_at = dotenvConf.dayOffUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap PT class activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "PT Class";
+        const started_at = dotenvConf.ptClassStartedAt;
+        const finished_at = dotenvConf.ptClassFinishedAt;
+        const update_started_at = dotenvConf.ptClassUpdateStartedAt;
+        const update_finished_at = dotenvConf.ptClassUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap reassessment activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Reassessment";
+        const started_at = dotenvConf.reasementStartedAt;
+        const finished_at = dotenvConf.reasementFinishedAt;
+        const update_started_at = dotenvConf.reasementUpdateStartedAt;
+        const update_finished_at = dotenvConf.reasementUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap fitness welcome activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Fitness Welcome";
+        const started_at = dotenvConf.fitnessWelcomeStartedAt;
+        const finished_at = dotenvConf.fitnessWelcomeFinishedAt;
+        const update_started_at = dotenvConf.fitnessWelcomeUpdateStartedAt;
+        const update_finished_at = dotenvConf.fitnessWelcomeUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap gym patrol activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Gym Patrol";
+        const started_at = dotenvConf.gymPatrolStartedAt;
+        const finished_at = dotenvConf.gymPatrolFinishedAt;
+        const update_started_at = dotenvConf.gymPatrolUpdateStartedAt;
+        const update_finished_at = dotenvConf.gymPatrolUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training internal activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training Internal";
+        const started_at = dotenvConf.trainingInternalStartedAt;
+        const finished_at = dotenvConf.trainingInternalFinishedAt;
+        const update_started_at = dotenvConf.trainingInternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingInternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training external activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training External";
+        const started_at = dotenvConf.trainingExternalStartedAt;
+        const finished_at = dotenvConf.trainingExternalFinishedAt;
+        const update_started_at = dotenvConf.trainingExternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingExternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap exercise activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Exercise";
+        const started_at = dotenvConf.exerciseStartedAt;
+        const finished_at = dotenvConf.exerciseFinishedAt;
+        const update_started_at = dotenvConf.exerciseUpdateStartedAt;
+        const update_finished_at = dotenvConf.exerciseUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap break activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Break";
+        const started_at = dotenvConf.breakStartedAt;
+        const finished_at = dotenvConf.breakFinishedAt;
+        const update_started_at = dotenvConf.breakUpdateStartedAt;
+        const update_finished_at = dotenvConf.breakUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap libur (day off) activity for FM role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadFmEmail;
+        const password = dotenvConf.fhadFmPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Day Off";
+        const started_at = dotenvConf.dayOffStartedAt;
+        const finished_at = dotenvConf.dayOffFinishedAt;
+        const update_started_at = dotenvConf.dayOffUpdateStartedAt;
+        const update_finished_at = dotenvConf.dayOffUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap PT class activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "PT Class";
+        const started_at = dotenvConf.ptClassStartedAt;
+        const finished_at = dotenvConf.ptClassFinishedAt;
+        const update_started_at = dotenvConf.ptClassUpdateStartedAt;
+        const update_finished_at = dotenvConf.ptClassUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap reassessment activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Reassessment";
+        const started_at = dotenvConf.reasementStartedAt;
+        const finished_at = dotenvConf.reasementFinishedAt;
+        const update_started_at = dotenvConf.reasementUpdateStartedAt;
+        const update_finished_at = dotenvConf.reasementUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap fitness welcome activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Fitness Welcome";
+        const started_at = dotenvConf.fitnessWelcomeStartedAt;
+        const finished_at = dotenvConf.fitnessWelcomeFinishedAt;
+        const update_started_at = dotenvConf.fitnessWelcomeUpdateStartedAt;
+        const update_finished_at = dotenvConf.fitnessWelcomeUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap gym patrol activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Gym Patrol";
+        const started_at = dotenvConf.gymPatrolStartedAt;
+        const finished_at = dotenvConf.gymPatrolFinishedAt;
+        const update_started_at = dotenvConf.gymPatrolUpdateStartedAt;
+        const update_finished_at = dotenvConf.gymPatrolUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training internal activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training Internal";
+        const started_at = dotenvConf.trainingInternalStartedAt;
+        const finished_at = dotenvConf.trainingInternalFinishedAt;
+        const update_started_at = dotenvConf.trainingInternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingInternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap training external activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Training External";
+        const started_at = dotenvConf.trainingExternalStartedAt;
+        const finished_at = dotenvConf.trainingExternalFinishedAt;
+        const update_started_at = dotenvConf.trainingExternalUpdateStartedAt;
+        const update_finished_at = dotenvConf.trainingExternalUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap exercise activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Exercise";
+        const started_at = dotenvConf.exerciseStartedAt;
+        const finished_at = dotenvConf.exerciseFinishedAt;
+        const update_started_at = dotenvConf.exerciseUpdateStartedAt;
+        const update_finished_at = dotenvConf.exerciseUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap break activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Break";
+        const started_at = dotenvConf.breakStartedAt;
+        const finished_at = dotenvConf.breakFinishedAt;
+        const update_started_at = dotenvConf.breakUpdateStartedAt;
+        const update_finished_at = dotenvConf.breakUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+    });
+
+    it("Should successfully create-update-recap libur (day off) activity for admin role @regression @api-pt", async () => {
+        allureReporter.addParentSuite("Regression");
+        allureReporter.addSeverity("normal");
+
+        const email = dotenvConf.fhadAdminEmail;
+        const password = dotenvConf.fhadAdminPassword;
+        const club_name = dotenvConf.ptActivityClubName;
+        const pt_id = dotenvConf.ptActivityTrainerId;
+        const type_name = "Day Off";
+        const started_at = dotenvConf.dayOffStartedAt;
+        const finished_at = dotenvConf.dayOffFinishedAt;
+        const update_started_at = dotenvConf.dayOffUpdateStartedAt;
+        const update_finished_at = dotenvConf.dayOffUpdateFinishedAt;
+
+        const auth_login = await AuthApiCollections.post_v1_auth_login(
+            email,
+            password
+        );
+        const token = auth_login.data.data.token;
+
+        const club_id = await PersonalTrainerApi.map_get_v2_clubs(
+            token,
+            club_name
+        );
+
+        const type_id =
+            await PersonalTrainerApi.map_get_v2_trainer_schedule_types(
+                token,
+                type_name
+            );
+
+        const trainer_schedule =
+            await PersonalTrainerApi.post_v2_trainer_schedules(
+                token,
+                pt_id,
+                club_id,
+                type_id,
+                started_at,
+                finished_at
+            );
+        const activity_id = trainer_schedule.data.data.id;
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.put_v2_trainer_schedules(
+            token,
+            activity_id,
+            update_started_at,
+            update_finished_at
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
+
+        await PersonalTrainerApi.patch_v2_trainer_schedules_recap(
+            token,
+            activity_id
+        );
+
+        await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 });
 
