@@ -7,7 +7,7 @@ import { dotenvConf } from "../../../../config/dotenv";
  * Write feature name in "describe" block.
  * Write test-case title in "it" block.
  */
-describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
+describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
     //NOTE - Delete me
     it("Test create non PT session activity", async () => {
         allureReporter.addParentSuite("Regression");
@@ -1850,9 +1850,9 @@ describe("[BE] Mobile Site Create & Cancel Personal Trainer Activities", () => {
             activity_id
         );
     });
+});
 
-    //SECTION - delete me
-
+describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
     it("Should successfully create-update-recap PT class activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
