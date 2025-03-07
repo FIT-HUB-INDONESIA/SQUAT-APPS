@@ -123,7 +123,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel PT class activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel PT class activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -171,7 +171,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel reassessment activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel reassessment activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -219,7 +219,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel fitness welcome activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel fitness welcome activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -267,7 +267,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel gym patrol activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel gym patrol activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -315,7 +315,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training internal activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training internal activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -363,7 +363,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training external activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training external activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -411,7 +411,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel exercise activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel exercise activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -459,7 +459,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel break activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel break activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -507,7 +507,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel libur (day off) activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create then cancel libur (day off) activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -555,7 +555,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel PT class activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel PT class activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -603,7 +603,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel reassessment activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel reassessment activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -651,7 +651,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel fitness welcome activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel fitness welcome activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -699,7 +699,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel gym patrol activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel gym patrol activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -747,7 +747,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training internal activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training internal activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -795,7 +795,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training external activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training external activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -843,7 +843,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel exercise activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel exercise activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -891,7 +891,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel break activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel break activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -939,7 +939,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel libur (day off) activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel libur (day off) activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -987,7 +987,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel PT class activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel PT class activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1035,7 +1035,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel reassessment activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel reassessment activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1083,7 +1083,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel fitness welcome activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel fitness welcome activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1131,7 +1131,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel gym patrol activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel gym patrol activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1179,7 +1179,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training internal activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training internal activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1227,7 +1227,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training external activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training external activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1275,7 +1275,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel exercise activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel exercise activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1323,7 +1323,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel break activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel break activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1371,7 +1371,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel libur (day off) activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create then cancel libur (day off) activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1419,7 +1419,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel PT class activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel PT class activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1467,7 +1467,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel reassessment activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel reassessment activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1515,7 +1515,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel fitness welcome activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel fitness welcome activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1563,7 +1563,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel gym patrol activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel gym patrol activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1611,7 +1611,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training internal activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training internal activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1659,7 +1659,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel training external activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel training external activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1707,7 +1707,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel exercise activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel exercise activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1755,7 +1755,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel break activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel break activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1803,7 +1803,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
         );
     });
 
-    it("Should successfully create-cancel libur (day off) activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create then cancel libur (day off) activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1853,7 +1853,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
 });
 
 describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
-    it("Should successfully create-update-recap PT class activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap PT class activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1914,7 +1914,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap reassessment activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap reassessment activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -1975,7 +1975,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap fitness welcome activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap fitness welcome activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2036,7 +2036,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap gym patrol activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap gym patrol activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2097,7 +2097,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training internal activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training internal activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2158,7 +2158,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training external activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training external activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2219,7 +2219,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap exercise activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap exercise activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2280,7 +2280,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap break activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap break activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2341,7 +2341,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap libur (day off) activity for PT role @regression @api-pt", async () => {
+    it("Should successfully create update then recap libur (day off) activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2402,7 +2402,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap PT class activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap PT class activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2463,7 +2463,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap reassessment activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap reassessment activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2524,7 +2524,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap fitness welcome activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap fitness welcome activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2585,7 +2585,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap gym patrol activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap gym patrol activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2646,7 +2646,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training internal activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training internal activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2707,7 +2707,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training external activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training external activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2768,7 +2768,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap exercise activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap exercise activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2829,7 +2829,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap break activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap break activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2890,7 +2890,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap libur (day off) activity for CM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap libur (day off) activity for CM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -2951,7 +2951,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap PT class activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap PT class activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3012,7 +3012,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap reassessment activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap reassessment activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3073,7 +3073,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap fitness welcome activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap fitness welcome activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3134,7 +3134,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap gym patrol activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap gym patrol activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3195,7 +3195,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training internal activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training internal activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3256,7 +3256,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training external activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training external activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3317,7 +3317,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap exercise activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap exercise activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3378,7 +3378,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap break activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap break activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3439,7 +3439,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap libur (day off) activity for FM role @regression @api-pt", async () => {
+    it("Should successfully create update then recap libur (day off) activity for FM role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3500,7 +3500,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap PT class activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap PT class activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3561,7 +3561,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap reassessment activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap reassessment activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3622,7 +3622,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap fitness welcome activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap fitness welcome activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3683,7 +3683,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap gym patrol activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap gym patrol activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3744,7 +3744,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training internal activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training internal activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3805,7 +3805,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap training external activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap training external activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3866,7 +3866,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap exercise activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap exercise activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3927,7 +3927,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap break activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap break activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 
@@ -3988,7 +3988,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
         await PersonalTrainerApi.get_v2_trainer_schedules(token, activity_id);
     });
 
-    it("Should successfully create-update-recap libur (day off) activity for admin role @regression @api-pt", async () => {
+    it("Should successfully create update then recap libur (day off) activity for admin role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
 

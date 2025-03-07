@@ -89,6 +89,46 @@ class expectHelper {
     }
 
     /**
+     * Checks if an element is displayed
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} elementName - The name of the element to interact with
+     * @returns {Promise<boolean>}
+     */
+    async toBeDisplayed(element, elementName) {
+        let status = "passed";
+
+        try {
+            await element.waitForExist();
+            await expect(element).toBeDisplayed();
+            allureReporter.addStep(
+                `Validation passed: ${elementName} is displayed`,
+                [{}],
+                status
+            );
+
+            return true;
+        } catch (error) {
+            const cleanMessage = stripAnsi(error.message);
+
+            status = "failed";
+
+            allureReporter.addAttachment(
+                `Defect trace: ${elementName} is not displayed`,
+                cleanMessage,
+                "text/plain"
+            );
+
+            allureReporter.addStep(
+                `Validation failed: ${elementName} is not displayed`,
+                [{}],
+                status
+            );
+
+            return false;
+        }
+    }
+
+    /**
      * Checks if an element has a specific attribute containing a value.
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with.
      * @param {string} elementName - The name of the element to interact with.

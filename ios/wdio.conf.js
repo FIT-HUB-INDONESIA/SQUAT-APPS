@@ -71,16 +71,16 @@ export const config = {
               {
                   // capabilities for local Appium web tests on iOS
                   platformName: "iOS",
+                  browserName: "Safari",
                   "appium:deviceName": "iPhone Real Device",
                   "appium:automationName": "XCUITest",
-                  "appium:noReset": true,
+                  "appium:noReset": true
                   //   "appium:bundleId": dotenvConf.wdioAppId,
                   // "appium:protocol": "http",
                   // "appium:hostname": "localhost",
                   // "appium:path": "/",
                   // "appium:port": dotenvConf.iosPort
                   //   "appium:autoWebview": true
-                  browserName: "Safari"
               }
           ]
         : [

@@ -71,17 +71,17 @@ export const config = {
               {
                   // capabilities for local Appium web tests on an Android Emulator
                   platformName: "Android",
+                  browserName: "Chrome",
                   "appium:deviceName": "Android Real Device",
                   "appium:automationName": "UiAutomator2",
                   "appium:noReset": true,
                   // "appium:appPackage": dotenvConf.wdioAppId,
                   // "appium:appActivity": "com.thehub.apps.MainActivity",
-                  "appium:autoGrantPermissions": true,
+                  "appium:autoGrantPermissions": true
                   // "appium:protocol": "http",
                   // "appium:hostname": "localhost",
                   // "appium:path": "/",
                   // "appium:port": dotenvConf.androidPort
-                  browserName: "Chrome"
               }
           ]
         : [
