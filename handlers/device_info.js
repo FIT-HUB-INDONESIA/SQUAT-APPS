@@ -67,6 +67,13 @@ class DeviceInfo {
      */
     async getAndroidAppVersion() {
         try {
+            if (!this.app_id) {
+                return {
+                    versionName: "Non FHAP Testing Mode",
+                    versionCode: "Non FHAP Testing Mode"
+                };
+            }
+
             const device = await this.getAndroidUDID();
 
             if (device === "Not connected") {
@@ -85,9 +92,7 @@ class DeviceInfo {
                 versionCode: versionCodeMatch ? versionCodeMatch[1] : "Unknown"
             };
         } catch {
-            console.error(
-                "Fetching Android app version failed - No Android device connected\n"
-            );
+            console.error("Fetching Android app version failed\n");
 
             return {
                 versionName: "Not connected",
@@ -102,6 +107,13 @@ class DeviceInfo {
      */
     async getIosAppVersion() {
         try {
+            if (!this.app_id) {
+                return {
+                    versionName: "Non FHAP Testing Mode",
+                    versionCode: "Non FHAP Testing Mode"
+                };
+            }
+
             const device = await this.getIosUDID();
 
             if (device === "Not connected") {
@@ -127,9 +139,7 @@ class DeviceInfo {
                 versionCode: appInfo.CFBundleVersion || "Unknown"
             };
         } catch {
-            console.error(
-                "Fetching iOS app version failed - No iOS device connected\n"
-            );
+            console.error("Fetching iOS app version failed\n");
 
             return {
                 versionName: "Not connected",

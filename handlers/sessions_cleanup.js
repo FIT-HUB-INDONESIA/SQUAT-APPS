@@ -1,3 +1,6 @@
+import login from "../pages/fhad/page_login/login";
+import main from "../pages/fhad/main";
+
 class CleanupCollections {
     /**
      * Terminates a mobile application on the specified platform.
@@ -60,6 +63,12 @@ class Cleanup extends CleanupCollections {
     async relaunch_app(platform, appId) {
         await this.terminate_app(platform, appId);
         await this.launch_app(platform, appId);
+    }
+
+    async perform_logout() {
+        await main.click_main_avatar_button();
+        await main.click_main_logout_button();
+        await login.toBeDisplayed_login_sign_in_button();
     }
 }
 export default new Cleanup();

@@ -11,6 +11,112 @@ const logger = new Logger();
  */
 class mobileHelper {
     /**
+     * Performs a tap (silent) gesture based on the platform (iOS or Android)
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {Object} coordinates - Coordinates object containing x,y for both platforms
+     * @param {Object} coordinates.ios - iOS coordinates {x: number, y: number}
+     * @param {Object} coordinates.android - Android coordinates {x: number, y: number}
+     * @returns {Promise<void>}
+     */
+    async tapSilent(coordinates) {
+        const errors = [];
+        const { ios, android } = coordinates;
+
+        try {
+            if (browser.capabilities.platformName === "iOS") {
+                try {
+                    await driver.executeScript("mobile: tap", [
+                        {
+                            x: ios.x,
+                            y: ios.y
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`iOS tap gesture failed: ${err.message}`);
+                }
+            } else {
+                try {
+                    await driver.executeScript("mobile: clickGesture", [
+                        {
+                            x: android.x,
+                            y: android.y
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`Android tap gesture failed: ${err.message}`);
+                }
+            }
+        } catch (err) {
+            errors.push(`Tap action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
+     * Performs a drag gesture on a mobile element.
+     * Supports iOS (`mobile: dragFromToForDuration`) and Android (`mobile: dragGesture`).
+     * @param {Object} coordinates - The start and end coordinates for the drag action.
+     * @param {Object} coordinates.ios - The iOS-specific coordinates.
+     * @param {number} coordinates.ios.startX - The starting X coordinate for iOS.
+     * @param {number} coordinates.ios.startY - The starting Y coordinate for iOS.
+     * @param {number} coordinates.ios.endX - The ending X coordinate for iOS.
+     * @param {number} coordinates.ios.endY - The ending Y coordinate for iOS.
+     * @param {Object} coordinates.android - The Android-specific coordinates.
+     * @param {number} coordinates.android.startX - The starting X coordinate for Android.
+     * @param {number} coordinates.android.startY - The starting Y coordinate for Android.
+     * @param {number} coordinates.android.endX - The ending X coordinate for Android.
+     * @param {number} coordinates.android.endY - The ending Y coordinate for Android.
+     */
+    async dragSilent(coordinates) {
+        const errors = [];
+        const { ios, android } = coordinates;
+
+        try {
+            if (browser.capabilities.platformName === "iOS") {
+                try {
+                    await driver.executeScript(
+                        "mobile: dragFromToForDuration",
+                        [
+                            {
+                                duration: 1.0,
+                                fromX: ios.startX,
+                                fromY: ios.startY,
+                                toX: ios.endX,
+                                toY: ios.endY
+                            }
+                        ]
+                    );
+                } catch (err) {
+                    errors.push(`iOS drag gesture failed: ${err.message}`);
+                }
+            } else {
+                try {
+                    await driver.executeScript("mobile: dragGesture", [
+                        {
+                            speed: 2500,
+                            startX: android.startX,
+                            startY: android.startY,
+                            endX: android.endX,
+                            endY: android.endY
+                        }
+                    ]);
+                } catch (err) {
+                    errors.push(`Android drag gesture failed: ${err.message}`);
+                }
+            }
+        } catch (err) {
+            errors.push(`Drag action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
+
+    /**
      * Performs a tap gesture based on the platform (iOS or Android)
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
      * @param {string} elementName - The name of the element to interact with
@@ -102,67 +208,6 @@ class mobileHelper {
     }
 
     /**
-     * Performs a drag gesture on a mobile element.
-     * Supports iOS (`mobile: dragFromToForDuration`) and Android (`mobile: dragGesture`).
-     * @param {Object} coordinates - The start and end coordinates for the drag action.
-     * @param {Object} coordinates.ios - The iOS-specific coordinates.
-     * @param {number} coordinates.ios.startX - The starting X coordinate for iOS.
-     * @param {number} coordinates.ios.startY - The starting Y coordinate for iOS.
-     * @param {number} coordinates.ios.endX - The ending X coordinate for iOS.
-     * @param {number} coordinates.ios.endY - The ending Y coordinate for iOS.
-     * @param {Object} coordinates.android - The Android-specific coordinates.
-     * @param {number} coordinates.android.startX - The starting X coordinate for Android.
-     * @param {number} coordinates.android.startY - The starting Y coordinate for Android.
-     * @param {number} coordinates.android.endX - The ending X coordinate for Android.
-     * @param {number} coordinates.android.endY - The ending Y coordinate for Android.
-     */
-    async dragSilent(coordinates) {
-        const errors = [];
-        const { ios, android } = coordinates;
-
-        try {
-            if (browser.capabilities.platformName === "iOS") {
-                try {
-                    await driver.executeScript(
-                        "mobile: dragFromToForDuration",
-                        [
-                            {
-                                duration: 1.0,
-                                fromX: ios.startX,
-                                fromY: ios.startY,
-                                toX: ios.endX,
-                                toY: ios.endY
-                            }
-                        ]
-                    );
-                } catch (err) {
-                    errors.push(`iOS drag gesture failed: ${err.message}`);
-                }
-            } else {
-                try {
-                    await driver.executeScript("mobile: dragGesture", [
-                        {
-                            speed: 2500,
-                            startX: android.startX,
-                            startY: android.startY,
-                            endX: android.endX,
-                            endY: android.endY
-                        }
-                    ]);
-                } catch (err) {
-                    errors.push(`Android drag gesture failed: ${err.message}`);
-                }
-            }
-        } catch (err) {
-            errors.push(`Drag action failed: ${err.message}`);
-        }
-
-        if (errors.length > 0) {
-            throw new Error(errors.join(", "));
-        }
-    }
-
-    /**
      * Simulates keyboard input with an optional modifier key and logs the action.
      * If a modifier key is provided, it presses the modifier along with the value.
      * If no modifier key is provided, it simply presses the value.
@@ -228,43 +273,42 @@ class mobileHelper {
     }
 
     /**
-     * Performs a tap (silent) gesture based on the platform (iOS or Android)
-     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
-     * @param {Object} coordinates - Coordinates object containing x,y for both platforms
-     * @param {Object} coordinates.ios - iOS coordinates {x: number, y: number}
-     * @param {Object} coordinates.android - Android coordinates {x: number, y: number}
+     * Switch to the specified context
+     * @param {string} contextName - The context to switch to (e.g., 'NATIVE_APP', 'WEBVIEW')
      * @returns {Promise<void>}
      */
-    async tapSilent(coordinates) {
+    async switchContext(contextName) {
         const errors = [];
-        const { ios, android } = coordinates;
 
         try {
-            if (browser.capabilities.platformName === "iOS") {
-                try {
-                    await driver.executeScript("mobile: tap", [
-                        {
-                            x: ios.x,
-                            y: ios.y
-                        }
-                    ]);
-                } catch (err) {
-                    errors.push(`iOS tap gesture failed: ${err.message}`);
-                }
+            const contexts = await driver.getContexts();
+            let targetContext;
+
+            if (contextName === "NATIVE_APP") {
+                targetContext = "NATIVE_APP";
             } else {
+                targetContext =
+                    contexts.find((ctx) => ctx.includes("CHROMIUM")) ||
+                    contexts.find((ctx) => ctx.includes("WEBVIEW"));
+
+                if (!targetContext) {
+                    errors.push(
+                        `No available WebView/Chromium context found. Available contexts: ${contexts.join(", ")}`
+                    );
+                }
+            }
+
+            if (targetContext) {
                 try {
-                    await driver.executeScript("mobile: clickGesture", [
-                        {
-                            x: android.x,
-                            y: android.y
-                        }
-                    ]);
+                    await driver.switchContext(targetContext);
                 } catch (err) {
-                    errors.push(`Android tap gesture failed: ${err.message}`);
+                    errors.push(
+                        `Failed to switch to context "${targetContext}": ${err.message}`
+                    );
                 }
             }
         } catch (err) {
-            errors.push(`Tap action failed: ${err.message}`);
+            errors.push(`Context switch action failed: ${err.message}`);
         }
 
         if (errors.length > 0) {

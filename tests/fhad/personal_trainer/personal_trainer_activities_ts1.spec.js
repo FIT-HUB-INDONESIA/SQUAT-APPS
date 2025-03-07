@@ -1,9 +1,15 @@
+import Cleanup from "../../../handlers/sessions_cleanup";
 import allureReporter from "@wdio/allure-reporter";
 import { dotenvConf } from "../../../config/dotenv";
 import login from "../../../pages/fhad/page_login/login";
 import navigation from "../../../pages/fhad/navigation";
 
 describe("Feature Name", () => {
+    afterEach(async () => {
+        await Cleanup.perform_logout();
+    });
+
+    //NOTE - delete me
     it("Test case title @regression @coba", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addParentSuite("Smoke");
@@ -16,5 +22,7 @@ describe("Feature Name", () => {
         await login.addValue_login_email_field(user_email);
         await login.addValue_login_password_field(user_password);
         await login.click_login_sign_in_button();
+
+        await login.skip_google_password_manager_popup();
     });
 });

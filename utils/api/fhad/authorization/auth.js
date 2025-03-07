@@ -51,7 +51,7 @@ class AuthApiCollections {
                 [{}],
                 status
             );
-            error.push(
+            console.error(
                 `Failed to hit API ${post_v1_auth_login}: ${error.message}`
             );
 
