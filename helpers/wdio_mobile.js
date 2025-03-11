@@ -315,6 +315,38 @@ class mobileHelper {
             throw new Error(errors.join(", "));
         }
     }
+
+    /**
+     * Hides the keyboard on Android and iOS
+     * @param {WebdriverIO.Element} element - The element to interact with for hiding the keyboard on iOS.
+     * @returns {Promise<void>}
+     */
+    async hideKeyboard(element) {
+        const errors = [];
+        const platform = browser.capabilities.platformName;
+
+        try {
+            if (platform === "Android") {
+                try {
+                    await driver.executeScript("mobile: hideKeyboard", []);
+                } catch (err) {
+                    errors.push(`Android hideKeyboard failed: ${err.message}`);
+                }
+            } else if (platform === "iOS") {
+                try {
+                    await elementHelper.clickSilent(element);
+                } catch (err) {
+                    errors.push(`iOS hideKeyboard failed: ${err.message}`);
+                }
+            }
+        } catch (err) {
+            errors.push(`hideKeyboard action failed: ${err.message}`);
+        }
+
+        if (errors.length > 0) {
+            throw new Error(errors.join(", "));
+        }
+    }
 }
 
 export default new mobileHelper();

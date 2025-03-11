@@ -62,6 +62,27 @@ class PtSelectors {
     get pt_finished_at_button() {
         return $('(//*[@aria-label="button timepicker"])[2]');
     }
+    get pt_time_picker_select_button() {
+        return $('//*[@data-testid="time-picker_submit-button"]');
+    }
+    get pt_client_dropdown() {
+        return $('(//*[@aria-label="button select"])[4]');
+    }
+    get pt_client_search_field() {
+        return $('//*[@aria-label="input field"]');
+    }
+    get pt_client_list() {
+        return $('//*[@class="ptschedule-client-detail"]');
+    }
+    get pt_notes_field() {
+        return $(`//textarea[@rows="4"]`);
+    }
+    get pt_save_button() {
+        return $('//*[@aria-label="button save"]');
+    }
+    get pt_confirmation_button() {
+        return $('//*[@aria-label="submit button"]');
+    }
 }
 
 /**
@@ -141,6 +162,57 @@ class PtAction extends PtValidation {
             this.pt_started_at_button,
             `pt_started_at_button`,
             `Successfully show time picker bottomsheet`
+        );
+    }
+    async click_pt_time_picker_select_button() {
+        await elementHelper.click(
+            this.pt_time_picker_select_button,
+            `pt_time_picker_select_button`,
+            `Successfully select preferred schedule time`
+        );
+    }
+    async click_pt_client_dropdown() {
+        await elementHelper.click(
+            this.pt_client_dropdown,
+            `pt_client_dropdown`,
+            `Successfully show client list bottomsheet`
+        );
+    }
+    async addValue_pt_client_search_field(input_value) {
+        await elementHelper.addValue(
+            this.pt_client_search_field,
+            `pt_client_search_field`,
+            input_value,
+            `Successfully search preferred client`
+        );
+    }
+    async click_pt_client_list() {
+        await elementHelper.click(
+            this.pt_client_list,
+            `pt_client_list`,
+            `Successfully select preferred client`
+        );
+    }
+    async addValue_pt_notes_field(preferred_notes) {
+        await elementHelper.addValue(
+            this.pt_notes_field,
+            `pt_notes_field`,
+            preferred_notes,
+            `Successfully fill notes field`
+        );
+    }
+    async click_pt_save_button() {
+        await elementHelper.click(
+            this.pt_save_button,
+            `pt_save_button`,
+            `Successfully show save confirmation bottomsheet`
+        );
+    }
+    async click_pt_confirmation_button() {
+        await elementHelper.click(
+            this.pt_confirmation_button,
+            `pt_confirmation_button`,
+            `Successfully submit and save pt schedule activity form`
         );
     }
 }
