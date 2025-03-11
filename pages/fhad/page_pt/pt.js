@@ -163,6 +163,15 @@ class PtAction extends PtValidation {
             `pt_started_at_button`,
             `Successfully show time picker bottomsheet`
         );
+        await browser.pause(1000);
+    }
+    async click_pt_finished_at_button() {
+        await elementHelper.click(
+            this.pt_finished_at_button,
+            `pt_finished_at_button`,
+            `Successfully show time picker bottomsheet`
+        );
+        await browser.pause(1000);
     }
     async click_pt_time_picker_select_button() {
         await elementHelper.click(
@@ -185,6 +194,7 @@ class PtAction extends PtValidation {
             input_value,
             `Successfully search preferred client`
         );
+        await browser.pause(1000);
     }
     async click_pt_client_list() {
         await elementHelper.click(
@@ -192,12 +202,13 @@ class PtAction extends PtValidation {
             `pt_client_list`,
             `Successfully select preferred client`
         );
+        await browser.pause(2000);
     }
-    async addValue_pt_notes_field(preferred_notes) {
+    async addValue_pt_notes_field() {
         await elementHelper.addValue(
             this.pt_notes_field,
             `pt_notes_field`,
-            preferred_notes,
+            `QA UI Real device automation test: ${browser.capabilities.platformName}`,
             `Successfully fill notes field`
         );
     }
@@ -257,17 +268,32 @@ class Pt extends PtAction {
     async select_time_picker_hour(preferred_hour) {
         const currentHour = new Date().getHours();
 
-        const loop =
-            currentHour < 23
-                ? Math.abs(currentHour - preferred_hour)
-                : Math.abs(6 - preferred_hour);
+        let loop = 0;
 
-        if (currentHour > preferred_hour) {
+        if (currentHour >= 6 && currentHour <= 22) {
+            loop = Math.abs(currentHour - preferred_hour);
+        } else if (currentHour > 22 || currentHour < 6) {
+            if (currentHour > 22 && preferred_hour !== 6) {
+                loop = Math.abs(6 - preferred_hour);
+            } else if (currentHour < 6) {
+                loop = Math.abs(6 - preferred_hour);
+            }
+        }
+
+        if (
+            (currentHour >= 6 && preferred_hour < currentHour) ||
+            (currentHour > 22 && preferred_hour < 6) ||
+            (currentHour < 6 && preferred_hour < 6)
+        ) {
             for (let i = 0; i < loop; i++) {
                 await this.select_time_picker_minus_one_hour();
                 await browser.pause(500);
             }
-        } else if (currentHour < preferred_hour) {
+        } else if (
+            (currentHour >= 6 && preferred_hour > currentHour) ||
+            (currentHour < 6 && preferred_hour >= 6) ||
+            (currentHour > 22 && preferred_hour !== 6)
+        ) {
             for (let i = 0; i < loop; i++) {
                 await this.select_time_picker_add_one_hour();
                 await browser.pause(500);
@@ -275,6 +301,21 @@ class Pt extends PtAction {
         }
 
         await browser.pause(2000);
+    }
+    async select_time_picker_hour_finish(
+        preferred_finish_hour,
+        preferred_start_hour
+    ) {
+        const finishHour = preferred_finish_hour - preferred_start_hour;
+
+        if (finishHour > 0) {
+            for (let i = 0; i < finishHour; i++) {
+                await this.select_time_picker_add_one_hour();
+                await browser.pause(500);
+            }
+        } else {
+            return;
+        }
     }
     async select_time_picker_add_fifteen_minutes() {
         await mobileHelper.dragSilent({
