@@ -1,9 +1,15 @@
 import elementHelper from "../../helpers/wdio_element";
+import mobileHelper from "../../helpers/wdio_mobile";
 
 /**
  * Base class containing common selectors
  */
 class MainSelectors {
+    get main_hide_keyboard() {
+        return driver.capabilities.platformName === "iOS"
+            ? $(`//XCUIElementTypeButton[@name="Done"]`)
+            : null;
+    }
     get main_avatar_button() {
         return $('//*[@data-testid="generic_navbar_avatar-dropdown"]');
     }
@@ -41,6 +47,39 @@ class MainAction extends MainValidation {
  * Class containing use case methods.
  * Use extends methods from action class and validation class only
  */
-class Main extends MainAction {}
+class Main extends MainAction {
+    async hide_keyboard() {
+        try {
+            if (driver.capabilities.platformName === "iOS") {
+                await mobileHelper.switchContext("NATIVE_APP");
+
+                if (!(await this.main_hide_keyboard?.isDisplayed())) {
+                    return false;
+                }
+            } else {
+                const isKeyboardVisible = await driver.executeScript(
+                    "mobile: isKeyboardShown",
+                    []
+                );
+
+                if (!isKeyboardVisible) {
+                    return false;
+                }
+            }
+
+            await mobileHelper.hideKeyboard(
+                driver.capabilities.platformName === "iOS"
+                    ? this.main_hide_keyboard
+                    : null
+            );
+        } catch {
+            return false;
+        } finally {
+            if (driver.capabilities.platformName === "iOS") {
+                await mobileHelper.switchContext("WEBVIEW");
+            }
+        }
+    }
+}
 
 export default new Main();
