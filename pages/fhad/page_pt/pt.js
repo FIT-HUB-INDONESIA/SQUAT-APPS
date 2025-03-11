@@ -1,4 +1,5 @@
 import elementHelper from "../../../helpers/wdio_element";
+import mobileHelper from "../../../helpers/wdio_mobile";
 
 /**
  * Base class containing common selectors
@@ -148,6 +149,102 @@ class PtAction extends PtValidation {
  * Class containing use case methods.
  * Use extends methods from action class and validation class only
  */
-class Pt extends PtAction {}
+class Pt extends PtAction {
+    async select_time_picker_add_one_hour() {
+        await mobileHelper.dragSilent({
+            ios: {
+                startX: 125,
+                startY: 479,
+                endX: 125,
+                endY: 454
+            },
+            android: {
+                startX: 343,
+                startY: 1540,
+                endX: 343,
+                endY: 1470
+            }
+        });
+    }
+    async select_time_picker_minus_one_hour() {
+        await mobileHelper.dragSilent({
+            ios: {
+                startX: 125,
+                startY: 479,
+                endX: 125,
+                endY: 499
+            },
+            android: {
+                startX: 343,
+                startY: 1540,
+                endX: 343,
+                endY: 1625
+            }
+        });
+    }
+    async select_time_picker_hour(preferred_hour) {
+        const currentHour = new Date().getHours();
+
+        const loop =
+            currentHour < 23
+                ? Math.abs(currentHour - preferred_hour)
+                : Math.abs(6 - preferred_hour);
+
+        if (currentHour > preferred_hour) {
+            for (let i = 0; i < loop; i++) {
+                await this.select_time_picker_minus_one_hour();
+                await browser.pause(500);
+            }
+        } else if (currentHour < preferred_hour) {
+            for (let i = 0; i < loop; i++) {
+                await this.select_time_picker_add_one_hour();
+                await browser.pause(500);
+            }
+        }
+
+        await browser.pause(2000);
+    }
+    async select_time_picker_add_fifteen_minutes() {
+        await mobileHelper.dragSilent({
+            ios: {
+                startX: 242,
+                startY: 479,
+                endX: 242,
+                endY: 454
+            },
+            android: {
+                startX: 737,
+                startY: 1540,
+                endX: 737,
+                endY: 1455
+            }
+        });
+    }
+    async select_time_picker_minutes(preferred_minutes) {
+        const first_quarter = "15";
+        const second_quarter = "30";
+        const third_quarter = "45";
+        const fourth_quarter = "00";
+
+        if (preferred_minutes === first_quarter) {
+            for (let i = 0; i < 1; i++) {
+                await this.select_time_picker_add_fifteen_minutes();
+                await browser.pause(500);
+            }
+        } else if (preferred_minutes === second_quarter) {
+            for (let i = 0; i < 2; i++) {
+                await this.select_time_picker_add_fifteen_minutes();
+                await browser.pause(500);
+            }
+        } else if (preferred_minutes === third_quarter) {
+            for (let i = 0; i < 3; i++) {
+                await this.select_time_picker_add_fifteen_minutes();
+                await browser.pause(500);
+            }
+        } else if (preferred_minutes === fourth_quarter) {
+            return;
+        }
+    }
+}
 
 export default new Pt();

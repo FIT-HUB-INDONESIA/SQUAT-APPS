@@ -81,7 +81,7 @@ class mobileHelper {
                         "mobile: dragFromToForDuration",
                         [
                             {
-                                duration: 1.0,
+                                duration: 0.1,
                                 fromX: ios.startX,
                                 fromY: ios.startY,
                                 toX: ios.endX,
@@ -96,7 +96,7 @@ class mobileHelper {
                 try {
                     await driver.executeScript("mobile: dragGesture", [
                         {
-                            speed: 2500,
+                            speed: 1000,
                             startX: android.startX,
                             startY: android.startY,
                             endX: android.endX,

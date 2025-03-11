@@ -22,6 +22,8 @@ describe("Feature Name", () => {
         const preferred_pt_name = "Fira";
         const preferred_activity_type = "PT Session";
         const preferred_date = "27";
+        const preferred_hour = "14";
+        const preferred_minutes = "30";
 
         await navigation.navigate_to_fithub_dashboard();
         await login.addValue_login_email_field(user_email);
@@ -40,5 +42,7 @@ describe("Feature Name", () => {
         await pt.click_pt_date_picker_button();
         await pt.click_pt_date_picker_list_target(preferred_date);
         await pt.click_pt_started_at_button();
+        await pt.select_time_picker_hour(preferred_hour);
+        await pt.select_time_picker_minutes(preferred_minutes);
     });
 });
