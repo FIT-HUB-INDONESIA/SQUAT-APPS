@@ -203,6 +203,13 @@ class PtValidation extends PtSelectors {
             `Setelah dikonfirmasi, jadwal akan dibuat dan ditampilkan di kalender. Client juga dapat melihat jadwal di aplikasi.`
         );
     }
+    async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_content_non_pt_session() {
+        await expectHelper.toHaveText(
+            this.pt_buat_jadwal_konfirmasi_bottom_sheet_content,
+            `pt_buat_jadwal_konfirmasi_bottom_sheet_content`,
+            `Setelah dikonfirmasi, jadwal akan dibuat dan ditampilkan di kalender.`
+        );
+    }
     async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert() {
         await expectHelper.toHaveText(
             this.pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert,
@@ -534,6 +541,16 @@ class Pt extends PtAction {
         } else if (preferred_minutes === fourth_quarter) {
             return;
         }
+    }
+    async time_picker_start_at_value_validation(expected_start_at_value) {
+        await expect(this.pt_started_at_button).toHaveText(
+            expected_start_at_value
+        );
+    }
+    async time_picker_finish_at_value_validation(expected_finish_at_value) {
+        await expect(this.pt_finished_at_button).toHaveText(
+            expected_finish_at_value
+        );
     }
 }
 
