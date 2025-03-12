@@ -129,6 +129,45 @@ class expectHelper {
     }
 
     /**
+     * Checks if an element is not displayed
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} elementName - The name of the element to interact with
+     * @returns {Promise<boolean>}
+     */
+    async toBeNotDisplayed(element, elementName) {
+        let status = "passed";
+
+        try {
+            await expect(element).not.toBeDisplayed();
+            allureReporter.addStep(
+                `Validation passed: ${elementName} is not displayed`,
+                [{}],
+                status
+            );
+
+            return true;
+        } catch (error) {
+            const cleanMessage = stripAnsi(error.message);
+
+            status = "failed";
+
+            allureReporter.addAttachment(
+                `Defect trace: ${elementName} is displayed`,
+                cleanMessage,
+                "text/plain"
+            );
+
+            allureReporter.addStep(
+                `Validation failed: ${elementName} is displayed`,
+                [{}],
+                status
+            );
+
+            return false;
+        }
+    }
+
+    /**
      * Checks if an element has a specific attribute containing a value.
      * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with.
      * @param {string} elementName - The name of the element to interact with.
@@ -176,6 +215,48 @@ class expectHelper {
 
             allureReporter.addStep(
                 `Validation failed: ${elementName} to have attribute "${attribute}" and not contain "${expectedValue}"`,
+                [{}],
+                status
+            );
+
+            return false;
+        }
+    }
+
+    /**
+     * Validates if an element has the expected text
+     * @param {WebdriverIO.Element} element - The WebdriverIO element to interact with
+     * @param {string} elementName - The name of the element to interact with
+     * @param {string} expectedText - The expected text content of the element
+     * @returns {Promise<boolean>}
+     */
+    async toHaveText(element, elementName, expectedText) {
+        let status = "passed";
+
+        try {
+            await element.waitForExist();
+            await expect(element).toHaveText(expectedText);
+
+            allureReporter.addStep(
+                `Validation passed: ${elementName} has the expected text "${expectedText}"`,
+                [{}],
+                status
+            );
+
+            return true;
+        } catch (error) {
+            const cleanMessage = stripAnsi(error.message);
+
+            status = "failed";
+
+            allureReporter.addAttachment(
+                `Defect trace: ${elementName} does not have the expected text`,
+                cleanMessage,
+                "text/plain"
+            );
+
+            allureReporter.addStep(
+                `Validation failed: ${elementName} does not have the expected text "${expectedText}"`,
                 [{}],
                 status
             );

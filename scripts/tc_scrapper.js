@@ -4,7 +4,11 @@ import path from "path";
 async function collectTestCases() {
     const { glob } = await import("glob");
 
-    const testDir = path.join(process.cwd(), "../tests/**/*.spec.js");
+    const testDir = [
+        path.join(process.cwd(), "../tests/**/*.spec.js"),
+        path.join(process.cwd(), "../tests_api/**/*.spec.js")
+    ];
+
     const testFiles = await glob(testDir);
 
     const testCasesByDescribe = {};

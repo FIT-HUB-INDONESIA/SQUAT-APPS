@@ -57,6 +57,8 @@ export const dotenvConf = {
     fhadFmPassword: process.env.FHAD_FM_PASSWORD,
     fhadAdminEmail: process.env.FHAD_ADMIN_EMAIL,
     fhadAdminPassword: process.env.FHAD_ADMIN_PASSWORD,
+    fhadFcEmail: process.env.FHAD_FC_EMAIL,
+    fhadFcPassword: process.env.FHAD_FC_PASSWORD,
 
     /**
      * Test Data: Login
@@ -121,6 +123,10 @@ export const dotenvConf = {
     gymPatrolPreferredFinishHour: process.env.GYM_PATROL_PREFERRED_FINISH_HOUR,
     gymPatrolPreferredFinishMinutes:
         process.env.GYM_PATROL_PREFERRED_FINISH_MINUTES,
+    gymPatrolPreferredFinishHourLessThanStartHour:
+        process.env.GYM_PATROL_PREFERRED_FINISH_HOUR_LESS_THAN_START_HOUR,
+    gymPatrolPreferredFinishMinutesLessThanStartMinutes:
+        process.env.GYM_PATROL_PREFERRED_FINISH_MINUTES_LESS_THAN_START_HOUR,
 
     trainingInternalStartedAt: process.env.TRAINING_INTERNAL_STARTED_AT,
     trainingInternalFinishedAt: process.env.TRAINING_INTERNAL_FINISHED_AT,
@@ -164,6 +170,10 @@ export const dotenvConf = {
     exercisePreferredFinishHour: process.env.EXERCISE_PREFERRED_FINISH_HOUR,
     exercisePreferredFinishMinutes:
         process.env.EXERCISE_PREFERRED_FINISH_MINUTES,
+    exercisePaidPtSessionPreferredHourOverlapping:
+        process.env.EXERCISE_PAID_PT_SESSION_PREFERRED_HOUR_OVERLAPPING,
+    exercisePaidPtSessionPreferredMinutesOverlapping:
+        process.env.EXERCISE_PAID_PT_SESSION_PREFERRED_MINUTES_OVERLAPPING,
 
     breakStartedAt: process.env.BREAK_STARTED_AT,
     breakFinishedAt: process.env.BREAK_FINISHED_AT,
@@ -182,12 +192,28 @@ export const dotenvConf = {
     dayOffPreferredDate: process.env.DAY_OFF_PREFERRED_DATE,
 
     paidPtSessionMemberPhone: process.env.PAID_PT_SESSION_MEMBER_PHONE,
+    paidPtSessionPackageName: process.env.PAID_PT_SESSION_PACKAGE_NAME,
     paidPtSessionPreferredDate: process.env.PAID_PT_SESSION_PREFERRED_DATE,
     paidPtSessionPreferredHour: process.env.PAID_PT_SESSION_PREFERRED_HOUR,
     paidPtSessionPreferredMinutes:
         process.env.PAID_PT_SESSION_PREFERRED_MINUTES,
+    paidPtSessionPreferredHourOverlapping:
+        process.env.PAID_PT_SESSION_PREFERRED_HOUR_OVERLAPPING,
+    paidPtSessionPreferredMinutesOverlapping:
+        process.env.PAID_PT_SESSION_PREFERRED_MINUTES_OVERLAPPING,
+    paidPtSessionPreferredHourCm: process.env.PAID_PT_SESSION_PREFERRED_HOUR_CM,
+    paidPtSessionPreferredMinutesCm:
+        process.env.PAID_PT_SESSION_PREFERRED_MINUTES_CM,
+    paidPtSessionPreferredHourFm: process.env.PAID_PT_SESSION_PREFERRED_HOUR_FM,
+    paidPtSessionPreferredMinutesFm:
+        process.env.PAID_PT_SESSION_PREFERRED_MINUTES_FM,
+    paidPtSessionPreferredHourAdmin:
+        process.env.PAID_PT_SESSION_PREFERRED_HOUR_ADMIN,
+    paidPtSessionPreferredMinutesAdmin:
+        process.env.PAID_PT_SESSION_PREFERRED_MINUTES_ADMIN,
 
     fitStartPtSessionMemberPhone: process.env.FIT_START_PT_SESSION_MEMBER_PHONE,
+    fitStartPtSessionPackageName: process.env.FIT_START_PT_SESSION_PACKAGE_NAME,
     fitStartPtSessionPreferredDate:
         process.env.FIT_START_PT_SESSION_PREFERRED_DATE,
     fitStartPtSessionPreferredHour:
