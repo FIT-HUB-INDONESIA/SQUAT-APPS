@@ -1,13 +1,13 @@
-import AuthApiCollections from "../../../../utils/api/fhad/authorization/auth";
-import PersonalTrainerApi from "../../../../utils/api/fhad/mobile_site/personal_trainer/personal_trainer";
+import AuthApiCollections from "../../../utils/api/fhad/authorization/auth";
+import PersonalTrainerApi from "../../../utils/api/fhad/mobile_site/personal_trainer/personal_trainer";
 import allureReporter from "@wdio/allure-reporter";
-import { dotenvConf } from "../../../../config/dotenv";
+import { dotenvConf } from "../../../config/dotenv";
 
 /**
  * Write feature name in "describe" block.
  * Write test-case title in "it" block.
  */
-describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
+describe("BE Mobile Site Create & Cancel Non PT Session Activities", () => {
     //NOTE - Delete me
     it("Test create non PT session activity", async () => {
         allureReporter.addParentSuite("Regression");
@@ -1852,7 +1852,7 @@ describe("[BE] Mobile Site Create & Cancel Non PT Session Activities", () => {
     });
 });
 
-describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
+describe("BE Mobile Site Update & Recap Non PT Session Activities", () => {
     it("Should successfully create update then recap PT class activity for PT role @regression @api-pt", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addSeverity("normal");
@@ -4050,7 +4050,7 @@ describe("[BE] Mobile Site Update & Recap Non PT Session Activities", () => {
     });
 });
 
-describe("[BE] Desktop Site Create Personal Trainer Activities", () => {
+describe("BE Desktop Site Create Personal Trainer Activities", () => {
     it("Test case title @regression @smoke", async () => {
         allureReporter.addParentSuite("Regression");
         allureReporter.addParentSuite("Smoke");

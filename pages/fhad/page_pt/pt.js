@@ -1,4 +1,5 @@
 import elementHelper from "../../../helpers/wdio_element";
+import expectHelper from "../../../helpers/wdio_expect";
 import mobileHelper from "../../../helpers/wdio_mobile";
 
 /**
@@ -83,12 +84,167 @@ class PtSelectors {
     get pt_confirmation_button() {
         return $('//*[@aria-label="submit button"]');
     }
+    get pt_schedule_view_06_table_grid() {
+        return $(
+            '//*[@data-time="06:00:00" and @class="fc-timegrid-slot fc-timegrid-slot-lane schedule-slot-lane"]'
+        );
+    }
+    get pt_pt_package_button() {
+        return $('(//*[@aria-label="button select"])[5]');
+    }
+    //NOTE - getText testing purposes
+    get pt_pt_package_list() {
+        return $('(//*[@class="bottom-sheet__content"])[2]');
+    }
+    pt_pt_package_list_target(preferred_pt_package) {
+        return $(
+            `(//*[@class="bottom-sheet__content"])[2]//*[contains(text(), '${preferred_pt_package}')]`
+        );
+    }
+    get pt_buat_jadwal_konfirmasi_bottom_sheet_heading() {
+        return $('(//*[@aria-label="bottom sheet heading"])[2]');
+    }
+    get pt_buat_jadwal_konfirmasi_bottom_sheet_content() {
+        return $(
+            '//*[@style="margin: 0px; text-align: left; font-size: 14px; line-height: 21px;"]'
+        );
+    }
+    get pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert() {
+        return $(
+            '//*[@style="color: rgb(204, 132, 0); margin: 0px; text-align: left; font-size: 14px; line-height: 22px;"]'
+        );
+    }
+    get pt_ya_lanjutkan_button() {
+        return $('//*[@aria-label="continue button"]');
+    }
+    get pt_snackbar() {
+        return $('//*[@aria-label="snackbar text"]');
+    }
 }
 
 /**
  * Class containing validation methods
  */
-class PtValidation extends PtSelectors {}
+class PtValidation extends PtSelectors {
+    async toBeDisabled_pt_club_select_dropdown() {
+        await expectHelper.toBeDisabled(
+            this.pt_club_select_dropdown,
+            `pt_club_select_dropdown`
+        );
+    }
+    async toBeDisabled_pt_pt_name_select_dropdown() {
+        await expectHelper.toBeDisabled(
+            this.pt_pt_name_select_dropdown,
+            `pt_pt_name_select_dropdown`
+        );
+    }
+    async toBeNotDisplayed_pt_buat_jadwal_button() {
+        await expectHelper.toBeNotDisplayed(
+            this.pt_buat_jadwal_button,
+            `pt_buat_jadwal_button`
+        );
+    }
+    async toBeDisabled_pt_started_at_button() {
+        await expectHelper.toBeDisabled(
+            this.pt_started_at_button,
+            `pt_started_at_button`
+        );
+    }
+    async toBeNotDisplayed_pt_started_at_button() {
+        await expectHelper.toBeNotDisplayed(
+            this.pt_started_at_button,
+            `pt_started_at_button`
+        );
+    }
+    async toBeDisabled_pt_finished_at_button() {
+        await expectHelper.toBeDisabled(
+            this.pt_finished_at_button,
+            `pt_finished_at_button`
+        );
+    }
+    async toBeNotDisplayed_pt_finished_at_button() {
+        await expectHelper.toBeNotDisplayed(
+            this.pt_finished_at_button,
+            `pt_finished_at_button`
+        );
+    }
+    async toBeNotDisplayed_pt_client_dropdown() {
+        await expectHelper.toBeNotDisplayed(
+            this.pt_client_dropdown,
+            `pt_client_dropdown`
+        );
+    }
+    async toBeNotDisplayed_pt_pt_package_button() {
+        await expectHelper.toBeNotDisplayed(
+            this.pt_pt_package_button,
+            `pt_pt_package_button`
+        );
+    }
+    async toBeDisabled_pt_pt_package_button() {
+        await expectHelper.toBeDisabled(
+            this.pt_pt_package_button,
+            `pt_pt_package_button`
+        );
+    }
+    async toBeDisabled_pt_save_button() {
+        await expectHelper.toBeDisabled(this.pt_save_button, `pt_save_button`);
+    }
+    async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_heading() {
+        await expectHelper.toHaveText(
+            this.pt_buat_jadwal_konfirmasi_bottom_sheet_heading,
+            `pt_buat_jadwal_konfirmasi_bottom_sheet_heading`,
+            `Buat Jadwal?`
+        );
+    }
+    async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_content() {
+        await expectHelper.toHaveText(
+            this.pt_buat_jadwal_konfirmasi_bottom_sheet_content,
+            `pt_buat_jadwal_konfirmasi_bottom_sheet_content`,
+            `Setelah dikonfirmasi, jadwal akan dibuat dan ditampilkan di kalender. Client juga dapat melihat jadwal di aplikasi.`
+        );
+    }
+    async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_content_non_pt_session() {
+        await expectHelper.toHaveText(
+            this.pt_buat_jadwal_konfirmasi_bottom_sheet_content,
+            `pt_buat_jadwal_konfirmasi_bottom_sheet_content`,
+            `Setelah dikonfirmasi, jadwal akan dibuat dan ditampilkan di kalender.`
+        );
+    }
+    async toHaveText_pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert() {
+        await expectHelper.toHaveText(
+            this.pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert,
+            `pt_buat_jadwal_konfirmasi_bottom_sheet_content_alert`,
+            `Sudah ada jadwal di jam yang kamu pilih\nJadwal ini kemungkinan bentrok dengan yang sudah kamu buat. Disarankan pilih jam lain.`
+        );
+    }
+    async toBeDisplayed_pt_snackbar() {
+        await expectHelper.toBeDisplayed(this.pt_snackbar, `pt_snackbar`);
+    }
+    async toHaveText_pt_snackbar_start_same_as_finish() {
+        await expectHelper.toHaveText(
+            this.pt_snackbar,
+            `pt_error_snackbar`,
+            `Jam selesai tidak boleh sama dengan jam mulai.`
+        );
+    }
+    async toHaveText_pt_snackbar_start_greater_than_finish() {
+        await expectHelper.toHaveText(
+            this.pt_snackbar,
+            `pt_error_snackbar`,
+            `Jam selesai tidak boleh kurang dari jam mulai.`
+        );
+    }
+    async toHaveText_pt_snackbar_successfully_create_pt_schedule_activity() {
+        await expectHelper.toHaveText(
+            this.pt_snackbar,
+            `pt_success_snackbar`,
+            `Jadwal berhasil dibuat.`
+        );
+    }
+    async toBeNotDisplayed_pt_snackbar() {
+        await expectHelper.toBeNotDisplayed(this.pt_snackbar, `pt_snackbar`);
+    }
+}
 
 /**
  * Class containing action methods
@@ -129,6 +285,13 @@ class PtAction extends PtValidation {
             `Successfully show buat jadwal form bottomsheet`
         );
     }
+    async click_pt_schedule_view_06_table_grid() {
+        await elementHelper.click(
+            this.pt_schedule_view_06_table_grid,
+            `pt_schedule_view_06_table_grid`,
+            `Successfully show buat jadwal form bottomsheet`
+        );
+    }
     async click_pt_activity_type_dropdown() {
         await elementHelper.click(
             this.pt_activity_type_dropdown,
@@ -163,6 +326,15 @@ class PtAction extends PtValidation {
             `pt_started_at_button`,
             `Successfully show time picker bottomsheet`
         );
+        await browser.pause(1000);
+    }
+    async click_pt_finished_at_button() {
+        await elementHelper.click(
+            this.pt_finished_at_button,
+            `pt_finished_at_button`,
+            `Successfully show time picker bottomsheet`
+        );
+        await browser.pause(1000);
     }
     async click_pt_time_picker_select_button() {
         await elementHelper.click(
@@ -185,6 +357,7 @@ class PtAction extends PtValidation {
             input_value,
             `Successfully search preferred client`
         );
+        await browser.pause(1000);
     }
     async click_pt_client_list() {
         await elementHelper.click(
@@ -192,12 +365,13 @@ class PtAction extends PtValidation {
             `pt_client_list`,
             `Successfully select preferred client`
         );
+        await browser.pause(2000);
     }
-    async addValue_pt_notes_field(preferred_notes) {
+    async addValue_pt_notes_field() {
         await elementHelper.addValue(
             this.pt_notes_field,
             `pt_notes_field`,
-            preferred_notes,
+            `QA UI Real device automation test: ${browser.capabilities.platformName}`,
             `Successfully fill notes field`
         );
     }
@@ -213,6 +387,27 @@ class PtAction extends PtValidation {
             this.pt_confirmation_button,
             `pt_confirmation_button`,
             `Successfully submit and save pt schedule activity form`
+        );
+    }
+    async click_pt_ya_lanjutkan_button() {
+        await elementHelper.click(
+            this.pt_ya_lanjutkan_button,
+            `pt_ya_lanjutkan_button`,
+            `Successfully confirm overlapping PT activity schedule`
+        );
+    }
+    async click_pt_pt_package_button() {
+        await elementHelper.click(
+            this.pt_pt_package_button,
+            `pt_pt_package_button`,
+            `Successfully show active packages list`
+        );
+    }
+    async click_pt_pt_package_list_target(preferred_pt_package) {
+        await elementHelper.click(
+            this.pt_pt_package_list_target(preferred_pt_package),
+            `pt_pt_package_list`,
+            `Successfully select preferred active package`
         );
     }
 }
@@ -257,17 +452,32 @@ class Pt extends PtAction {
     async select_time_picker_hour(preferred_hour) {
         const currentHour = new Date().getHours();
 
-        const loop =
-            currentHour < 23
-                ? Math.abs(currentHour - preferred_hour)
-                : Math.abs(6 - preferred_hour);
+        let loop = 0;
 
-        if (currentHour > preferred_hour) {
+        if (currentHour >= 6 && currentHour <= 22) {
+            loop = Math.abs(currentHour - preferred_hour);
+        } else if (currentHour > 22 || currentHour < 6) {
+            if (currentHour > 22 && preferred_hour !== 6) {
+                loop = Math.abs(6 - preferred_hour);
+            } else if (currentHour < 6) {
+                loop = Math.abs(6 - preferred_hour);
+            }
+        }
+
+        if (
+            (currentHour >= 6 && preferred_hour < currentHour) ||
+            (currentHour > 22 && preferred_hour < 6) ||
+            (currentHour < 6 && preferred_hour < 6)
+        ) {
             for (let i = 0; i < loop; i++) {
                 await this.select_time_picker_minus_one_hour();
                 await browser.pause(500);
             }
-        } else if (currentHour < preferred_hour) {
+        } else if (
+            (currentHour >= 6 && preferred_hour > currentHour) ||
+            (currentHour < 6 && preferred_hour >= 6) ||
+            (currentHour > 22 && preferred_hour !== 6)
+        ) {
             for (let i = 0; i < loop; i++) {
                 await this.select_time_picker_add_one_hour();
                 await browser.pause(500);
@@ -275,6 +485,21 @@ class Pt extends PtAction {
         }
 
         await browser.pause(2000);
+    }
+    async select_time_picker_hour_finish(
+        preferred_finish_hour,
+        preferred_start_hour
+    ) {
+        const finishHour = preferred_finish_hour - preferred_start_hour;
+
+        if (finishHour > 0) {
+            for (let i = 0; i < finishHour; i++) {
+                await this.select_time_picker_add_one_hour();
+                await browser.pause(500);
+            }
+        } else {
+            return;
+        }
     }
     async select_time_picker_add_fifteen_minutes() {
         await mobileHelper.dragSilent({
@@ -316,6 +541,16 @@ class Pt extends PtAction {
         } else if (preferred_minutes === fourth_quarter) {
             return;
         }
+    }
+    async time_picker_start_at_value_validation(expected_start_at_value) {
+        await expect(this.pt_started_at_button).toHaveText(
+            expected_start_at_value
+        );
+    }
+    async time_picker_finish_at_value_validation(expected_finish_at_value) {
+        await expect(this.pt_finished_at_button).toHaveText(
+            expected_finish_at_value
+        );
     }
 }
 

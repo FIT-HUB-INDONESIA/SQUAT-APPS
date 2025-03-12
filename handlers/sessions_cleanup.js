@@ -1,5 +1,6 @@
 import login from "../pages/fhad/page_login/login";
 import main from "../pages/fhad/main";
+import navigation from "../pages/fhad/navigation";
 
 class CleanupCollections {
     /**
@@ -66,6 +67,9 @@ class Cleanup extends CleanupCollections {
     }
 
     async perform_logout() {
+        //NOTE - delete me
+        await navigation.navigate_to_fithub_dashboard();
+
         await main.click_main_avatar_button();
         await main.click_main_logout_button();
         await login.toBeDisplayed_login_sign_in_button();

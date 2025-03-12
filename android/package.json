@@ -20,7 +20,8 @@
     "scripts": {
         "wdio": "wdio run ./wdio.conf.js",
         "wdio:grep": "wdio run wdio.conf.js --mochaOpts.grep",
-        "wdio:retest": "wdio run wdio.conf.js --mochaOpts.grep=\"$(cat ./../allure-outputs/failed-tests-android.txt)\""
+        "wdio:retest-native": "wdio run wdio.conf.js --mochaOpts.grep=\"$(cat ./../allure-outputs/failed-tests-android.txt)\"",
+        "wdio:retest-webview": "wdio run wdio.conf.js --mochaOpts.grep=\"$(cat ./../allure-outputs/failed-tests-chrome.txt)\""
     },
     "dependencies": {
         "wdio-video-reporter": "^6.1.1"

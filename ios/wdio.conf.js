@@ -10,7 +10,7 @@ import { dotenvConf } from "../config/dotenv.js";
 let logger;
 
 const argv = yargs(hideBin(process.argv)).argv;
-const grepPattern = argv.grep ? new RegExp(argv.grep) : undefined;
+const grepPattern = argv.grep ? new RegExp(`\\b${argv.grep}\\b`) : undefined;
 
 const isWebView = dotenvConf.environmentVar === "WEBVIEW";
 
@@ -39,7 +39,7 @@ export const config = {
     // The path of the spec files will be resolved relative from the directory of
     // of the config file unless it's absolute.
     //
-    specs: ["../tests/**/*.spec.js"],
+    specs: ["../tests/**/*.spec.js", "../tests_api/**/*.spec.js"],
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'

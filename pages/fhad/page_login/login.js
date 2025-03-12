@@ -82,8 +82,12 @@ class Login extends LoginAction {
             if (driver.capabilities.platformName === "Android") {
                 await mobileHelper.switchContext("NATIVE_APP");
                 await browser.pause(5000);
-                await this.chrome_google_password_manager_ok_button?.isExisting();
-                await this.click_chrome_google_password_manager_ok_button();
+
+                if (
+                    await this.chrome_google_password_manager_ok_button?.isExisting()
+                ) {
+                    await this.click_chrome_google_password_manager_ok_button();
+                }
             } else {
                 return false;
             }
